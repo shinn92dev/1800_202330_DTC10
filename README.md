@@ -11,7 +11,7 @@ List team members and/or short bio's here...
 
 -   hello, I am Tatsu!
 -   Hello👋 My name is Anthony!! I'm so excited with doing my very first real-world project!
--   ...
+-   Howdy, this is Edro Gonzales.
 
 ## 3. Technologies and Resources Used
 
