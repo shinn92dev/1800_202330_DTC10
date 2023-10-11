@@ -1,39 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <title>My BCIT Project</title>
-    <meta name="comp1800 template" content="My 1800 App">
-
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap Library CSS CDN go here -->
-    <!-- Boostrap Library JS CDN  go here -->
-
-    <!-- Other libraries go here -->
-
-    <!-- Link to styles of your own -->
-    <!-- <link rel="stylesheet" href="./styles/style.css"> -->
-
-</head>
-
-<body>
-
-    <!------------------------------>
-    <!-- Your HTML Layout go here -->
-    <!------------------------------>
-    <!-- Stuff for body goes here -->
-
-
-    <!---------------------------------------------->
-    <!-- Your own JavaScript functions go here    -->
-    <!---------------------------------------------->
-
-    <!-- Link to scripts of your own -->
-    <!-- <script src="./scripts/script.js"></script> -->
-
-</body>
-
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>RVR | Rate Vancouver Rent</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+        <link rel="stylesheet" href="./styles/styles.css" />
+    </head>
+    <body id="landing-page">
+        <div class="container top-container">
+            <main>
+                <div class="px-4 py-5 my-5 text-center">
+                    <img
+                        class="d-block mx-auto mb-4"
+                        src="./images/building-icon.png"
+                        alt="Building Icon"
+                        width="72"
+                    />
+                    <h1 class="display-5 fw-bold">Rate Van Rent</h1>
+                    <div class="col-lg-6 mx-auto">
+                        <p class="lead mb-4">
+                            Share information with renters in Vancouver
+                        </p>
+                        <div class="input-group mb-3">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Search by the address"
+                                aria-label="Username"
+                                aria-describedby="basic-addon1"
+                            />
+                            <span class="input-group-text" id="basic-addon1"
+                                ><a href="listings.html" class="serarch-ancher"
+                                    >🔍</a
+                                ></span
+                            >
+                        </div>
+                        <div class="d-grid gap-2 d-flex justify-content-center">
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-lg gap-3 btn-sign"
+                            >
+                                Sign In
+                            </button>
+                        </div>
+                        <a href="" class="sign-up-link"
+                            >You don't have an account yet?</a
+                        >
+                    </div>
+                </div>
+            </main>
+        </div>
+        <footer>© 2023 Rate Van Rent, Inc. All Rights Reserved</footer>
+    </body>
 </html>

@@ -1,0 +1,135 @@
+@import url(./reset.css);
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    line-height: 1.15;
+}
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+header {
+    padding-top: 15px;
+    background-color: grey;
+}
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+h2 {
+    font-size: 1.5em;
+}
+h3 {
+    font-size: 1.3em;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+body#landing-page {
+    background-color: #606060;
+    color: white;
+}
+nav {
+    background-color: lightgrey;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+nav ul {
+    padding-bottom: 5px;
+}
+nav ul li a {
+    display: inline-block;
+    width: 100%;
+    padding: 5px 0px;
+    text-align: center;
+}
+.property-card {
+    margin: 15px 0px;
+    padding: 5px 15px;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+.property-card__score-box {
+    width: 65px;
+    height: 65px;
+    background-color: black;
+    color: white;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+.property-card__score-box div {
+    height: 100%;
+}
+.property-card__text-box {
+    width: calc(70%);
+}
+.property-card__text-box > div {
+    margin-bottom: 5px;
+}
+.property-card__text-box p {
+    background-color: gray;
+    padding: 2px 5px;
+    border-radius: 7px;
+    font-size: 0.8em;
+}
+.property-card__text-box .text-box__bottom {
+    margin-top: 10px;
+}
+.header__box {
+    margin-bottom: 10px;
+}
+.header__icon {
+    width: 20px;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#landing-page a {
+    color: white;
+}
+footer {
+    padding: 15px 0px;
+    text-align: center;
+    background-color: black;
+}
+
+.top-container {
+    flex: 1;
+}
+.sign-up-link {
+    text-decoration: underline;
+}
+.sign-up-link:hover {
+    font-weight: 600;
+}
+
+.nav-title {
+    text-align: center;
+    display: inline-block;
+    width: 80%;
+}
+.mobile-hidden {
+    display: none;
+}
+.btn-sign {
+    width: 35%;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+#logo {
+    width: 100px;
+}
+#header-title {
+    text-align: center;
+}
