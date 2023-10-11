@@ -1,14 +1,14 @@
 @import url(./reset.css);
 html {
+    margin: 0;
+    padding: 0;
+    line-height: 1.15;
+    font-size: 0.75rem;
+    font-family: "Public Sans", sans-serif;
     box-sizing: border-box;
     scroll-behavior: smooth;
-    line-height: 1.15;
 }
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
-}
+
 header {
     padding-top: 15px;
     background-color: grey;
@@ -48,12 +48,14 @@ nav ul li a {
     padding: 5px 0px;
     text-align: center;
 }
+
 .property-card {
     margin: 15px 0px;
     padding: 5px 15px;
     border: 2px solid black;
     border-radius: 15px;
 }
+
 .property-card__score-box {
     width: 65px;
     height: 65px;
@@ -62,32 +64,40 @@ nav ul li a {
     font-size: 2.5em;
     font-weight: bold;
 }
+
 .property-card__score-box div {
     height: 100%;
 }
+
 .property-card__text-box {
     width: calc(70%);
 }
+
 .property-card__text-box > div {
     margin-bottom: 5px;
 }
+
 .property-card__text-box p {
     background-color: gray;
     padding: 2px 5px;
     border-radius: 7px;
     font-size: 0.8em;
 }
+
 .property-card__text-box .text-box__bottom {
     margin-top: 10px;
 }
+
 .header__box {
     margin-bottom: 10px;
 }
+
 .header__icon {
     width: 20px;
     margin: 0px 10px;
     cursor: pointer;
 }
+
 a {
     text-decoration: none;
     color: inherit;
@@ -96,6 +106,7 @@ a {
 #landing-page a {
     color: white;
 }
+
 footer {
     padding: 15px 0px;
     text-align: center;
@@ -105,9 +116,11 @@ footer {
 .top-container {
     flex: 1;
 }
+
 .sign-up-link {
     text-decoration: underline;
 }
+
 .sign-up-link:hover {
     font-weight: 600;
 }
@@ -117,6 +130,7 @@ footer {
     display: inline-block;
     width: 80%;
 }
+
 .mobile-hidden {
     display: none;
 }
@@ -127,9 +141,11 @@ footer {
     font-size: 16px;
     font-weight: bold;
 }
+
 #logo {
     width: 100px;
 }
+
 #header-title {
     text-align: center;
 }
