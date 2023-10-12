@@ -1,4 +1,5 @@
 @import url(./reset.css);
+
 html {
     margin: 0;
     padding: 0;
@@ -13,16 +14,20 @@ header {
     padding-top: 15px;
     background-color: grey;
 }
+
 h1 {
     font-size: 2em;
     font-weight: bold;
 }
+
 h2 {
     font-size: 1.5em;
 }
+
 h3 {
     font-size: 1.3em;
 }
+
 body {
     display: flex;
     flex-direction: column;
@@ -30,18 +35,22 @@ body {
     max-width: 1000px;
     margin: 0 auto;
 }
+
 body#landing-page {
     background-color: #606060;
     color: white;
 }
+
 nav {
     background-color: lightgrey;
     padding-right: 0px;
     padding-left: 0px;
 }
+
 nav ul {
     padding-bottom: 5px;
 }
+
 nav ul li a {
     display: inline-block;
     width: 100%;
@@ -73,7 +82,7 @@ nav ul li a {
     width: calc(70%);
 }
 
-.property-card__text-box > div {
+.property-card__text-box>div {
     margin-bottom: 5px;
 }
 
@@ -134,12 +143,24 @@ footer {
 .mobile-hidden {
     display: none;
 }
+
 .btn-sign {
     width: 35%;
     margin-bottom: 10px;
     padding: 5px;
     font-size: 16px;
     font-weight: bold;
+    border-radius: 15px;
+}
+
+.btn-sign:hover {
+    box-shadow: 0 4px #000000;
+}
+
+.btn-sign:active {
+    box-shadow: none;
+    position: relative;
+    top: 4px;
 }
 
 #logo {
@@ -149,3 +170,12 @@ footer {
 #header-title {
     text-align: center;
 }
+
+.input-group input {
+    border-radius: 15px;
+}
+
+.input-group-text {
+    border-radius: 15px;
+}
+
