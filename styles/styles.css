@@ -82,7 +82,7 @@ nav ul li a {
     width: calc(70%);
 }
 
-.property-card__text-box>div {
+.property-card__text-box > div {
     margin-bottom: 5px;
 }
 
@@ -98,7 +98,7 @@ nav ul li a {
 }
 
 .header__box {
-    margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .header__icon {
@@ -120,6 +120,7 @@ footer {
     padding: 15px 0px;
     text-align: center;
     background-color: black;
+    color: white;
 }
 
 .top-container {
@@ -178,4 +179,3 @@ footer {
 .input-group-text {
     border-radius: 15px;
 }
-
