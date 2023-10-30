@@ -29,3 +29,26 @@
     font-size: 1.2em;
     font-weight: bold;
 }
+#details__bottom-box h2 {
+    border-bottom: 1px solid black;
+}
+.bottom-box__review-box li {
+    background-color: lightgray;
+}
+.review-box__top-box__score {
+    width: 25%;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+}
+.review-box__top-box__tags-box {
+    width: 70%;
+}
+.tag {
+    height: fit-content;
+    border-radius: 15px;
+}
+.review-box__bottom-box p:last-child {
+    font-weight: bold;
+}
