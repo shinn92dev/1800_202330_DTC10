@@ -1,5 +1,5 @@
 import { navbarLogic } from "./nav";
-import { searchLogic } from "./search";
+import { searchBarLogic } from "./search";
 
 function initializeNav() {
     $("#NAVBAR-PLACEHOLDER").load("./components/navbar.html", function () {
@@ -9,7 +9,7 @@ function initializeNav() {
 
 function initializeSearch() {
     $("#FOOTER-PLACEHOLDER").load("./components/footer.html", function () {
-        searchLogic();
+        searchBarLogic();
     });
 }
 
