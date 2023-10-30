@@ -1,0 +1,31 @@
+.top-box__score-box {
+    font-weight: bold;
+
+    width: 45%;
+}
+
+.top-box__score-box .score-box__score {
+    font-size: 3em;
+}
+.top-box__score-box .score-box__score span {
+    font-size: 0.5em;
+    margin-left: 10px;
+    position: absolute;
+}
+.top-box__score-box p:last-child {
+    font-weight: bold;
+}
+.top-box__button-box {
+    width: 55%;
+}
+.top-box__address-box p {
+    font-size: 1.3em;
+}
+
+.middle-box__details-rating-box {
+    border-radius: 20px;
+}
+.middle-box__details-rating-box li {
+    font-size: 1.2em;
+    font-weight: bold;
+}
