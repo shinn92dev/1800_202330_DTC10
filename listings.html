@@ -1,306 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>RVR | Rate Vancouver Rent</title>
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"
-        ></script>
-        <link rel="stylesheet" href="./styles/styles.css" />
-        <script src="./scripts/nav.js" defer></script>
-        <script src="./scripts/search.js" defer></script>
-    </head>
-    <body id="listings">
-        <header>
-            <div
-                class="d-flex justify-content-between align-items-center header__box"
-            >
-                <div class="header__nav-icon">
-                    <img
-                        src="./images/three-dots.svg"
-                        alt=""
-                        class="header__icon"
-                    />
-                </div>
-                <a href="/index.html"><h1>RVR</h1></a>
-                <div class="header__search-bar d-flex">
-                    <div class="mobile-hidden">
-                        <input type="text" class="" />
-                    </div>
-                    <img
-                        src="./images/search.svg"
-                        alt=""
-                        class="header__icon"
-                    />
-                    <img src="./images/close-circle-svgrepo-com.svg"
-                    alt=""
-                    class="header__icon close__icon mobile-hidden">
-                </div>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RVR | Rate Vancouver Rent</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <script src="./scripts/nav.js" async></script>
+    <script src="./scripts/search.js" async></script>
+</head>
+
+<body id="listings">
+    <header>
+        <div class="d-flex justify-content-between align-items-center header__box">
+            <div class="header__nav-icon">
+                <img src="./images/three-dots.svg" alt="" class="header__icon" />
             </div>
-            <nav class="mobile-hidden">
-                <ul class="d-flex flex-column justify-content-center">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Sign In</a></li>
-                    <li><a href="#">Sign Up</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div class="container top-container">
-            <main>
-                <section>
-                    <div
-                        class="property-card d-flex justify-content-between align-items-center"
-                    >
-                        <div class="property-card__score-box">
-                            <div
-                                class="d-flex justify-content-center align-items-center"
-                            >
-                                3.5
-                            </div>
-                        </div>
-                        <div class="property-card__text-box d-flex flex-column">
-                            <div
-                                class="d-flex justify-content-between align-items-center text-box__top"
-                            >
-                                <h2>Penthouse</h2>
-                                <img src="./images/bookmark.svg" alt="" />
-                            </div>
-                            <div class="text-box__middle">
-                                <h3>
-                                    #234, 555 Seymore Street, Vancouver, V1A 1A1
-                                </h3>
-                            </div>
-                            <div
-                                class="text-box__bottom d-flex justify-content-around"
-                            >
-                                <p>clean</p>
-                                <p>system kitchen</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="property-card d-flex justify-content-between align-items-center"
-                    >
-                        <div class="property-card__score-box">
-                            <div
-                                class="d-flex justify-content-center align-items-center"
-                            >
-                                3.5
-                            </div>
-                        </div>
-                        <div class="property-card__text-box d-flex flex-column">
-                            <div
-                                class="d-flex justify-content-between align-items-center text-box__top"
-                            >
-                                <h2>Penthouse</h2>
-                                <img src="./images/bookmark.svg" alt="" />
-                            </div>
-                            <div class="text-box__middle">
-                                <h3>
-                                    #234, 555 Seymore Street, Vancouver, V1A 1A1
-                                </h3>
-                            </div>
-                            <div
-                                class="text-box__bottom d-flex justify-content-around"
-                            >
-                                <p>clean</p>
-                                <p>system kitchen</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="property-card d-flex justify-content-between align-items-center"
-                    >
-                        <div class="property-card__score-box">
-                            <div
-                                class="d-flex justify-content-center align-items-center"
-                            >
-                                3.5
-                            </div>
-                        </div>
-                        <div class="property-card__text-box d-flex flex-column">
-                            <div
-                                class="d-flex justify-content-between align-items-center text-box__top"
-                            >
-                                <h2>Penthouse</h2>
-                                <img src="./images/bookmark.svg" alt="" />
-                            </div>
-                            <div class="text-box__middle">
-                                <h3>
-                                    #234, 555 Seymore Street, Vancouver, V1A 1A1
-                                </h3>
-                            </div>
-                            <div
-                                class="text-box__bottom d-flex justify-content-around"
-                            >
-                                <p>clean</p>
-                                <p>system kitchen</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="property-card d-flex justify-content-between align-items-center"
-                    >
-                        <div class="property-card__score-box">
-                            <div
-                                class="d-flex justify-content-center align-items-center"
-                            >
-                                3.5
-                            </div>
-                        </div>
-                        <div class="property-card__text-box d-flex flex-column">
-                            <div
-                                class="d-flex justify-content-between align-items-center text-box__top"
-                            >
-                                <h2>Penthouse</h2>
-                                <img src="./images/bookmark.svg" alt="" />
-                            </div>
-                            <div class="text-box__middle">
-                                <h3>
-                                    #234, 555 Seymore Street, Vancouver, V1A 1A1
-                                </h3>
-                            </div>
-                            <div
-                                class="text-box__bottom d-flex justify-content-around"
-                            >
-                                <p>clean</p>
-                                <p>system kitchen</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="property-card d-flex justify-content-between align-items-center"
-                    >
-                        <div class="property-card__score-box">
-                            <div
-                                class="d-flex justify-content-center align-items-center"
-                            >
-                                3.5
-                            </div>
-                        </div>
-                        <div class="property-card__text-box d-flex flex-column">
-                            <div
-                                class="d-flex justify-content-between align-items-center text-box__top"
-                            >
-                                <h2>Penthouse</h2>
-                                <img src="./images/bookmark.svg" alt="" />
-                            </div>
-                            <div class="text-box__middle">
-                                <h3>
-                                    #234, 555 Seymore Street, Vancouver, V1A 1A1
-                                </h3>
-                            </div>
-                            <div
-                                class="text-box__bottom d-flex justify-content-around"
-                            >
-                                <p>clean</p>
-                                <p>system kitchen</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="property-card d-flex justify-content-between align-items-center"
-                    >
-                        <div class="property-card__score-box">
-                            <div
-                                class="d-flex justify-content-center align-items-center"
-                            >
-                                3.5
-                            </div>
-                        </div>
-                        <div class="property-card__text-box d-flex flex-column">
-                            <div
-                                class="d-flex justify-content-between align-items-center text-box__top"
-                            >
-                                <h2>Penthouse</h2>
-                                <img src="./images/bookmark.svg" alt="" />
-                            </div>
-                            <div class="text-box__middle">
-                                <h3>
-                                    #234, 555 Seymore Street, Vancouver, V1A 1A1
-                                </h3>
-                            </div>
-                            <div
-                                class="text-box__bottom d-flex justify-content-around"
-                            >
-                                <p>clean</p>
-                                <p>system kitchen</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="property-card d-flex justify-content-between align-items-center"
-                    >
-                        <div class="property-card__score-box">
-                            <div
-                                class="d-flex justify-content-center align-items-center"
-                            >
-                                3.5
-                            </div>
-                        </div>
-                        <div class="property-card__text-box d-flex flex-column">
-                            <div
-                                class="d-flex justify-content-between align-items-center text-box__top"
-                            >
-                                <h2>Penthouse</h2>
-                                <img src="./images/bookmark.svg" alt="" />
-                            </div>
-                            <div class="text-box__middle">
-                                <h3>
-                                    #234, 555 Seymore Street, Vancouver, V1A 1A1
-                                </h3>
-                            </div>
-                            <div
-                                class="text-box__bottom d-flex justify-content-around"
-                            >
-                                <p>clean</p>
-                                <p>system kitchen</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="property-card d-flex justify-content-between align-items-center"
-                    >
-                        <div class="property-card__score-box">
-                            <div
-                                class="d-flex justify-content-center align-items-center"
-                            >
-                                3.5
-                            </div>
-                        </div>
-                        <div class="property-card__text-box d-flex flex-column">
-                            <div
-                                class="d-flex justify-content-between align-items-center text-box__top"
-                            >
-                                <h2>Penthouse</h2>
-                                <img src="./images/bookmark.svg" alt="" />
-                            </div>
-                            <div class="text-box__middle">
-                                <h3>
-                                    #234, 555 Seymore Street, Vancouver, V1A 1A1
-                                </h3>
-                            </div>
-                            <div
-                                class="text-box__bottom d-flex justify-content-around"
-                            >
-                                <p>clean</p>
-                                <p>system kitchen</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
+            <a href="/index.html">
+                <h1>RVR</h1>
+            </a>
+            <div class="header__search-bar d-flex">
+                <div class="mobile-hidden">
+                    <input type="text" class="" />
+                </div>
+                <img src="./images/search.svg" alt="" class="header__icon" />
+            </div>
         </div>
-        <footer>© 2023 Rate Van Rent, Inc. All Rights Reserved</footer>
-    </body>
+        <nav class="mobile-hidden">
+            <ul class="d-flex flex-column justify-content-center">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Sign In</a></li>
+                <li><a href="#">Sign Up</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container top-container">
+        <main>
+            <section>
+                <div class="property-card d-flex justify-content-between align-items-center">
+                    <div class="property-card__score-box">
+                        <div class="d-flex justify-content-center align-items-center">
+                            3.5
+                        </div>
+                    </div>
+                    <div class="property-card__text-box d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center text-box__top">
+                            <h2>Penthouse</h2>
+                            <img src="./images/bookmark.svg" alt="" />
+                        </div>
+                        <div class="text-box__middle">
+                            <h3>
+                                #234, 555 Seymore Street, Vancouver, V1A 1A1
+                            </h3>
+                        </div>
+                        <div class="text-box__bottom d-flex justify-content-around">
+                            <p>clean</p>
+                            <p>system kitchen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card d-flex justify-content-between align-items-center">
+                    <div class="property-card__score-box">
+                        <div class="d-flex justify-content-center align-items-center">
+                            3.5
+                        </div>
+                    </div>
+                    <div class="property-card__text-box d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center text-box__top">
+                            <h2>Penthouse</h2>
+                            <img src="./images/bookmark.svg" alt="" />
+                        </div>
+                        <div class="text-box__middle">
+                            <h3>
+                                #234, 555 Seymore Street, Vancouver, V1A 1A1
+                            </h3>
+                        </div>
+                        <div class="text-box__bottom d-flex justify-content-around">
+                            <p>clean</p>
+                            <p>system kitchen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card d-flex justify-content-between align-items-center">
+                    <div class="property-card__score-box">
+                        <div class="d-flex justify-content-center align-items-center">
+                            3.5
+                        </div>
+                    </div>
+                    <div class="property-card__text-box d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center text-box__top">
+                            <h2>Penthouse</h2>
+                            <img src="./images/bookmark.svg" alt="" />
+                        </div>
+                        <div class="text-box__middle">
+                            <h3>
+                                #234, 555 Seymore Street, Vancouver, V1A 1A1
+                            </h3>
+                        </div>
+                        <div class="text-box__bottom d-flex justify-content-around">
+                            <p>clean</p>
+                            <p>system kitchen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card d-flex justify-content-between align-items-center">
+                    <div class="property-card__score-box">
+                        <div class="d-flex justify-content-center align-items-center">
+                            3.5
+                        </div>
+                    </div>
+                    <div class="property-card__text-box d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center text-box__top">
+                            <h2>Penthouse</h2>
+                            <img src="./images/bookmark.svg" alt="" />
+                        </div>
+                        <div class="text-box__middle">
+                            <h3>
+                                #234, 555 Seymore Street, Vancouver, V1A 1A1
+                            </h3>
+                        </div>
+                        <div class="text-box__bottom d-flex justify-content-around">
+                            <p>clean</p>
+                            <p>system kitchen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card d-flex justify-content-between align-items-center">
+                    <div class="property-card__score-box">
+                        <div class="d-flex justify-content-center align-items-center">
+                            3.5
+                        </div>
+                    </div>
+                    <div class="property-card__text-box d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center text-box__top">
+                            <h2>Penthouse</h2>
+                            <img src="./images/bookmark.svg" alt="" />
+                        </div>
+                        <div class="text-box__middle">
+                            <h3>
+                                #234, 555 Seymore Street, Vancouver, V1A 1A1
+                            </h3>
+                        </div>
+                        <div class="text-box__bottom d-flex justify-content-around">
+                            <p>clean</p>
+                            <p>system kitchen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card d-flex justify-content-between align-items-center">
+                    <div class="property-card__score-box">
+                        <div class="d-flex justify-content-center align-items-center">
+                            3.5
+                        </div>
+                    </div>
+                    <div class="property-card__text-box d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center text-box__top">
+                            <h2>Penthouse</h2>
+                            <img src="./images/bookmark.svg" alt="" />
+                        </div>
+                        <div class="text-box__middle">
+                            <h3>
+                                #234, 555 Seymore Street, Vancouver, V1A 1A1
+                            </h3>
+                        </div>
+                        <div class="text-box__bottom d-flex justify-content-around">
+                            <p>clean</p>
+                            <p>system kitchen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card d-flex justify-content-between align-items-center">
+                    <div class="property-card__score-box">
+                        <div class="d-flex justify-content-center align-items-center">
+                            3.5
+                        </div>
+                    </div>
+                    <div class="property-card__text-box d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center text-box__top">
+                            <h2>Penthouse</h2>
+                            <img src="./images/bookmark.svg" alt="" />
+                        </div>
+                        <div class="text-box__middle">
+                            <h3>
+                                #234, 555 Seymore Street, Vancouver, V1A 1A1
+                            </h3>
+                        </div>
+                        <div class="text-box__bottom d-flex justify-content-around">
+                            <p>clean</p>
+                            <p>system kitchen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-card d-flex justify-content-between align-items-center">
+                    <div class="property-card__score-box">
+                        <div class="d-flex justify-content-center align-items-center">
+                            3.5
+                        </div>
+                    </div>
+                    <div class="property-card__text-box d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center text-box__top">
+                            <h2>Penthouse</h2>
+                            <img src="./images/bookmark.svg" alt="" />
+                        </div>
+                        <div class="text-box__middle">
+                            <h3>
+                                #234, 555 Seymore Street, Vancouver, V1A 1A1
+                            </h3>
+                        </div>
+                        <div class="text-box__bottom d-flex justify-content-around">
+                            <p>clean</p>
+                            <p>system kitchen</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <footer>© 2023 Rate Van Rent, Inc. All Rights Reserved</footer>
+</body>
+
 </html>
