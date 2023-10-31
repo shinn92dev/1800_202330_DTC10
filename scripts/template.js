@@ -1,9 +1,4 @@
-isLoggedIn = false;
-firebase.auth().onAuthStateChanged((user) => !!user);
-
-console.log("[Auth Status] logged in: ", isLoggedIn);
-
-function initializeNav() {
+function initializeNav(isLoggedIn) {
     navbar = isLoggedIn ? `navbar_after_login` : `navbar_before_login`;
     $("#NAVBAR-PLACEHOLDER").load(`./components/${navbar}.html`, function () {
         const navIcon = document.querySelectorAll(".header__icon")[0];
@@ -38,8 +33,11 @@ function initializeFooter() {
 }
 
 function loadSkeleton() {
-    initializeNav();
-    initializeFooter();
+    firebase.auth().onAuthStateChanged((user) => {
+        let isLoggedIn = !!user;
+        initializeNav(isLoggedIn);
+        initializeFooter();
+    });
 }
 
 loadSkeleton();
