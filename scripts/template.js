@@ -2,7 +2,7 @@
 import { navbarLogic } from "./nav";
 import { searchBarLogic } from "./search";
 
-function initializeNav(callback) {
+function initializeNav() {
     $("#NAVBAR-PLACEHOLDER").load("./components/navbar.html", function () {
         navbarLogic()
     });
