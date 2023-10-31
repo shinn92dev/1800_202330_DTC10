@@ -127,6 +127,10 @@ footer {
     flex: 1;
 }
 
+.sign-in {
+    width: 100%;
+}
+
 .sign-up-link {
     text-decoration: underline;
 }
