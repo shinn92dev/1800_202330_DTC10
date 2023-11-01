@@ -1,6 +1,26 @@
-function initializeNav(isLoggedIn) {
-    navbar = isLoggedIn ? `navbar_after_login` : `navbar_before_login`;
+function logout() {
+    firebase
+        .auth()
+        .signOut()
+        .then(() => {
+            console.log("logging out user");
+            window.location.reload();
+        })
+        .catch((error) => {
+            console.error("Error logging out:", error.message);
+        });
+}
+
+function initializeNav(user) {
+    const isLoggedIn = !!user;
+    const navbar = isLoggedIn ? `navbar_after_login` : `navbar_before_login`;
     $("#NAVBAR-PLACEHOLDER").load(`./components/${navbar}.html`, function () {
+        if (isLoggedIn) {
+            const logoutButton = document.getElementById("sign-out-btn");
+            logoutButton.addEventListener("click", function () {
+                logout();
+            });
+        }
         const navIcon = document.querySelectorAll(".header__icon")[0];
         const nav = document.querySelector("nav");
         navIcon.addEventListener("click", function () {
@@ -34,8 +54,7 @@ function initializeFooter() {
 
 function loadSkeleton() {
     firebase.auth().onAuthStateChanged((user) => {
-        let isLoggedIn = !!user;
-        initializeNav(isLoggedIn);
+        initializeNav(user);
         initializeFooter();
     });
 }
