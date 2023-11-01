@@ -145,6 +145,10 @@ footer {
     font-weight: 600;
 }
 
+.welcome {
+    font-size: 2.5rem;
+}
+
 .nav-title {
     text-align: center;
     display: inline-block;
