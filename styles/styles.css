@@ -31,7 +31,7 @@ h3 {
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
     max-width: 1000px;
     margin: 0 auto;
 }
@@ -117,10 +117,16 @@ a {
 }
 
 footer {
-    padding: 15px 0px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
     background-color: black;
     color: white;
+}
+
+.logo:hover {
+    opacity: 0.5;
 }
 
 .top-container {
