@@ -1,31 +1,36 @@
 @import url(./reset.css);
 
+:root {
+    /* color variables */
+    --bg-color: #eeb902;
+    --black-color: #0c090d;
+    --text-color: #eef1ef;
+    --cta-color: #3c91e6;
+    --warning-color: #e03616;
+    /* font variables */
+    --large-font: 1.5rem;
+    --medium-font: 1rem;
+    --small-font: 0.75rem;
+}
+
 html {
     margin: 0;
     padding: 0;
     line-height: 1.15;
-    font-size: 0.75rem;
+    font-size: var(--medium-font);
     font-family: "Public Sans", sans-serif;
     box-sizing: border-box;
     scroll-behavior: smooth;
+    transition: 0.5s;
 }
 
 header {
     padding-top: 15px;
-    background-color: grey;
+    background-color: var(--bg-color);
 }
 
 h1 {
-    font-size: 2em;
     font-weight: bold;
-}
-
-h2 {
-    font-size: 1.5em;
-}
-
-h3 {
-    font-size: 1.3em;
 }
 
 body {
@@ -37,12 +42,12 @@ body {
 }
 
 body#landing-page {
-    background-color: #606060;
-    color: white;
+    background-color: var(--bg-color);
+    color: var(--black-color);
 }
 
 nav {
-    background-color: lightgrey;
+    background-color: var(--bg-color);
     padding-right: 0px;
     padding-left: 0px;
 }
@@ -52,7 +57,6 @@ nav {
 }
 
 .nav_link {
-    font-size: 1.5rem;
     display: inline-block;
     width: 100%;
     padding: 5px 0px;
@@ -60,7 +64,7 @@ nav {
 }
 
 .nav_link:hover {
-    background-color: #a8a4a4;
+    background-color: var(--text-color);
 }
 
 .sign-out-container {
@@ -72,16 +76,16 @@ nav {
 .property-card {
     margin: 15px 0px;
     padding: 5px 15px;
-    border: 2px solid black;
+    border: 2px solid var(--black-color);
     border-radius: 15px;
 }
 
 .property-card__score-box {
     width: 65px;
     height: 65px;
-    background-color: black;
-    color: white;
-    font-size: 2.5em;
+    background-color: var(--black-color);
+    color: var(--text-color);
+    font-size: var(--large-font);
     font-weight: bold;
 }
 
@@ -98,10 +102,10 @@ nav {
 }
 
 .property-card__text-box p {
-    background-color: gray;
+    background-color: var(--text-color);
     padding: 2px 5px;
     border-radius: 7px;
-    font-size: 0.8em;
+    font-size: var(--small-font);
 }
 
 .property-card__text-box .text-box__bottom {
@@ -124,7 +128,7 @@ a {
 }
 
 #landing-page a {
-    color: white;
+    color: #0c090d;
 }
 
 footer {
@@ -132,8 +136,12 @@ footer {
     justify-content: center;
     align-items: center;
     height: 5vh;
-    background-color: black;
-    color: white;
+    background-color: var(--black-color);
+    color: var(--text-color);
+}
+
+.logo {
+    font-size: var(--large-font);
 }
 
 .logo:hover {
@@ -157,7 +165,7 @@ footer {
 }
 
 .welcome {
-    font-size: 2.5rem;
+    font-size: var(--large-font);
 }
 
 .nav-title {
@@ -174,13 +182,17 @@ footer {
     width: 35%;
     margin-bottom: 10px;
     padding: 5px;
-    font-size: 16px;
     font-weight: bold;
     border-radius: 15px;
+    background-color: var(--black-color);
+    border-color: var(--black-color);
+    color: var(--text-color);
 }
 
 .btn-sign:hover {
-    box-shadow: 0 4px #000000;
+    background-color: var(--text-color);
+    border-color: var(--text-color);
+    color: var(--black-color);
 }
 
 .btn-sign:active {
