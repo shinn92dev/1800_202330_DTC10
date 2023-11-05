@@ -113,7 +113,7 @@ nav {
 }
 
 .header__box {
-    line-height: 25px;
+    height: 25px;
 }
 
 .header__icon {
@@ -129,7 +129,7 @@ nav {
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-35%, -50%);
 }
 
 a {
@@ -256,11 +256,11 @@ footer {
 }
 
 .search-box {
-    width: 94%;
+    width: 100%;
 }
 
 .search-box input {
-    width: 100%;
+    width: calc(100% - 50px);
     border-radius: 20px;
     margin: 0;
 }
