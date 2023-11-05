@@ -211,6 +211,29 @@ footer {
     top: 4px;
 }
 
+.btn-sign-in {
+    width: 35%;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 15px;
+    background-color: var(--black-color);
+    border-color: var(--black-color);
+    color: var(--text-color);
+}
+
+.btn-sign-in:hover {
+    background-color: var(--text-color);
+    border-color: var(--text-color);
+    color: var(--black-color);
+}
+
+.btn-sign-in:active {
+    box-shadow: none;
+    position: relative;
+    top: 4px;
+}
+
 #logo {
     width: 100px;
 }
@@ -237,7 +260,7 @@ footer {
 }
 
 .search-box input {
-    width:100%;
+    width: 100%;
     border-radius: 20px;
     margin: 0;
 }

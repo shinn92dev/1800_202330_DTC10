@@ -4,8 +4,6 @@
 
 Our team DTC-10 is developing a web application to help renters in Vancouver find more information regarding better housing options by providing visibility from other renters regarding their experiences unlike Facebook, Craigslist etc
 
-todo: Give some elaboration on what the core features are.
-
 ## 2. Names of Contributors
 
 List team members and/or short bio's here...
