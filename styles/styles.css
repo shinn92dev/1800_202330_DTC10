@@ -25,7 +25,7 @@ html {
 }
 
 header {
-    padding-top: 15px;
+    padding: 10px 0;
     background-color: var(--bg-color);
 }
 
@@ -113,13 +113,23 @@ nav {
 }
 
 .header__box {
-    padding-bottom: 10px;
+    line-height: 25px;
 }
 
 .header__icon {
     width: 20px;
     margin: 0px 10px;
     cursor: pointer;
+}
+
+.close__icon {
+    height: 30px;
+    margin: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 a {
@@ -215,4 +225,19 @@ footer {
 
 .input-group-text {
     border-radius: 15px;
+}
+
+.header__search-bar {
+    line-height: 25px;
+    position: relative;
+}
+
+.search-box {
+    width: 94%;
+}
+
+.search-box input {
+    width:100%;
+    border-radius: 20px;
+    margin: 0;
 }

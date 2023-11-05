@@ -31,12 +31,14 @@ function initializeNav(user) {
         const searchInput = document.querySelector(".header__search-bar > div");
         const h1 = document.querySelector("h1");
         const closeIcon = document.querySelector(".close__icon");
+        const searchBar = document.querySelector(".header__search-bar");
 
         searchIcon.addEventListener("click", function () {
             searchInput.classList.toggle("mobile-hidden");
             h1.classList.toggle("mobile-hidden");
             searchIcon.classList.toggle("mobile-hidden");
             closeIcon.classList.toggle("mobile-hidden");
+            searchBar.classList.toggle("search-box");
         });
 
         closeIcon.addEventListener("click", function () {
@@ -44,6 +46,7 @@ function initializeNav(user) {
             h1.classList.toggle("mobile-hidden");
             searchIcon.classList.toggle("mobile-hidden");
             closeIcon.classList.toggle("mobile-hidden");
+            searchBar.classList.toggle("search-box");
         });
     });
 }
