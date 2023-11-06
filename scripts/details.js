@@ -47,8 +47,6 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
             return Promise.all(promises);
         })
         .then((result) => {
-            console.log("Comments Data: ", commentsData);
-            console.log(commentsData[0].review);
             $(document).ready(function () {
                 $.each(commentsData, function (_, comment) {
                     const listItem = $('<li class="my-3 p-3"></li>');
