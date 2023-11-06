@@ -1,27 +1,35 @@
-$(document).ready(function () {
-    const db = firebase.firestore();
+function getListingDataAndDisplay() {
+    $(document).ready(function () {
+        // const db = firebase.firestore();
 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const searchParam = urlParams.get("search").trim();
+        const matchingListingLst = [];
 
-    console.log("searchParam: ", searchParam);
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const searchParam = urlParams.get("search").trim();
 
-    db.collection("Properties")
-        .where("propertyFullAddress", ">=", searchParam)
-        .where("propertyFullAddress", "<=", searchParam + "\uf8ff")
-        .get()
-        .then((querySnapshot) => {
-            if (querySnapshot.empty) {
-                console.log("No matching documents.");
-                return;
-            }
+        console.log("searchParam: ", searchParam);
 
-            querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data());
+        db.collection("Properties")
+            .where("propertyFullAddress", ">=", searchParam)
+            .where("propertyFullAddress", "<=", searchParam + "\uf8ff")
+            .get()
+            .then((querySnapshot) => {
+                if (querySnapshot.empty) {
+                    console.log("No matching documents.");
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    matchingListingLst.push(doc.data());
+                    console.log(doc.id, " => ", doc.data());
+                });
+                console.log(matchingListingLst);
+            })
+            .catch((error) => {
+                console.error("Error getting documents: ", error);
             });
-        })
-        .catch((error) => {
-            console.error("Error getting documents: ", error);
-        });
-});
+    });
+}
+
+getListingDataAndDisplay();
