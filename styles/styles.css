@@ -18,7 +18,7 @@ html {
     padding: 0;
     line-height: 1.15;
     font-size: var(--medium-font);
-    font-family: "Public Sans", sans-serif;
+    font-family: 'Work Sans', sans-serif;
     box-sizing: border-box;
     scroll-behavior: smooth;
     transition: 0.5s;
