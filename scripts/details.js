@@ -1,3 +1,16 @@
+function createRandomUsername(length) {
+    const characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let randomUsername = "";
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        randomUsername += characters.charAt(randomIndex);
+    }
+
+    return randomUsername;
+}
+
 function getPropertyDataFromDBAndDisplay(propertyId) {
     // Getting only related document Id
     const reviewsCollection = db.collection("Reviews");
@@ -41,7 +54,8 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
                     const listItem = $('<li class="my-3 p-3"></li>');
 
                     // User name
-                    // listItem.append($('<h3 class="mb-3"></h3>').text(comment.username));
+                    const username = "User " + createRandomUsername(5);
+                    listItem.append($('<h3 class="mb-3"></h3>').text(username));
 
                     // Score
                     const scoreDiv = $(
