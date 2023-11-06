@@ -264,3 +264,9 @@ footer {
     border-radius: 20px;
     margin: 0;
 }
+
+.drop-down p {
+    text-align: center;
+    font-size: larger;
+    padding-bottom: 5px;
+}

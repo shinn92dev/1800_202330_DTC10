@@ -48,6 +48,13 @@ function initializeNav(user) {
             closeIcon.classList.toggle("mobile-hidden");
             searchBar.classList.toggle("search-box");
         });
+
+        if (user) {
+            console.log(user.uid); 
+            console.log(user.displayName); 
+            userName = user.displayName;
+            document.getElementById("username").innerText = userName;  
+        }
     });
 }
 
