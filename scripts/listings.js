@@ -6,8 +6,6 @@ function getListingDataAndDisplay() {
         const urlParams = new URLSearchParams(queryString);
         const searchParam = urlParams.get("search").trim();
 
-        console.log("searchParam: ", searchParam);
-
         const ul = $("#property-ul");
 
         db.collection("Properties")
