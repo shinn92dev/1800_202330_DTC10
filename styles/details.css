@@ -31,10 +31,6 @@
     font-weight: bold;
 }
 
-#details__bottom-box h2 {
-    border-bottom: 1px solid var(--black-color);
-}
-
 .bottom-box__review-box li {
     position: relative;
     background-color: lightgray;
@@ -82,4 +78,14 @@
 
 .expanded {
     white-space: normal;
+}
+
+.rating-heading-box {
+    border-bottom: 1px solid var(--black-color);
+}
+.rating-heading-box h2 {
+    font-size: var(--large-font);
+}
+#leave-comment-btn {
+    line-height: 1;
 }
