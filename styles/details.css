@@ -89,3 +89,14 @@
 #leave-comment-btn {
     line-height: 1;
 }
+
+@media (min-width: 500px) {
+    .rating-heading-box {
+        flex-direction: row !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+    #leave-comment-btn {
+        width: fit-content;
+    }
+}
