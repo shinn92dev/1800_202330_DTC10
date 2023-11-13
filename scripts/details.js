@@ -137,4 +137,11 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
         });
 }
 
-getPropertyDataFromDBAndDisplay("#645_555_seymore_street");
+const getParams = () => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const propertyId = urlParams.get("propertyId")?.trim();
+    return propertyId;
+};
+
+getPropertyDataFromDBAndDisplay(getParams());
