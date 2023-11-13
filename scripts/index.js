@@ -1,15 +1,26 @@
 const performSearch = () => {
     const input = $("#search-input").val().trim().replace(/\s+/g, " ");
-    const searchUrl = "listings.html?search=" + encodeURIComponent(input);
-    window.location.href = searchUrl;
+    if (input) {
+        const searchUrl = "listings.html?search=" + encodeURIComponent(input);
+        window.location.href = searchUrl;
+    }
 };
 
 const searchListing = () => {
-    $("#search-button").on("click", function () {
+    const searchInput = $("#search-input");
+    const searchButton = $("#search-button");
+
+    searchButton.prop("disabled", true);
+
+    searchInput.on("input", function () {
+        searchButton.prop("disabled", this.value.trim() === "");
+    });
+
+    searchButton.on("click", function () {
         performSearch();
     });
 
-    $("#search-input").on("keypress", function (e) {
+    searchInput.on("keypress", function (e) {
         if (e.which == 13) {
             performSearch();
             return false;

@@ -11,6 +11,8 @@ function getListingDataAndDisplay() {
         db.collection("Properties")
             .where("propertyFullAddress", ">=", searchParam)
             .where("propertyFullAddress", "<=", searchParam + "\uf8ff")
+            .where("postalCode", ">=", searchParam)
+            .where("postalCode", "<=", searchParam + "\uf8ff")
             .get()
             .then((querySnapshot) => {
                 if (querySnapshot.empty) {
@@ -215,6 +217,7 @@ const rentalData = [
     },
 ];
 
+// don't call this function unless you want to add more data
 async function sendRentalDataToFirestore(rentalData) {
     const rentalsCollection = db.collection("Properties");
 
