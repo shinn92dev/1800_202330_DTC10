@@ -3,7 +3,7 @@ function logout() {
         .auth()
         .signOut()
         .then(() => {
-            console.log("logging out user");
+            console.log("Logging out user");
             window.location.reload();
         })
         .catch((error) => {
@@ -11,49 +11,68 @@ function logout() {
         });
 }
 
+const performSearch = () => {
+    const input = $("#nav-search-input").val().trim().replace(/\s+/g, " ");
+    if (input) {
+        const searchUrl = "listings.html?search=" + encodeURIComponent(input);
+        window.location.href = searchUrl;
+    }
+};
+
+const searchListing = () => {
+    const searchInput = $("#nav-search-input");
+
+    searchInput.on("keypress", function (e) {
+        if (e.which == 13) {
+            performSearch();
+            return false;
+        }
+    });
+};
+
 function initializeNav(user) {
     const isLoggedIn = !!user;
-    const navbar = isLoggedIn ? `navbar_after_login` : `navbar_before_login`;
+    const navbar = isLoggedIn ? "navbar_after_login" : "navbar_before_login";
+
     $("#NAVBAR-PLACEHOLDER").load(`./components/${navbar}.html`, function () {
         if (isLoggedIn) {
-            const logoutButton = document.getElementById("sign-out-btn");
-            logoutButton.addEventListener("click", function () {
-                logout();
-            });
+            $("#sign-out-btn").on("click", logout);
         }
-        const navIcon = document.querySelectorAll(".header__icon")[0];
-        const nav = document.querySelector("nav");
-        navIcon.addEventListener("click", function () {
-            nav.classList.toggle("mobile-hidden");
+
+        $(".header__icon")
+            .eq(0)
+            .on("click", function () {
+                $("nav").toggleClass("mobile-hidden");
+            });
+
+        const $searchIcon = $(".header__icon").eq(1);
+        const $searchInput = $(".header__search-bar > div");
+        const $h1 = $("h1");
+        const $closeIcon = $(".close__icon");
+        const $searchBar = $(".header__search-bar");
+
+        $searchIcon.on("click", function () {
+            $searchInput.toggleClass("mobile-hidden");
+            $h1.toggleClass("mobile-hidden");
+            $searchIcon.toggleClass("mobile-hidden");
+            $closeIcon.toggleClass("mobile-hidden");
+            $searchBar.toggleClass("search-box");
         });
 
-        const searchIcon = document.querySelectorAll(".header__icon")[1];
-        const searchInput = document.querySelector(".header__search-bar > div");
-        const h1 = document.querySelector("h1");
-        const closeIcon = document.querySelector(".close__icon");
-        const searchBar = document.querySelector(".header__search-bar");
-
-        searchIcon.addEventListener("click", function () {
-            searchInput.classList.toggle("mobile-hidden");
-            h1.classList.toggle("mobile-hidden");
-            searchIcon.classList.toggle("mobile-hidden");
-            closeIcon.classList.toggle("mobile-hidden");
-            searchBar.classList.toggle("search-box");
+        $closeIcon.on("click", function () {
+            $searchInput.toggleClass("mobile-hidden");
+            $h1.toggleClass("mobile-hidden");
+            $searchIcon.toggleClass("mobile-hidden");
+            $closeIcon.toggleClass("mobile-hidden");
+            $searchBar.toggleClass("search-box");
         });
 
-        closeIcon.addEventListener("click", function () {
-            searchInput.classList.toggle("mobile-hidden");
-            h1.classList.toggle("mobile-hidden");
-            searchIcon.classList.toggle("mobile-hidden");
-            closeIcon.classList.toggle("mobile-hidden");
-            searchBar.classList.toggle("search-box");
-        });
+        searchListing();
 
         if (user) {
-            console.log(user.uid); 
-            console.log(user.displayName); 
-            userName = user.displayName;
-            document.getElementById("username").innerText = userName;  
+            console.log(user.uid);
+            console.log(user.displayName);
+            $("#username").text(user.displayName);
         }
     });
 }
