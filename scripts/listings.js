@@ -6,6 +6,8 @@ function getListingDataAndDisplay() {
         const urlParams = new URLSearchParams(queryString);
         const searchParam = urlParams.get("search").trim();
 
+        console.log("searchParam: " + searchParam);
+
         const ul = $("#property-ul");
 
         db.collection("Properties")
@@ -15,6 +17,11 @@ function getListingDataAndDisplay() {
             .then((querySnapshot) => {
                 if (querySnapshot.empty) {
                     console.log("No matching documents.");
+                    const listItem = $(`<div class="listings_message">
+                    <p class="listings_message-p">Seems like this property does not exist...</p>
+                    <a href="./add-property.html" class="listings_message-a">Add this property & leave a review</a>
+                </div>`);
+                    ul.append(listItem);
                     return;
                 }
 
