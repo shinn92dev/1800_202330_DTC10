@@ -137,4 +137,4 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
         });
 }
 
-getPropertyDataFromDBAndDisplay("#645_555_seymore_street");
+getPropertyDataFromDBAndDisplay("vQ36Xi6550OKSNqCeIeL");

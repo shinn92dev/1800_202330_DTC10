@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>RVR | Rate Vancouver Rent</title>
+        <meta name="comp1800 template" content="My 1800 App" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap"
+            rel="stylesheet"
+        />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+        <link
+            type="text/css"
+            rel="stylesheet"
+            href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"
+        />
+        <link rel="stylesheet" href="/styles/review.css" />
+        <link rel="stylesheet" href="/styles/styles.css" />
+        <!-- INSERT NEW STYLE SHEET BELOW HERE -->
+        <script src="/scripts/template.js" defer></script>
+        <script src="./scripts/firebaseAPI_TEAM10.js"></script>
+        <script src="/scripts/review.js" defer></script>
+    </head>
+
+    <body>
+        <div id="NAVBAR-PLACEHOLDER"></div>
+
+        <!------------------------------------------>
+        <!-- INSERT WORK HERE -->
+        <!------------------------------------------>
+        <div class="container">
+            <form action="">
+                <div class="form-group m-3" id="form-stars-boxs">
+                    <label for="inputEmail4">Email</label>
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="inputEmail4"
+                        placeholder="Email"
+                    />
+                </div>
+                <div class="form-group m-3" id="form-tags-box">
+                    <div id="tags__quite-box">
+                        <h3>Quite</h3>
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="quite__peaceful_neighborhood"
+                                    value="peaceful-neighborhood"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="quite__peaceful_neighborhood"
+                                    >Peaceful Neighborhood</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="quite__low-traffic_area"
+                                    value="low-traffic-area"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="quite__low-traffic_area"
+                                    >Low Traffic Area</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="quite__quite_street"
+                                    value="quite-street"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="quite__quite_street"
+                                    >Quite Street</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="quite__none"
+                                    value="none"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="quite__none"
+                                    >None of them applied</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__clean-box">
+                        <h3>Clean</h3>
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="clean__well_maintained"
+                                    value="well-maintained"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="clean__well_maintained"
+                                    >Well-Maintained</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="clean__recently_renovated"
+                                    value="recently-renovated"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="clean__recently_renovated"
+                                    >Recently Renovated</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="clean__clean_and_tidy"
+                                    value="clean_and_tidy"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="clean__clean_and_tidy"
+                                    >Clean and Tidy</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="clean_none"
+                                    value="none"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="clean_none"
+                                    >None of them applied</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__public-transit-box">
+                        <h3>Public Transit</h3>
+                        <div class="d-flex flex-wrap">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="public-transit__near-bus-stop"
+                                    value="near-bus-stop"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="public-transit__near-bus-stop"
+                                    >Near Bus Stop</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="public-transit__near-skytrain-station"
+                                    value="near-skytrain-station"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="public-transit__near-skytrain-station"
+                                    >Near Skytrain Station</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="publict-transit_none"
+                                    value="none"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="publict-transit_none"
+                                    >None of them applied</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group m-3">
+                    <label for="user-comment">Leave Your Comment Here</label>
+                    <textarea
+                        class="form-control"
+                        id="user-comment"
+                        rows="3"
+                    ></textarea>
+                </div>
+            </form>
+        </div>
+        <!------------------------------------------>
+        <!-- INSERT WORK HERE -->
+        <!------------------------------------------>
+
+        <div id="FOOTER-PLACEHOLDER"></div>
+    </body>
+</html>
