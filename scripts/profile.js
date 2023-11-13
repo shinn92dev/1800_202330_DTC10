@@ -38,16 +38,13 @@ function EditUserInfo() {
 function SaveUserInfo() {
     //get entered information by user
     userName = document.getElementById("nameInput").value;
-    userSchool = document.getElementById("schoolInput").value;
     userCity = document.getElementById("cityInput").value;
 
     currentUser.update({
         name: userName,
-        school: userSchool,
         city: userCity
     }).then(() => {
         console.log("user information updated")
     })
     document.getElementById("personalInfoFields").disabled= true;
 }
-
