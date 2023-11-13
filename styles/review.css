@@ -1,0 +1,10 @@
+#form-tags-box input {
+    display: none;
+}
+
+#form-tags-box label {
+    background-color: var(--text-color);
+}
+#form-tags-box label.checked {
+    background-color: var(--bg-color);
+}
