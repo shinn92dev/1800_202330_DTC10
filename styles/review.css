@@ -8,3 +8,6 @@
 #form-tags-box label.checked {
     background-color: var(--bg-color);
 }
+h3 {
+    font-size: var(--large-font);
+}
