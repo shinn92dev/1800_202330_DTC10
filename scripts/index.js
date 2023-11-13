@@ -1,12 +1,3 @@
-/*
-
-1. grab textaddress
-2. format it without whitespaces
-3. append to search button onclick
-4. should take us to a page called `/details.html?blahblah`
-
-*/
-
 const performSearch = () => {
     const input = $("#search-input").val().trim().replace(/\s+/g, " ");
     const searchUrl = "listings.html?search=" + encodeURIComponent(input);
