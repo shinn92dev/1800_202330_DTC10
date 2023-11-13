@@ -137,4 +137,15 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
         });
 }
 
+<<<<<<< HEAD
 getPropertyDataFromDBAndDisplay("vQ36Xi6550OKSNqCeIeL");
+=======
+const getParams = () => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const propertyId = urlParams.get("propertyId")?.trim();
+    return propertyId;
+};
+
+getPropertyDataFromDBAndDisplay(getParams());
+>>>>>>> d13375e745b233900a281801ea17fa36605af8c7
