@@ -36,9 +36,16 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
                         if (docSnapshot.exists) {
                             const data = docSnapshot.data();
                             const date = data.createdAt.toDate();
-                            const formattedDate = date.toLocaleDateString("en-US", {
-                            year: '2-digit', month: '2-digit', day: 'numeric', // Use any options you like
-                            hour: '2-digit', minute: '2-digit'});
+                            const formattedDate = date.toLocaleDateString(
+                                "en-US",
+                                {
+                                    year: "2-digit",
+                                    month: "2-digit",
+                                    day: "numeric", // Use any options you like
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                }
+                            );
                             commentsData.push({
                                 score: data.overallScore,
                                 review: data.review,
@@ -62,9 +69,11 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
                     listItem.append($('<h3 class="mb-3"></h3>').text(username));
 
                     // date
-                    const dateBox = $(`<div class="mb-3"> posted at: ${comment.date} </div>`)
+                    const dateBox = $(
+                        `<div class="mb-3"> posted at: ${comment.date} </div>`
+                    );
 
-                    listItem.append(dateBox)
+                    listItem.append(dateBox);
 
                     // Score
                     const scoreDiv = $(
@@ -155,4 +164,49 @@ const getParams = () => {
     return propertyId;
 };
 
-getPropertyDataFromDBAndDisplay("vQ36Xi6550OKSNqCeIeL");
+getPropertyDataFromDBAndDisplay(getParams());
+
+// ---------------------- Display score ----------------------
+// ---------------------- Display score ----------------------
+// ---------------------- Display score ----------------------
+// ---------------------- Display score ----------------------
+
+function displayScore() {
+    const propertyId = "some-property-id";
+
+    db.collection("Reviews")
+        .where("propertyId", "==", propertyId)
+        .get()
+        .then((querySnapshot) => {
+            let totalScore = 0;
+            let reviewCount = 0;
+
+            querySnapshot.forEach((doc) => {
+                let review = doc.data();
+                totalScore += review.score;
+                reviewCount++;
+            });
+
+            if (reviewCount > 0) {
+                let averageScore = totalScore / reviewCount;
+                updateScoreBox(averageScore);
+            } else {
+                updateScoreBox("No reviews yet");
+            }
+        })
+        .catch((error) => {
+            console.error("Error getting documents: ", error);
+        });
+}
+
+function updateScoreBox(score) {
+    $("#score-box__score-id").text(score);
+}
+
+displayScore();
+
+// ---------------------- Display score ----------------------
+// ---------------------- Display score ----------------------
+// ---------------------- Display score ----------------------
+// ---------------------- Display score ----------------------
+// ---------------------- Display score ----------------------
