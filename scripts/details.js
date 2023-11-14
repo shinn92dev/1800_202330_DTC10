@@ -34,10 +34,15 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
                     .then((docSnapshot) => {
                         if (docSnapshot.exists) {
                             const data = docSnapshot.data();
+                            const date = data.createdAt.toDate();
+                            const formattedDate = date.toLocaleDateString("en-US", {
+                            year: '2-digit', month: '2-digit', day: 'numeric', // Use any options you like
+                            hour: '2-digit', minute: '2-digit'});
                             commentsData.push({
                                 score: data.overallScore,
                                 review: data.review,
                                 tags: data.tags,
+                                date: formattedDate,
                             });
                         }
                     });
@@ -54,6 +59,11 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
                     // User name
                     const username = "User " + createRandomUsername(5);
                     listItem.append($('<h3 class="mb-3"></h3>').text(username));
+
+                    // date
+                    const dateBox = $(`<div class="mb-3"> posted at: ${comment.date} </div>`)
+
+                    listItem.append(dateBox)
 
                     // Score
                     const scoreDiv = $(
@@ -137,9 +147,6 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
         });
 }
 
-<<<<<<< HEAD
-getPropertyDataFromDBAndDisplay("vQ36Xi6550OKSNqCeIeL");
-=======
 const getParams = () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -147,5 +154,4 @@ const getParams = () => {
     return propertyId;
 };
 
-getPropertyDataFromDBAndDisplay(getParams());
->>>>>>> d13375e745b233900a281801ea17fa36605af8c7
+getPropertyDataFromDBAndDisplay("vQ36Xi6550OKSNqCeIeL");
