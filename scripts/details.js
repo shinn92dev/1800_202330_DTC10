@@ -31,12 +31,41 @@ function formatReviewData(reviews) {
     }));
 }
 
-function calculateAverageScore(reviews) {
-    const totalScore = reviews.reduce(
-        (acc, review) => acc + review.overallScore,
-        0
+function roundDownToNearestHalf(num) {
+    return Math.floor(num * 2) / 2;
+}
+
+function calculateAverageScores(reviews) {
+    const totals = reviews.reduce(
+        (sums, review) => {
+            sums.total += review.overallScore;
+            sums.cleanliness += review.eachScore.cleanliness;
+            sums.houserule += review.eachScore.houserule;
+            sums.landlord += review.eachScore.landlord;
+            sums.location += review.eachScore.location;
+            sums.price += review.eachScore.price;
+            return sums;
+        },
+        {
+            total: 0,
+            cleanliness: 0,
+            houserule: 0,
+            landlord: 0,
+            location: 0,
+            price: 0,
+        }
     );
-    return (totalScore / reviews.length).toFixed(1);
+
+    return {
+        overall: roundDownToNearestHalf(totals.total / reviews.length),
+        cleanliness: roundDownToNearestHalf(
+            totals.cleanliness / reviews.length
+        ),
+        houserule: roundDownToNearestHalf(totals.houserule / reviews.length),
+        landlord: roundDownToNearestHalf(totals.landlord / reviews.length),
+        location: roundDownToNearestHalf(totals.location / reviews.length),
+        price: roundDownToNearestHalf(totals.price / reviews.length),
+    };
 }
 
 function appendReviewToDOM(review) {
@@ -125,10 +154,33 @@ async function getProperty(propertyId) {
     return formatAddress;
 }
 
+function getStarRating(score) {
+    let ratingHtml = "";
+    for (let i = 0; i < 5; i++, score--) {
+        if (score >= 1) {
+            ratingHtml += '<i class="bi bi-star-fill"></i>';
+        } else if (score >= 0.5) {
+            ratingHtml += '<i class="bi bi-star-half"></i>';
+        } else {
+            ratingHtml += '<i class="bi bi-star"></i>';
+        }
+    }
+    return ratingHtml;
+}
+
+function updateCategoryRatings(scores) {
+    for (const [category, score] of Object.entries(scores)) {
+        const selector = "#" + category + "-rating";
+        const ratingHtml = getStarRating(score);
+        $(selector).html(ratingHtml);
+    }
+}
+
 $(document).ready(async function () {
     const propertyId = new URLSearchParams(window.location.search)
         .get("propertyId")
         ?.trim();
+
     if (!propertyId) {
         window.location.href = "/index.html";
         return;
@@ -137,9 +189,11 @@ $(document).ready(async function () {
     try {
         const property = await getProperty(propertyId);
         const reviews = await getPropertyReviews(propertyId);
+        const scores = calculateAverageScores(reviews);
+        updateCategoryRatings(scores);
         const formattedReviews = formatReviewData(reviews);
         formattedReviews.forEach((review) => appendReviewToDOM(review));
-        $("#average-score").text(calculateAverageScore(reviews));
+        $("#average-score").text(scores.overall);
         $("#property-address").text(property);
     } catch (error) {
         console.error("Error getting documents", error);
