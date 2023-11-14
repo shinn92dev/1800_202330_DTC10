@@ -17,3 +17,12 @@ textarea.border-danger {
 h3 {
     font-size: var(--large-font);
 }
+#form-stars-boxs i {
+    font-size: 1.5em;
+}
+#form-stars-boxs .score-icon-box {
+    width: 70%;
+}
+#form-stars-boxs input[type="number"] {
+    width: 30%;
+}
