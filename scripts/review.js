@@ -221,9 +221,20 @@ function formatTag(str) {
     return finalTag;
 }
 function getFormData() {
-    const resultObj = { eachScore: [], tags: [], comment: "" };
+    const resultObj = {
+        eachScore: {
+            cleanliness: 0,
+            houserule: 0,
+            landlord: 0,
+            location: 0,
+            price: 0,
+        },
+        tags: [],
+        comment: "",
+    };
     scoresInputs.forEach((score) => {
-        resultObj["eachScore"].push(Number(score.value));
+        const key = score.id.split("-")[0];
+        resultObj["eachScore"][key] = Number(score.value);
     });
     tags.forEach((tag) => {
         const targetInput = tag.previousElementSibling;
@@ -237,7 +248,7 @@ function getFormData() {
     resultObj["comment"] = document
         .querySelector("#form-comment-box textarea")
         .value.trim();
-    console.log(resultObj);
+    return resultObj;
 }
 
 function validateForm(e) {
@@ -251,7 +262,8 @@ function validateForm(e) {
     console.log(allValid);
     if (allValid) {
         e.preventDefault();
-        getFormData();
+        const formData = getFormData();
+        console.log(formData);
     } else {
         e.preventDefault();
         makeWarningToInvalidScoreBox(scoreBoxObj);
