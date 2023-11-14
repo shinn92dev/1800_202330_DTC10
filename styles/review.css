@@ -18,6 +18,7 @@ h3 {
 }
 #form-stars-boxs i {
     font-size: 1.5em;
+    color: var(--bg-color);
 }
 #form-stars-boxs .score-icon-box {
     width: 70%;
