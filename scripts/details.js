@@ -19,6 +19,7 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
 
     reviewsCollection
         .where("propertyId", "==", propertyId)
+        .orderBy("createdAt", "desc")
         .get()
         .then((querySnapshot) => {
             // Create related Reviews collection document Id
