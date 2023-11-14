@@ -18,9 +18,6 @@ scoresInputs.forEach((input) => {
         const fullScore = 5;
         const fullStar = parseInt(targetScore);
         const halfStar = targetScore % 1;
-        // const emptyStar =
-        //     halfStar == 0 ? fullScore - fullStar : fullScore - fullStar - 1;
-        // const starCountLst = [fullStar, halfStar, emptyStar];
 
         // initialize icon
         targetScoreIcon.forEach((icon) => {
