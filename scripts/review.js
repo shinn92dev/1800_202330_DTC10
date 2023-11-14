@@ -161,7 +161,6 @@ function makeWarningToInvalidTagBox(obj) {
         warningEl.textContent = "Please select at least one tag.";
         const targetElWarningMsgEl =
             targetElParent.querySelector(".tags-warning-msg");
-        console.log(targetEl);
         if (obj[id] == 0) {
             if (targetElWarningMsgEl == null) {
                 targetElParent.insertBefore(warningEl, targetEl);
@@ -188,17 +187,24 @@ function validateComment() {
 }
 
 function makeWarningToCommentBox(isValid) {
+    const targetEl = document.querySelector("#form-comment-box textarea");
+    const warningEl = document.createElement("p");
+    const targetElParent = targetEl.parentElement;
+    warningEl.classList.add("warning-msg", "comment-warning-msg");
+    warningEl.textContent = "Please leave your comment here.";
+    const targetElWarningMsgEl = targetElParent.querySelector(
+        ".comment-warning-msg"
+    );
     if (isValid) {
-        document
-            .querySelector("#form-comment-box textarea")
-            .classList.remove("border-danger");
+        if (targetElWarningMsgEl) {
+            targetElWarningMsgEl.remove();
+        }
+        targetEl.classList.remove("border-danger");
     } else {
-        document
-            .querySelector("#form-comment-box textarea")
-            .classList.add("border");
-        document
-            .querySelector("#form-comment-box textarea")
-            .classList.add("border-danger");
+        if (targetElWarningMsgEl == null) {
+            targetElParent.insertBefore(warningEl, targetEl);
+        }
+        targetEl.classList.add("border", "border-danger");
     }
 }
 
