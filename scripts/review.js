@@ -4,46 +4,19 @@ const scoresInputs = document
     .querySelector("#form-stars-boxs")
     .querySelectorAll("input");
 
-tags.forEach((tag) => {
-    tag.addEventListener("click", (el) => {
-        tag.classList.toggle("checked");
-    });
-});
-
-scoresInputs.forEach((input) => {
-    input.addEventListener("click", (e) => {
-        const targetScoreIcon =
-            e.target.previousElementSibling.querySelectorAll("i");
-        const targetScore = Number(e.target.value);
-        const fullScore = 5;
-        const fullStar = parseInt(targetScore);
-        const halfStar = targetScore % 1;
-
-        // initialize icon
-        targetScoreIcon.forEach((icon) => {
-            icon.classList.remove("bi-star-fill", "bi-star-half", "bi-star");
-            icon.classList.add("bi-star");
+function handleTagBoxClickEvent() {
+    tags.forEach((tag) => {
+        tag.addEventListener("click", (el) => {
+            tag.classList.toggle("checked");
         });
-
-        // fill icon
-        for (let i = 0; i < fullStar; i++) {
-            targetScoreIcon[i].classList.add("bi-star-fill");
-            targetScoreIcon[i].classList.remove("bi-star", "bi-star-half");
-        }
-
-        if (halfStar !== 0) {
-            targetScoreIcon[fullStar].classList.add("bi-star-half");
-            targetScoreIcon[fullStar].classList.remove(
-                "bi-star-fill",
-                "bi-star"
-            );
-        }
-        for (let i = fullStar + 1; i < 5; i++) {
-            targetScoreIcon[i].classList.remove("bi-star-fill", "bi-star-half");
-            targetScoreIcon[i].classList.add("bi-star");
-        }
     });
-});
+}
+
+function initializeScoresBox() {
+    scoresInputs.forEach((score) => {
+        score.value = "";
+    });
+}
 
 function initializeCheckBox() {
     const tagInputs = document
@@ -51,6 +24,50 @@ function initializeCheckBox() {
         .querySelectorAll("input");
     tagInputs.forEach((tag) => {
         tag.checked = false;
+    });
+}
+
+function handlePaintingStars() {
+    scoresInputs.forEach((input) => {
+        input.addEventListener("click", (e) => {
+            const targetScoreIcon =
+                e.target.previousElementSibling.querySelectorAll("i");
+            const targetScore = Number(e.target.value);
+            const fullScore = 5;
+            const fullStar = parseInt(targetScore);
+            const halfStar = targetScore % 1;
+
+            // initialize icon
+            targetScoreIcon.forEach((icon) => {
+                icon.classList.remove(
+                    "bi-star-fill",
+                    "bi-star-half",
+                    "bi-star"
+                );
+                icon.classList.add("bi-star");
+            });
+
+            // fill icon
+            for (let i = 0; i < fullStar; i++) {
+                targetScoreIcon[i].classList.add("bi-star-fill");
+                targetScoreIcon[i].classList.remove("bi-star", "bi-star-half");
+            }
+
+            if (halfStar !== 0) {
+                targetScoreIcon[fullStar].classList.add("bi-star-half");
+                targetScoreIcon[fullStar].classList.remove(
+                    "bi-star-fill",
+                    "bi-star"
+                );
+            }
+            for (let i = fullStar + 1; i < 5; i++) {
+                targetScoreIcon[i].classList.remove(
+                    "bi-star-fill",
+                    "bi-star-half"
+                );
+                targetScoreIcon[i].classList.add("bi-star");
+            }
+        });
     });
 }
 
@@ -65,7 +82,6 @@ function createCheckBoxObj() {
         const taginputs = document
             .querySelector(`#${divId}`)
             .querySelectorAll("input");
-        // const count = 0;
         taginputs.forEach((input) => {
             if (input.checked) {
                 resultObj[divId] += 1;
@@ -75,6 +91,19 @@ function createCheckBoxObj() {
 
     return resultObj;
 }
+
+function validateCheckBox(obj) {
+    const idLst = Object.keys(obj);
+    let isAllSelected = true;
+    idLst.forEach((id) => {
+        if (obj[id] <= 0) {
+            isAllSelected = false;
+            return false;
+        }
+    });
+    return isAllSelected;
+}
+
 function makeWarningToInvalidTagBox(obj) {
     const idLst = Object.keys(obj);
     idLst.forEach((id) => {
@@ -89,17 +118,7 @@ function makeWarningToInvalidTagBox(obj) {
         }
     });
 }
-function validateCheckBox(obj) {
-    const idLst = Object.keys(obj);
-    let isAllSelected = true;
-    idLst.forEach((id) => {
-        if (obj[id] <= 0) {
-            isAllSelected = false;
-            return false;
-        }
-    });
-    return isAllSelected;
-}
+
 function validateComment() {
     const comment = document
         .querySelector("#form-comment-box textarea")
@@ -148,5 +167,15 @@ function validateForm(e) {
     }
 }
 
-initializeCheckBox();
-submitButton.addEventListener("click", validateForm);
+function initializeReviewPage() {
+    initializeCheckBox();
+    initializeScoresBox();
+}
+
+function initiateEvent() {
+    handleTagBoxClickEvent();
+    handlePaintingStars();
+    submitButton.addEventListener("click", validateForm);
+}
+initiateEvent();
+initializeReviewPage();
