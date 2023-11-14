@@ -98,14 +98,14 @@ function makeWarningToInvalidScoreBox(obj) {
     const keys = Object.keys(obj);
     keys.forEach((key) => {
         const targetEl = document.querySelector(`#${key}`).parentElement;
-        const warningEl = document.createElement("p");
         const targetElParent = targetEl.parentElement;
+        const warningEl = document.createElement("p");
+        warningEl.classList.add("warning-msg", "score-warning-msg");
+        warningEl.textContent = "Please rate this section.";
         const targetElWarningMsgEl =
             targetElParent.querySelector(".score-warning-msg");
         if (!obj[key]) {
             if (targetElWarningMsgEl == null) {
-                warningEl.classList.add("warning-msg", "score-warning-msg");
-                warningEl.textContent = "Please rate this section.";
                 targetElParent.insertBefore(warningEl, targetEl);
             }
             targetEl.classList.add("border-danger");
@@ -140,9 +140,9 @@ function createCheckBoxObj() {
 }
 
 function validateCheckBox(obj) {
-    const idLst = Object.keys(obj);
+    const keys = Object.keys(obj);
     let isAllSelected = true;
-    idLst.forEach((id) => {
+    keys.forEach((id) => {
         if (obj[id] <= 0) {
             isAllSelected = false;
             return false;
@@ -152,16 +152,26 @@ function validateCheckBox(obj) {
 }
 
 function makeWarningToInvalidTagBox(obj) {
-    const idLst = Object.keys(obj);
-    idLst.forEach((id) => {
+    const keys = Object.keys(obj);
+    keys.forEach((id) => {
+        const targetEl = document.querySelector(`#${id} > div`);
+        const warningEl = document.createElement("p");
+        const targetElParent = targetEl.parentElement;
+        warningEl.classList.add("warning-msg", "tags-warning-msg");
+        warningEl.textContent = "Please select at least one tag.";
+        const targetElWarningMsgEl =
+            targetElParent.querySelector(".tags-warning-msg");
+        console.log(targetEl);
         if (obj[id] == 0) {
-            document
-                .querySelector(`#${id} > div`)
-                .classList.add("border-danger");
+            if (targetElWarningMsgEl == null) {
+                targetElParent.insertBefore(warningEl, targetEl);
+            }
+            targetEl.classList.add("border-danger");
         } else {
-            document
-                .querySelector(`#${id} > div`)
-                .classList.remove("border-danger");
+            if (targetElWarningMsgEl) {
+                targetElWarningMsgEl.remove();
+            }
+            targetEl.classList.remove("border-danger");
         }
     });
 }
