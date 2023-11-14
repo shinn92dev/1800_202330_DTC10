@@ -182,6 +182,7 @@ function makeWarningToCommentBox(isValid) {
             .classList.add("border-danger");
     }
 }
+
 function formatTag(str) {
     words = str.split("-");
     // Capitalize the first letter of each word
