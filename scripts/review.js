@@ -71,6 +71,44 @@ function handlePaintingStars() {
     });
 }
 
+function createScoreObj() {
+    const resultObj = {};
+    scoresInputs.forEach((score) => {
+        const scoreId = score.id;
+        if (!(scoreId in resultObj)) {
+            resultObj[scoreId] = score.value;
+        }
+    });
+    return resultObj;
+}
+
+function validateScores(obj) {
+    const keys = Object.keys(obj);
+    let isValid = true;
+    keys.forEach((key) => {
+        if (!obj[key]) {
+            isValid = false;
+            return isValid;
+        }
+    });
+    return isValid;
+}
+
+function makeWarningToInvalidScoreBox(obj) {
+    const keys = Object.keys(obj);
+    keys.forEach((key) => {
+        if (!obj[key]) {
+            document
+                .querySelector(`#${key}`)
+                .parentElement.classList.add("border-danger");
+        } else {
+            document
+                .querySelector(`#${key}`)
+                .parentElement.classList.remove("border-danger");
+        }
+    });
+}
+
 function createCheckBoxObj() {
     const tagsDivs = document.querySelectorAll("#form-tags-box > div");
     const resultObj = {};
@@ -144,25 +182,54 @@ function makeWarningToCommentBox(isValid) {
             .classList.add("border-danger");
     }
 }
+function formatTag(str) {
+    words = str.split("-");
+    // Capitalize the first letter of each word
+    const capitalizedWords = words.map(
+        (word) => word.charAt(0).toUpperCase() + word.slice(1)
+    );
 
-function validateScores() {
-    return false;
+    // Join the words to form a sentence
+    const finalTag = capitalizedWords.join(" ");
+
+    return finalTag;
 }
+function getFormData() {
+    const resultObj = { eachScore: [], tags: [], comment: "" };
+    scoresInputs.forEach((score) => {
+        resultObj["eachScore"].push(Number(score.value));
+    });
+    tags.forEach((tag) => {
+        const targetInput = tag.previousElementSibling;
+        if (targetInput.checked) {
+            if (targetInput.value !== "none") {
+                const formattedTag = formatTag(targetInput.value);
+                resultObj["tags"].push(formattedTag);
+            }
+        }
+    });
+    resultObj["comment"] = document
+        .querySelector("#form-comment-box textarea")
+        .value.trim();
+    console.log(resultObj);
+}
+
 function validateForm(e) {
+    const scoreBoxObj = createScoreObj();
     const tagsCheckedObj = createCheckBoxObj();
+    const isValidScores = validateScores(scoreBoxObj);
     const isValidCheckBox = validateCheckBox(tagsCheckedObj);
     const isValidComment = validateComment();
-    const isValidScores = validateScores();
     const allValid = isValidCheckBox && isValidComment && isValidScores;
     console.log(isValidCheckBox, isValidComment, isValidScores);
     console.log(allValid);
     if (allValid) {
+        e.preventDefault();
+        getFormData();
     } else {
         e.preventDefault();
-        // handle box validation
+        makeWarningToInvalidScoreBox(scoreBoxObj);
         makeWarningToInvalidTagBox(tagsCheckedObj);
-
-        // handle comment validation
         makeWarningToCommentBox(isValidComment);
     }
 }
