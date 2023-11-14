@@ -29,7 +29,6 @@ function createCheckBoxObj() {
         // const count = 0;
         taginputs.forEach((input) => {
             if (input.checked) {
-                console.log(input.checked);
                 resultObj[divId] += 1;
             }
         });
@@ -40,9 +39,7 @@ function createCheckBoxObj() {
 function makeWarningToInvalidTagBox(obj) {
     const idLst = Object.keys(obj);
     idLst.forEach((id) => {
-        console.log(obj[id]);
         if (obj[id] == 0) {
-            console.log(id);
             document
                 .querySelector(`#${id} > div`)
                 .classList.add("border-danger");
@@ -64,18 +61,41 @@ function validateCheckBox(obj) {
     });
     return isAllSelected;
 }
+function validateComment() {
+    const comment = document
+        .querySelector("#form-comment-box textarea")
+        .value.trim();
+    if (comment) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function makeWarningToCommentBox(isValid) {
+    if (isValid) {
+        document
+            .querySelector("#form-comment-box textarea")
+            .classList.remove("border-danger");
+    } else {
+        document
+            .querySelector("#form-comment-box textarea")
+            .classList.add("border");
+        document
+            .querySelector("#form-comment-box textarea")
+            .classList.add("border-danger");
+    }
+}
 function validateForm(e) {
     e.preventDefault();
     // handle check box validation
     tagsCheckedObj = createCheckBoxObj();
     let allValid = false;
     const isValidCheckBox = validateCheckBox(tagsCheckedObj);
-    if (!isValidCheckBox) {
-        makeWarningToInvalidTagBox(tagsCheckedObj);
-    }
+    makeWarningToInvalidTagBox(tagsCheckedObj);
 
-    // handle comment validation
-    const 
+    const isValidComment = validateComment();
+    makeWarningToCommentBox(isValidComment);
 }
 initializeCheckBox();
 submitButton.addEventListener("click", validateForm);
