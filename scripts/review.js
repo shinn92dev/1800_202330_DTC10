@@ -6,7 +6,7 @@ const scoresInputs = document
 
 function handleTagBoxClickEvent() {
     tags.forEach((tag) => {
-        tag.addEventListener("click", (el) => {
+        tag.addEventListener("click", (e) => {
             tag.classList.toggle("checked");
         });
     });
@@ -97,14 +97,23 @@ function validateScores(obj) {
 function makeWarningToInvalidScoreBox(obj) {
     const keys = Object.keys(obj);
     keys.forEach((key) => {
+        const targetEl = document.querySelector(`#${key}`).parentElement;
+        const targetElParent = targetEl.parentElement;
+        const warningEl = document.createElement("p");
+        warningEl.classList.add("warning-msg", "score-warning-msg");
+        warningEl.textContent = "Please rate this section.";
+        const targetElWarningMsgEl =
+            targetElParent.querySelector(".score-warning-msg");
         if (!obj[key]) {
-            document
-                .querySelector(`#${key}`)
-                .parentElement.classList.add("border-danger");
+            if (targetElWarningMsgEl == null) {
+                targetElParent.insertBefore(warningEl, targetEl);
+            }
+            targetEl.classList.add("border-danger");
         } else {
-            document
-                .querySelector(`#${key}`)
-                .parentElement.classList.remove("border-danger");
+            if (targetElWarningMsgEl) {
+                targetElWarningMsgEl.remove();
+            }
+            targetEl.classList.remove("border-danger");
         }
     });
 }
@@ -131,9 +140,9 @@ function createCheckBoxObj() {
 }
 
 function validateCheckBox(obj) {
-    const idLst = Object.keys(obj);
+    const keys = Object.keys(obj);
     let isAllSelected = true;
-    idLst.forEach((id) => {
+    keys.forEach((id) => {
         if (obj[id] <= 0) {
             isAllSelected = false;
             return false;
@@ -143,16 +152,25 @@ function validateCheckBox(obj) {
 }
 
 function makeWarningToInvalidTagBox(obj) {
-    const idLst = Object.keys(obj);
-    idLst.forEach((id) => {
+    const keys = Object.keys(obj);
+    keys.forEach((id) => {
+        const targetEl = document.querySelector(`#${id} > div`);
+        const warningEl = document.createElement("p");
+        const targetElParent = targetEl.parentElement;
+        warningEl.classList.add("warning-msg", "tags-warning-msg");
+        warningEl.textContent = "Please select at least one tag.";
+        const targetElWarningMsgEl =
+            targetElParent.querySelector(".tags-warning-msg");
         if (obj[id] == 0) {
-            document
-                .querySelector(`#${id} > div`)
-                .classList.add("border-danger");
+            if (targetElWarningMsgEl == null) {
+                targetElParent.insertBefore(warningEl, targetEl);
+            }
+            targetEl.classList.add("border-danger");
         } else {
-            document
-                .querySelector(`#${id} > div`)
-                .classList.remove("border-danger");
+            if (targetElWarningMsgEl) {
+                targetElWarningMsgEl.remove();
+            }
+            targetEl.classList.remove("border-danger");
         }
     });
 }
@@ -169,19 +187,27 @@ function validateComment() {
 }
 
 function makeWarningToCommentBox(isValid) {
+    const targetEl = document.querySelector("#form-comment-box textarea");
+    const warningEl = document.createElement("p");
+    const targetElParent = targetEl.parentElement;
+    warningEl.classList.add("warning-msg", "comment-warning-msg");
+    warningEl.textContent = "Please leave your comment here.";
+    const targetElWarningMsgEl = targetElParent.querySelector(
+        ".comment-warning-msg"
+    );
     if (isValid) {
-        document
-            .querySelector("#form-comment-box textarea")
-            .classList.remove("border-danger");
+        if (targetElWarningMsgEl) {
+            targetElWarningMsgEl.remove();
+        }
+        targetEl.classList.remove("border-danger");
     } else {
-        document
-            .querySelector("#form-comment-box textarea")
-            .classList.add("border");
-        document
-            .querySelector("#form-comment-box textarea")
-            .classList.add("border-danger");
+        if (targetElWarningMsgEl == null) {
+            targetElParent.insertBefore(warningEl, targetEl);
+        }
+        targetEl.classList.add("border", "border-danger");
     }
 }
+
 function formatTag(str) {
     words = str.split("-");
     // Capitalize the first letter of each word
@@ -195,9 +221,20 @@ function formatTag(str) {
     return finalTag;
 }
 function getFormData() {
-    const resultObj = { eachScore: [], tags: [], comment: "" };
+    const resultObj = {
+        eachScore: {
+            cleanliness: 0,
+            houserule: 0,
+            landlord: 0,
+            location: 0,
+            price: 0,
+        },
+        tags: [],
+        comment: "",
+    };
     scoresInputs.forEach((score) => {
-        resultObj["eachScore"].push(Number(score.value));
+        const key = score.id.split("-")[0];
+        resultObj["eachScore"][key] = Number(score.value);
     });
     tags.forEach((tag) => {
         const targetInput = tag.previousElementSibling;
@@ -211,7 +248,7 @@ function getFormData() {
     resultObj["comment"] = document
         .querySelector("#form-comment-box textarea")
         .value.trim();
-    console.log(resultObj);
+    return resultObj;
 }
 
 function validateForm(e) {
@@ -225,7 +262,8 @@ function validateForm(e) {
     console.log(allValid);
     if (allValid) {
         e.preventDefault();
-        getFormData();
+        const formData = getFormData();
+        console.log(formData);
     } else {
         e.preventDefault();
         makeWarningToInvalidScoreBox(scoreBoxObj);

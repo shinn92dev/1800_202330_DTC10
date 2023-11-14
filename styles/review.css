@@ -8,8 +8,11 @@
 #form-tags-box label.checked {
     background-color: var(--bg-color);
 }
-#form-tags-box .border-danger,
-textarea.border-danger {
+.border,
+.border.border-danger {
+    border-radius: var(--bs-border-radius);
+}
+.border.border-danger {
     border-width: 2px !important;
     border-color: var(--warning-color) !important;
 }
@@ -19,10 +22,15 @@ h3 {
 }
 #form-stars-boxs i {
     font-size: 1.5em;
+    color: var(--bg-color);
 }
 #form-stars-boxs .score-icon-box {
     width: 70%;
 }
 #form-stars-boxs input[type="number"] {
     width: 30%;
+}
+.warning-msg {
+    color: var(--warning-color);
+    font-size: var(--small-font);
 }
