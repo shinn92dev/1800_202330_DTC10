@@ -19,6 +19,7 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
 
     reviewsCollection
         .where("propertyId", "==", propertyId)
+        .orderBy("createdAt", "desc")
         .get()
         .then((querySnapshot) => {
             // Create related Reviews collection document Id
@@ -34,10 +35,15 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
                     .then((docSnapshot) => {
                         if (docSnapshot.exists) {
                             const data = docSnapshot.data();
+                            const date = data.createdAt.toDate();
+                            const formattedDate = date.toLocaleDateString("en-US", {
+                            year: '2-digit', month: '2-digit', day: 'numeric', // Use any options you like
+                            hour: '2-digit', minute: '2-digit'});
                             commentsData.push({
                                 score: data.overallScore,
                                 review: data.review,
                                 tags: data.tags,
+                                date: formattedDate,
                             });
                         }
                     });
@@ -54,6 +60,11 @@ function getPropertyDataFromDBAndDisplay(propertyId) {
                     // User name
                     const username = "User " + createRandomUsername(5);
                     listItem.append($('<h3 class="mb-3"></h3>').text(username));
+
+                    // date
+                    const dateBox = $(`<div class="mb-3"> posted at: ${comment.date} </div>`)
+
+                    listItem.append(dateBox)
 
                     // Score
                     const scoreDiv = $(
