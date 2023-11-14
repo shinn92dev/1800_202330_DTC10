@@ -1,212 +1,147 @@
+const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
 function createRandomUsername(length) {
-    const characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let randomUsername = "";
-
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        randomUsername += characters.charAt(randomIndex);
-    }
-
-    return randomUsername;
+    return Array.from(
+        { length },
+        () => characters[Math.floor(Math.random() * characters.length)]
+    ).join("");
 }
 
-function getPropertyDataFromDBAndDisplay(propertyId) {
-    // Getting only related document Id
+async function getPropertyReviews(propertyId) {
     const reviewsCollection = db.collection("Reviews");
-    const propertyIdLst = [];
-    const commentsData = [];
-
-    reviewsCollection
+    const querySnapshot = await reviewsCollection
         .where("propertyId", "==", propertyId)
         .orderBy("createdAt", "desc")
-        .get()
-        .then((querySnapshot) => {
-            // Create related Reviews collection document Id
-            querySnapshot.forEach((doc) => {
-                propertyIdLst.push(doc.id);
-            });
-
-            // Create commentsData list
-            const promises = propertyIdLst.map((id) => {
-                return reviewsCollection
-                    .doc(id)
-                    .get()
-                    .then((docSnapshot) => {
-                        if (docSnapshot.exists) {
-                            const data = docSnapshot.data();
-                            const date = data.createdAt.toDate();
-                            const formattedDate = date.toLocaleDateString(
-                                "en-US",
-                                {
-                                    year: "2-digit",
-                                    month: "2-digit",
-                                    day: "numeric", // Use any options you like
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                }
-                            );
-                            commentsData.push({
-                                score: data.overallScore,
-                                review: data.review,
-                                tags: data.tags,
-                                date: formattedDate,
-                            });
-                        }
-                    });
-            });
-
-            // Wait for all queries to complete
-            return Promise.all(promises);
-        })
-        .then((result) => {
-            $(document).ready(function () {
-                $.each(commentsData, function (_, comment) {
-                    const listItem = $('<li class="my-3 p-3"></li>');
-
-                    // User name
-                    const username = "User " + createRandomUsername(5);
-                    listItem.append($('<h3 class="mb-3"></h3>').text(username));
-
-                    // date
-                    const dateBox = $(
-                        `<div class="mb-3"> posted at: ${comment.date} </div>`
-                    );
-
-                    listItem.append(dateBox);
-
-                    // Score
-                    const scoreDiv = $(
-                        '<div class="review-box__top-box d-flex"></div>'
-                    );
-                    const scoreBox = $(
-                        '<div class="review-box__top-box__score d-flex justify-content-center align-items-center me-2"><h4></h4></div>'
-                    );
-                    scoreBox.find("h4").text(comment.score.toFixed(1));
-                    scoreDiv.append(scoreBox);
-
-                    // Tags
-                    const tagsBox = $(
-                        '<div class="review-box__top-box__tags-box d-flex flex-wrap  ms-2"></div>'
-                    );
-                    $.each(comment.tags, function (_, tag) {
-                        tagsBox.append(
-                            $(
-                                '<p class="tag btn btn-primary m-1 px-2 py-0"></p>'
-                            ).text(tag)
-                        );
-                    });
-                    scoreDiv.append(tagsBox);
-                    listItem.append(scoreDiv);
-
-                    // Comment text and "See more details"
-                    const reviewBox = $(
-                        '<div class="review-box__bottom-box my-3 d-flex flex-column"></div>'
-                    );
-                    const commentParagraph = $(
-                        '<p class="mb-3 comment-content"></p>'
-                    ).text(comment.review);
-                    reviewBox.append(commentParagraph);
-
-                    if (comment.review.length > 200) {
-                        // Truncate text
-                        commentParagraph
-                            .addClass("truncated")
-                            .attr("data-fulltext", comment.review);
-                        commentParagraph.text(
-                            comment.review.substring(0, 200) + "..."
-                        );
-
-                        // "See more details" button
-                        const seeMoreButton = $(
-                            '<button class="align-self-end see-more">See more details</button>'
-                        );
-
-                        seeMoreButton.on("click", function () {
-                            if (commentParagraph.hasClass("truncated")) {
-                                commentParagraph
-                                    .text(
-                                        commentParagraph.attr("data-fulltext")
-                                    )
-                                    .removeClass("truncated")
-                                    .addClass("expanded");
-                                $(this).text("See less details");
-                            } else {
-                                commentParagraph
-                                    .text(
-                                        commentParagraph
-                                            .attr("data-fulltext")
-                                            .substring(0, 200) + "..."
-                                    )
-                                    .removeClass("expanded")
-                                    .addClass("truncated");
-                                $(this).text("See more details");
-                            }
-                        });
-
-                        reviewBox.append(seeMoreButton);
-                    }
-
-                    listItem.append(reviewBox);
-                    $("#comments").append(listItem);
-                });
-            });
-        })
-        .catch((error) => {
-            console.log("Error getting documents ", error);
-        });
+        .get();
+    return querySnapshot.docs.map((doc) => doc.data());
 }
 
-const getParams = () => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const propertyId = urlParams.get("propertyId")?.trim();
-    return propertyId;
-};
+function formatReviewData(reviews) {
+    return reviews.map((review) => ({
+        ...review,
+        date: review.createdAt.toDate().toLocaleDateString("en-US", {
+            year: "2-digit",
+            month: "2-digit",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+        }),
+        username: "User " + createRandomUsername(5),
+    }));
+}
 
-getPropertyDataFromDBAndDisplay(getParams());
+function calculateAverageScore(reviews) {
+    const totalScore = reviews.reduce(
+        (acc, review) => acc + review.overallScore,
+        0
+    );
+    return (totalScore / reviews.length).toFixed(1);
+}
 
-// ---------------------- Display score ----------------------
-// ---------------------- Display score ----------------------
-// ---------------------- Display score ----------------------
-// ---------------------- Display score ----------------------
+function appendReviewToDOM(review) {
+    const listItem = $('<li class="my-3 p-3"></li>');
 
-function displayScore() {
-    const propertyId = "some-property-id";
+    // User name
+    listItem.append($('<h3 class="mb-3"></h3>').text(review.username));
 
-    db.collection("Reviews")
-        .where("propertyId", "==", propertyId)
-        .get()
-        .then((querySnapshot) => {
-            let totalScore = 0;
-            let reviewCount = 0;
+    // Date
+    const dateBox = $(`<div class="mb-3"> posted at: ${review.date} </div>`);
+    listItem.append(dateBox);
 
-            querySnapshot.forEach((doc) => {
-                let review = doc.data();
-                totalScore += review.score;
-                reviewCount++;
-            });
+    // Score
+    const scoreDiv = $('<div class="review-box__top-box d-flex"></div>');
+    const scoreBox = $(
+        '<div class="review-box__top-box__score d-flex justify-content-center align-items-center me-2"><h4></h4></div>'
+    );
+    scoreBox.find("h4").text(review.overallScore.toFixed(1));
+    scoreDiv.append(scoreBox);
 
-            if (reviewCount > 0) {
-                let averageScore = totalScore / reviewCount;
-                updateScoreBox(averageScore);
+    // Tags
+    const tagsBox = $(
+        '<div class="review-box__top-box__tags-box d-flex flex-wrap  ms-2"></div>'
+    );
+    review.tags.forEach((tag) => {
+        tagsBox.append(
+            $('<p class="tag btn btn-primary m-1 px-2 py-0"></p>').text(tag)
+        );
+    });
+    scoreDiv.append(tagsBox);
+    listItem.append(scoreDiv);
+
+    // Comment text and "See more details"
+    const reviewBox = $(
+        '<div class="review-box__bottom-box my-3 d-flex flex-column"></div>'
+    );
+    const commentParagraph = $('<p class="mb-3 comment-content"></p>').text(
+        review.review
+    );
+    reviewBox.append(commentParagraph);
+
+    if (review.review.length > 200) {
+        // Truncate text
+        commentParagraph
+            .addClass("truncated")
+            .attr("data-fulltext", review.review)
+            .text(review.review.substring(0, 200) + "...");
+
+        // "See more details" button
+        const seeMoreButton = $(
+            '<button class="align-self-end see-more">See more details</button>'
+        );
+        seeMoreButton.on("click", function () {
+            if (commentParagraph.hasClass("truncated")) {
+                commentParagraph
+                    .text(commentParagraph.attr("data-fulltext"))
+                    .removeClass("truncated")
+                    .addClass("expanded");
+                $(this).text("See less details");
             } else {
-                updateScoreBox("No reviews yet");
+                commentParagraph
+                    .text(
+                        commentParagraph
+                            .attr("data-fulltext")
+                            .substring(0, 200) + "..."
+                    )
+                    .removeClass("expanded")
+                    .addClass("truncated");
+                $(this).text("See more details");
             }
-        })
-        .catch((error) => {
-            console.error("Error getting documents: ", error);
         });
+
+        reviewBox.append(seeMoreButton);
+    }
+
+    listItem.append(reviewBox);
+    $("#comments").append(listItem);
 }
 
-function updateScoreBox(score) {
-    $("#score-box__score-id").text(score);
+async function getProperty(propertyId) {
+    const propertiesCollection = db.collection("Properties");
+    const docSnapshot = await propertiesCollection.doc(propertyId).get();
+
+    const { propertyFullAddress = "", postalCode = "" } = docSnapshot.data();
+    const formatAddress = [propertyFullAddress, postalCode].join(", ");
+    return formatAddress;
 }
 
-displayScore();
+$(document).ready(async function () {
+    const propertyId = new URLSearchParams(window.location.search)
+        .get("propertyId")
+        ?.trim();
+    if (!propertyId) {
+        window.location.href = "/index.html";
+        return;
+    }
 
-// ---------------------- Display score ----------------------
-// ---------------------- Display score ----------------------
-// ---------------------- Display score ----------------------
-// ---------------------- Display score ----------------------
-// ---------------------- Display score ----------------------
+    try {
+        const property = await getProperty(propertyId);
+        const reviews = await getPropertyReviews(propertyId);
+        const formattedReviews = formatReviewData(reviews);
+        formattedReviews.forEach((review) => appendReviewToDOM(review));
+        $("#average-score").text(calculateAverageScore(reviews));
+        $("#property-address").text(property);
+    } catch (error) {
+        console.error("Error getting documents", error);
+    }
+});

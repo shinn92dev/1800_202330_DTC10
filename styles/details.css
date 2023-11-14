@@ -1,7 +1,18 @@
 .top-box__score-box {
+    display: flex;
+    flex-direction: column;
     font-weight: bold;
-
     width: 45%;
+}
+
+.top-box__score-box-container {
+    display: flex;
+    font-weight: bold;
+    width: 45%;
+}
+
+.top-box__score-box-total {
+    font-size: var(--large-font);
 }
 
 .top-box__score-box .score-box__score {
