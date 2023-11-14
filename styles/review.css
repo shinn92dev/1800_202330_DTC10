@@ -8,6 +8,10 @@
 #form-tags-box label.checked {
     background-color: var(--bg-color);
 }
+.border,
+.border.border-danger {
+    border-radius: var(--bs-border-radius);
+}
 .border.border-danger {
     border-width: 2px !important;
     border-color: var(--warning-color) !important;
