@@ -82,7 +82,6 @@ function createCheckBoxObj() {
         const taginputs = document
             .querySelector(`#${divId}`)
             .querySelectorAll("input");
-        // const count = 0;
         taginputs.forEach((input) => {
             if (input.checked) {
                 resultObj[divId] += 1;
@@ -92,6 +91,19 @@ function createCheckBoxObj() {
 
     return resultObj;
 }
+
+function validateCheckBox(obj) {
+    const idLst = Object.keys(obj);
+    let isAllSelected = true;
+    idLst.forEach((id) => {
+        if (obj[id] <= 0) {
+            isAllSelected = false;
+            return false;
+        }
+    });
+    return isAllSelected;
+}
+
 function makeWarningToInvalidTagBox(obj) {
     const idLst = Object.keys(obj);
     idLst.forEach((id) => {
@@ -106,17 +118,7 @@ function makeWarningToInvalidTagBox(obj) {
         }
     });
 }
-function validateCheckBox(obj) {
-    const idLst = Object.keys(obj);
-    let isAllSelected = true;
-    idLst.forEach((id) => {
-        if (obj[id] <= 0) {
-            isAllSelected = false;
-            return false;
-        }
-    });
-    return isAllSelected;
-}
+
 function validateComment() {
     const comment = document
         .querySelector("#form-comment-box textarea")
