@@ -26,3 +26,7 @@ h3 {
 #form-stars-boxs input[type="number"] {
     width: 30%;
 }
+.warning-msg {
+    color: var(--warning-color);
+    font-size: var(--small-font);
+}

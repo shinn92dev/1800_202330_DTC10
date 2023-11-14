@@ -97,14 +97,23 @@ function validateScores(obj) {
 function makeWarningToInvalidScoreBox(obj) {
     const keys = Object.keys(obj);
     keys.forEach((key) => {
+        const targetEl = document.querySelector(`#${key}`).parentElement;
+        const warningEl = document.createElement("p");
+        const targetElParent = targetEl.parentElement;
+        const targetElWarningMsgEl =
+            targetElParent.querySelector(".score-warning-msg");
         if (!obj[key]) {
-            document
-                .querySelector(`#${key}`)
-                .parentElement.classList.add("border-danger");
+            if (targetElWarningMsgEl == null) {
+                warningEl.classList.add("warning-msg", "score-warning-msg");
+                warningEl.textContent = "Please rate this section.";
+                targetElParent.insertBefore(warningEl, targetEl);
+            }
+            targetEl.classList.add("border-danger");
         } else {
-            document
-                .querySelector(`#${key}`)
-                .parentElement.classList.remove("border-danger");
+            if (targetElWarningMsgEl) {
+                targetElWarningMsgEl.remove();
+            }
+            targetEl.classList.remove("border-danger");
         }
     });
 }
