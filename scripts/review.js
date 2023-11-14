@@ -6,7 +6,7 @@ const scoresInputs = document
 
 function handleTagBoxClickEvent() {
     tags.forEach((tag) => {
-        tag.addEventListener("click", (el) => {
+        tag.addEventListener("click", (e) => {
             tag.classList.toggle("checked");
         });
     });
