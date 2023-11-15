@@ -32,6 +32,7 @@ function getListingDataAndDisplay() {
                 results.forEach((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         const docData = doc.data();
+                        docData["propertyID"] = doc.id;
                         if (!matchingListingSet.has(doc.id)) {
                             matchingListingSet.add(doc.id);
                             const listingItem = generateListingItem(docData);
@@ -57,10 +58,11 @@ function generateListingItem(listing) {
     const address = `${listing.propertyFullAddress.replace(/_/g, " ")}, ${
         listing.postalCode
     }`;
-
     return `
-        <li class="property-card d-flex justify-content-between align-items-center">
-            <div class="property-card__score-box">
+        <li>
+            <a href="/details.html?propertyId=${
+                listing.propertyID
+            }" class="property-card d-flex justify-content-between align-items-center"><div class="property-card__score-box">
                 <div class="d-flex justify-content-center align-items-center">
                     ${listing.overallScore.toFixed(1)}
                 </div>
@@ -75,7 +77,7 @@ function generateListingItem(listing) {
             </div>
             <div class="d-flex justify-content-between align-items-center text-box__top">
                 <img src="./images/bookmark.svg" alt="" />
-            </div>
+            </div></a>
         </li>
     `;
 }
