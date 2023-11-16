@@ -215,3 +215,18 @@ $(document).ready(async function () {
         console.error("Error getting documents", error);
     }
 });
+function directToReviewFormPage() {
+    firebase.auth().onAuthStateChanged((user) => {
+        // Check if user is signed in:
+        if (user) {
+            window.location.href = "/review.html";
+            window.localStorage.setItem("userUID", user.uid);
+        } else {
+            window.location.href = "/login.html";
+        }
+    });
+}
+
+const commentBtn = document.getElementById("leave-comment-btn");
+console.log(commentBtn);
+commentBtn.addEventListener("click", directToReviewFormPage);

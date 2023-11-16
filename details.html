@@ -47,7 +47,7 @@
         <link rel="stylesheet" href="styles/details.css" />
         <script src="/scripts/template.js" defer></script>
         <script src="./scripts/firebaseAPI_TEAM10.js"></script>
-        <script src="./scripts/details.js"></script>
+        <script src="./scripts/details.js" defer></script>
         <script src="./scripts/vote.js" defer></script>
     </head>
 
@@ -106,13 +106,13 @@
             <section id="details__bottom-box" class="p-4">
                 <div class="d-flex rating-heading-box pb-3 flex-column">
                     <h2 class="m-2">Renter's Rating</h2>
-                    <a
+                    <button
                         class="btn btn-warning p-1 m-2"
                         id="leave-comment-btn"
                         href="./review.html"
                     >
                         Leave a Comment
-                    </a>
+                    </button>
                 </div>
                 <ul id="comments" class="bottom-box__review-box my-2"></ul>
             </section>

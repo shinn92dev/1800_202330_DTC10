@@ -222,6 +222,7 @@ function formatTag(str) {
 }
 function getFormData() {
     const resultObj = {
+        user: window.localStorage.getItem("userUID"),
         eachScore: {
             cleanliness: 0,
             houserule: 0,
@@ -232,6 +233,7 @@ function getFormData() {
         tags: [],
         comment: "",
     };
+    window.localStorage.removeItem("userUID");
     scoresInputs.forEach((score) => {
         const key = score.id.split("-")[0];
         resultObj["eachScore"][key] = Number(score.value);
@@ -282,5 +284,6 @@ function initiateEvent() {
     handlePaintingStars();
     submitButton.addEventListener("click", validateForm);
 }
+
 initiateEvent();
 initializeReviewPage();
