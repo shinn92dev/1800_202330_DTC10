@@ -27,19 +27,43 @@
 	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
 
 	<link rel="stylesheet" href="/styles/styles.css">
+	<link rel="stylesheet" href="/styles/add-property.css">
 	<!-- INSERT NEW STYLE SHEET BELOW HERE -->
 	<script src="/scripts/template.js" defer></script>
 	<script src="./scripts/firebaseAPI_TEAM10.js"></script>
+	<script src="./scripts/add-property.js"></script>
 </head>
 
 <body>
 	<div id="NAVBAR-PLACEHOLDER"></div>
 
-	<div>
-		<h3>Add Property Page</h3>
-	</div>
+	<form class="row g-3">
+		<div class="col-md-6">
+			<label for="inputAddress" class="form-label">Unit #</label>
+			<input type="text" class="form-control" id="inputUnit" placeholder="Apartment, studio, or floor">
+		</div>
+		<div class="col-md-6">
+			<label for="inputAddress2" class="form-label">Address</label>
+			<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+		</div>
+		<div class="col-md-6">
+			<label for="inputCity" class="form-label">City</label>
+			<input type="text" class="form-control" id="inputCity">
+		</div>
+		<div class="col-md-6">
+			<label for="inputCity" class="form-label">Province</label>
+			<input type="text" class="form-control" id="inputProvince" value="BC">
+		</div>
+		<div class="col-md-3">
+			<label for="inputZip" class="form-label">Zip</label>
+			<input type="text" class="form-control" id="inputZip">
+		</div>
+		<div class="col-12">
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</form>
 
-	<div id="FOOTER-PLACEHOLDER"></div>
+	<div id="FOOTER-PLACEHOLDER" class="mt-auto"></div>
 </body>
 
 </html>
