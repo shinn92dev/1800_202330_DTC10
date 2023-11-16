@@ -215,18 +215,20 @@ $(document).ready(async function () {
         console.error("Error getting documents", error);
     }
 });
+const commentLink = document.getElementById("leave-comment-btn");
 function directToReviewFormPage() {
     firebase.auth().onAuthStateChanged((user) => {
         // Check if user is signed in:
         if (user) {
-            window.location.href = "/review.html";
+            const urlParams = new URL(location.href).searchParams;
+            const propertyId = urlParams.get("propertyId");
+            commentLink.href = "review.html?propertyId=" + propertyId;
             window.localStorage.setItem("userUID", user.uid);
         } else {
-            window.location.href = "/login.html";
+            commentLink.href = "login.html";
         }
     });
 }
 
-const commentBtn = document.getElementById("leave-comment-btn");
-console.log(commentBtn);
-commentBtn.addEventListener("click", directToReviewFormPage);
+// console.log(commentBtn);
+commentLink.addEventListener("click", directToReviewFormPage);

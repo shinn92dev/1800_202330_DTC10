@@ -265,6 +265,9 @@ function getFormData() {
     resultObj["review"] = document
         .querySelector("#form-comment-box textarea")
         .value.trim();
+
+    const urlParams = new URL(location.href).searchParams;
+    resultObj["propertyId"] = urlParams.get("propertyId");
     return resultObj;
 }
 
