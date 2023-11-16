@@ -71,12 +71,28 @@ function calculateAverageScores(reviews) {
 function appendReviewToDOM(review) {
     const listItem = $('<li class="my-3 p-3"></li>');
 
+    const reviewTopDiv = $(
+        `<div class="d-flex justify-content-between"></div>`
+    );
+    const reviewTopDivLeft = $(`<div class="d-flex flex-column"></div>`);
+    const reviewTopDivRight = $(`<div id="review-vote-box"></div>`);
+    const vote = $(
+        `<i class="bi bi-hand-thumbs-up"></i><span id="vote-result">0</span><i class="bi bi-hand-thumbs-down"></i>`
+    );
     // User name
-    listItem.append($('<h3 class="mb-3"></h3>').text(review.username));
-
+    // listItem
+    reviewTopDivLeft.append($('<h3 class="mb-3"></h3>').text(review.username));
     // Date
-    const dateBox = $(`<div class="mb-3"> posted at: ${review.date} </div>`);
-    listItem.append(dateBox);
+    // const dateBox = ;
+    reviewTopDivLeft.append(
+        $(`<div class="mb-3"> posted at: ${review.date} </div>`)
+    );
+
+    reviewTopDivRight.append(vote);
+
+    reviewTopDiv.append(reviewTopDivLeft);
+    reviewTopDiv.append(reviewTopDivRight);
+    listItem.append(reviewTopDiv);
 
     // Score
     const scoreDiv = $('<div class="review-box__top-box d-flex"></div>');
