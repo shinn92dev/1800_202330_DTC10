@@ -21,6 +21,7 @@ function formatReviewData(reviews) {
     return reviews.map((review) => ({
         ...review,
         date: review.createdAt.toDate().toLocaleDateString("en-US", {
+            hourCycle: "h23",
             year: "2-digit",
             month: "2-digit",
             day: "numeric",
@@ -75,19 +76,19 @@ function appendReviewToDOM(review) {
         `<div class="d-flex justify-content-between"></div>`
     );
     const reviewTopDivLeft = $(`<div class="d-flex flex-column"></div>`);
-    const reviewTopDivRight = $(`<div id="review-vote-box"></div>`);
+    const reviewTopDivRight = $(
+        `<div id="review-vote-box" class="d-flex mb-3 align-items-center"></div>`
+    );
     const vote = $(
         `<i class="bi bi-hand-thumbs-up"></i><span id="vote-result">0</span><i class="bi bi-hand-thumbs-down"></i>`
     );
     // User name
     // listItem
-    reviewTopDivLeft.append($('<h3 class="mb-3"></h3>').text(review.username));
+    reviewTopDivLeft.append($('<h3 class="mb-1"></h3>').text(review.username));
     // Date
     // const dateBox = ;
-    reviewTopDivLeft.append(
-        $(`<div class="mb-3"> posted at: ${review.date} </div>`)
-    );
-
+    reviewTopDivLeft.append($(`<div class="mb-3">${review.date} </div>`));
+    console.log(review.date, typeof review.date);
     reviewTopDivRight.append(vote);
 
     reviewTopDiv.append(reviewTopDivLeft);
