@@ -44,7 +44,7 @@
 
 .bottom-box__review-box li {
     position: relative;
-    background-color: lightgray;
+    background-color: var(--text-color);
 }
 
 .review-box__top-box__score {
@@ -53,7 +53,7 @@
     min-width: 100px;
     font-size: 2.5em;
     font-weight: bold;
-    color: white;
+    color: var(--text-color);
     background-color: var(--black-color);
 }
 
@@ -75,7 +75,7 @@
     bottom: 8px;
     right: 8px;
     border: none;
-    background-color: lightgrey;
+    background-color: var(--text-color);
 }
 
 .see-more:hover {
@@ -99,6 +99,18 @@
 }
 #leave-comment-btn {
     line-height: 1;
+}
+
+#review-vote-box * {
+    font-size: 1.25rem;
+    margin-left: 3px;
+    margin-right: 3px;
+    color: var(--warning-color);
+}
+#review-vote-box span {
+    font-size: 1rem;
+    margin-right: 10px;
+    color: var(--black-color);
 }
 
 @media (min-width: 500px) {

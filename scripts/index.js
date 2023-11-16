@@ -32,7 +32,7 @@ const initializeAfterAuth = (user) => {
     $("#welcome-banner").load(
         `./components/home_message_after.html`,
         function () {
-            userName = user.displayName;
+            userName = user.displayName + "👋";
             $("#name-goes-here").text(userName);
         }
     );
