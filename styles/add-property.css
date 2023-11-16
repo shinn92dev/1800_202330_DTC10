@@ -11,3 +11,7 @@ label {
 #NAVBAR-PLACEHOLDER {
     margin-bottom: 20px;
 }
+
+.intro {
+    font-size: var(--extra-large-font);
+}
