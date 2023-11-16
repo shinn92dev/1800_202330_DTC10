@@ -88,7 +88,6 @@ function appendReviewToDOM(review) {
     // Date
     // const dateBox = ;
     reviewTopDivLeft.append($(`<div class="mb-3">${review.date} </div>`));
-    console.log(review.date, typeof review.date);
     reviewTopDivRight.append(vote);
 
     reviewTopDiv.append(reviewTopDivLeft);
