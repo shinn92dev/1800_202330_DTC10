@@ -220,8 +220,18 @@ function formatTag(str) {
 
     return finalTag;
 }
+
+function calcAverageFromObj(obj) {
+    const lst = Object.values(obj);
+    let total = 0;
+    lst.forEach((number) => {
+        total += number;
+    });
+    return total / lst.length;
+}
 function getFormData() {
     const resultObj = {
+        userId: window.localStorage.getItem("userUID"),
         eachScore: {
             cleanliness: 0,
             houserule: 0,
@@ -229,13 +239,20 @@ function getFormData() {
             location: 0,
             price: 0,
         },
+        overallScore: 0,
         tags: [],
-        comment: "",
+        review: "",
+        propertyId: "",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     };
+    window.localStorage.removeItem("userUID");
+    let total = 0;
     scoresInputs.forEach((score) => {
         const key = score.id.split("-")[0];
         resultObj["eachScore"][key] = Number(score.value);
+        total += Number(score.value);
     });
+    resultObj["overallScore"] = total / 5;
     tags.forEach((tag) => {
         const targetInput = tag.previousElementSibling;
         if (targetInput.checked) {
@@ -245,10 +262,19 @@ function getFormData() {
             }
         }
     });
-    resultObj["comment"] = document
+    resultObj["review"] = document
         .querySelector("#form-comment-box textarea")
         .value.trim();
+
+    const urlParams = new URL(location.href).searchParams;
+    resultObj["propertyId"] = urlParams.get("propertyId");
     return resultObj;
+}
+
+function storeReviewFormDataToFirestore(resultObj) {
+    var reviewRef = db.collection("Reviews");
+    console.log("save function");
+    reviewRef.add(resultObj);
 }
 
 function validateForm(e) {
@@ -264,6 +290,7 @@ function validateForm(e) {
         e.preventDefault();
         const formData = getFormData();
         console.log(formData);
+        storeReviewFormDataToFirestore(formData);
     } else {
         e.preventDefault();
         makeWarningToInvalidScoreBox(scoreBoxObj);
@@ -282,5 +309,6 @@ function initiateEvent() {
     handlePaintingStars();
     submitButton.addEventListener("click", validateForm);
 }
+
 initiateEvent();
 initializeReviewPage();

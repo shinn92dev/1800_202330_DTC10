@@ -18,6 +18,7 @@ var uiConfig = {
                         userEmail: user.email, //with authenticated user's ID (user.uid)
                         bookmarks: [],
                         reviews: [],
+                        vote: {},
                     })
                     .then(function () {
                         console.log("New user added to firestore");
