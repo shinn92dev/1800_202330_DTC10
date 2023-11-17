@@ -15,3 +15,11 @@ label {
 .intro {
     font-size: var(--extra-large-font);
 }
+
+#policy {
+    height: 150px;
+    overflow-y:scroll;
+    width: 65%;
+    margin-top: 20px;
+    min-width: 150px;
+}

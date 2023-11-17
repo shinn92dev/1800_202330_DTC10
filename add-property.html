@@ -31,7 +31,7 @@
 	<!-- INSERT NEW STYLE SHEET BELOW HERE -->
 	<script src="/scripts/template.js" defer></script>
 	<script src="./scripts/firebaseAPI_TEAM10.js"></script>
-	<script src="./scripts/add-property.js"></script>
+	<script src="./scripts/add-property.js" defer></script>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
 	<div class="container">
 		<div><h1 class="intro">Add a property</h1></div>
 
-		<form class="row g-3 needs-validation">
+		<form class="row g-3" id="needs-validation" novalidate>
 			<div class="col-md-6">
 				<label for="inputAddress" class="form-label">Unit #</label>
 				<input type="text" class="form-control" id="inputUnit" placeholder="Apartment, studio, or floor">
@@ -72,15 +72,28 @@
 				</div>
 			</div>
 			<div class="col-12">
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<p id="policy">By submitting this review, you affirm that you have read, understood, and agree to abide by our Terms of Use and Privacy
+				Policy. You confirm that your review is based on your own experience, is factually accurate, and adheres to our content
+				guidelines. You acknowledge that your review does not contain any confidential or proprietary information, and you grant
+				us a non-exclusive, royalty-free license to display, modify, and distribute your review within our app and related
+				marketing materials. By proceeding with this submission, you also consent to the collection, use, and sharing of your
+				personal data as outlined in our Privacy Policy, including but not limited to the display of your review and associated
+				username. This includes, but is not limited to, the use of your review for improving app functionality, user experience,
+				and communication with other users. We are committed to protecting your data and will share it only in accordance with
+				legal requirements or with your consent. Your review must be honest, unbiased, and not violate the rights of others or
+				community standards. Please note that we reserve the right to suspend or terminate accounts that violate these terms and
+				to modify these terms and policies at any time, with changes effective upon posting.</p>
 			</div>
 			<div class="col-12">
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-					<label class="form-check-label" for="invalidCheck2">
+					<input class="form-check-input" type="checkbox" value="" id="invalidCheck" disabled required>
+					<label class="form-check-label" for="invalidCheck">
 						I agree to the Terms of Use and Privacy Policy
 					</label>
 				</div>
+			</div>
+			<div class="col-12">
+				<button type="submit" class="btn btn-primary">Submit</button>
 			</div>
 		</form>
 	</div>
