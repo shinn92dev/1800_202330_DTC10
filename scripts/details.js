@@ -1,6 +1,12 @@
 const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
+function voteReview(icons) {
+    icons.forEach((icon) => {
+        icon.addEventListener("click", (e) => {
+            console.log((e.target.style.color = "blue"));
+        });
+    });
+}
 function createRandomUsername(length) {
     return Array.from(
         { length },
@@ -77,7 +83,7 @@ function appendReviewToDOM(review) {
     );
     const reviewTopDivLeft = $(`<div class="d-flex flex-column"></div>`);
     const reviewTopDivRight = $(
-        `<div id="review-vote-box" class="d-flex mb-3 align-items-center"></div>`
+        `<div class="d-flex mb-3 align-items-center review-vote-box"></div>`
     );
     const vote = $(
         `<i class="bi bi-hand-thumbs-up"></i><span id="vote-result">0</span><i class="bi bi-hand-thumbs-down"></i>`
@@ -159,7 +165,11 @@ function appendReviewToDOM(review) {
 
     listItem.append(reviewBox);
     $("#comments").append(listItem);
+
+    const icons = document.querySelectorAll(".review-vote-box");
+    voteReview(icons);
 }
+function handleThumbClick() {}
 
 async function getProperty(propertyId) {
     const propertiesCollection = db.collection("Properties");
