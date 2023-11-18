@@ -35,32 +35,58 @@ function voteReview(icons) {
     icons.forEach((icon) => {
         icon.addEventListener("click", (e) => {
             const reviewId = e.target.closest("li").id;
+
             let score = Number(
                 e.target.closest("li").querySelector("span").textContent
             );
             console.log(score);
             let targetClassList = e.target.classList;
             if (targetClassList.contains("vote-icon")) {
-                if (targetClassList.contains("bi-hand-thumbs-up")) {
-                    targetClassList.remove("bi-hand-thumbs-up");
-                    targetClassList.add("bi-hand-thumbs-up-fill");
-                    score++;
-                } else if (targetClassList.contains("bi-hand-thumbs-up-fill")) {
-                    score--;
-                    targetClassList.add("bi-hand-thumbs-up");
-                    targetClassList.remove("bi-hand-thumbs-up-fill");
-                } else if (targetClassList.contains("bi-hand-thumbs-down")) {
-                    score--;
-                    targetClassList.add("bi-hand-thumbs-down-fill");
-                    targetClassList.remove("bi-hand-thumbs-down");
-                } else if (
-                    targetClassList.contains("bi-hand-thumbs-down-fill")
-                ) {
-                    score++;
-                    targetClassList.add("bi-hand-thumbs-down");
-                    targetClassList.remove("bi-hand-thumbs-down-fill");
+                if (targetClassList.contains("vote-icon-up")) {
+                    targetClassList.toggle("bi-hand-thumbs-up");
+                    targetClassList.toggle("bi-hand-thumbs-up-fill");
+                    if (targetClassList.contains("bi-hand-thumbs-up")) {
+                        score--;
+                    } else if (
+                        targetClassList.contains("bi-hand-thumbs-up-fill")
+                    ) {
+                        score++;
+                    }
+                    const downIcon = e.target
+                        .closest("li")
+                        .querySelector(".vote-icon-down");
+                    if (
+                        downIcon.classList.contains("bi-hand-thumbs-down-fill")
+                    ) {
+                        console.log();
+                        downIcon.classList.toggle("bi-hand-thumbs-down-fill");
+                        downIcon.classList.toggle("bi-hand-thumbs-down");
+                        score++;
+                    }
+                } else if (targetClassList.contains("vote-icon-down")) {
+                    targetClassList.toggle("bi-hand-thumbs-down-fill");
+                    targetClassList.toggle("bi-hand-thumbs-down");
+                    if (targetClassList.contains("bi-hand-thumbs-down")) {
+                        score++;
+                    } else if (
+                        targetClassList.contains("bi-hand-thumbs-down-fill")
+                    ) {
+                        score--;
+                    }
+                    const upIcon = e.target
+                        .closest("li")
+                        .querySelector(".vote-icon-up");
+                    if (upIcon.classList.contains("bi-hand-thumbs-up-fill")) {
+                        console.log();
+                        upIcon.classList.toggle("bi-hand-thumbs-up-fill");
+                        upIcon.classList.toggle("bi-hand-thumbs-up");
+                        score--;
+                    }
                 }
                 console.log(score);
+                e.target.closest("li").querySelector("span").textContent =
+                    score;
+                updateVoteCount(reviewId, score);
             }
         });
     });
@@ -156,7 +182,7 @@ function appendReviewToDOM(review) {
         `<div class="review-vote-box d-flex mb-3 align-items-center"></div>`
     );
     const vote = $(
-        `<i class="bi bi-hand-thumbs-up vote-icon"></i><span class="vote-result">0</span><i class="bi bi-hand-thumbs-down  vote-icon"></i>`
+        `<i class="bi bi-hand-thumbs-up vote-icon vote-icon-up"></i><span class="vote-result">0</span><i class="bi bi-hand-thumbs-down vote-icon vote-icon-down"></i>`
     );
     // User name
     // listItem
