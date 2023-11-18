@@ -244,6 +244,7 @@ function getFormData() {
         review: "",
         propertyId: "",
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        voteCount: 0,
     };
     window.localStorage.removeItem("userUID");
     let total = 0;

@@ -1,6 +1,40 @@
+function getVoteData(reviewId) {
+    const propertyId = new URL(location.href).searchParams.get("propertyId");
+    const voteData = { reviewId: reviewId, propertyId: propertyId };
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            voteData["userId"] = user.uid;
+        }
+    });
+    let reviewData = db.collection("Reviews").doc(reviewId);
+    reviewData.onSnapshot((ref) => {
+        voteData["voteCount"] = ref.data().voteCount;
+    });
+    console.log(voteData);
+}
+function displayVoteCount(reviewLis, reviews) {
+    let score;
+    let reviewId;
+    reviewLis.forEach((li) => {
+        reviewId = li.id;
+        reviews.forEach((review) => {
+            if (review.reviewId == reviewId) {
+                score = review.voteCount;
+            }
+            console.log(li);
+            if (li.id == reviewId) {
+                li.querySelector("span").textContent = score;
+            }
+        });
+    });
+}
+getVoteData("adyN6FN4OCAriARBOIRu");
+// console.log(ddd["voteCount"]);
 function voteReview(icons) {
     icons.forEach((icon) => {
         icon.addEventListener("click", (e) => {
+            const reviewId = e.target.closest("li").id;
+            console.log(reviewId);
             let targetClassList = e.target.classList;
             if (targetClassList.contains("vote-icon")) {
                 if (targetClassList.contains("bi-hand-thumbs-up")) {
@@ -102,7 +136,9 @@ function calculateAverageScores(reviews) {
 }
 
 function appendReviewToDOM(review) {
-    const listItem = $(`<li class="my-3 p-3" id="${review.reviewId}"></li>`);
+    const listItem = $(
+        `<li class="my-3 p-3 review-li" id="${review.reviewId}"></li>`
+    );
 
     const reviewTopDiv = $(
         `<div class="d-flex justify-content-between"></div>`
@@ -154,7 +190,6 @@ function appendReviewToDOM(review) {
         review.review
     );
     reviewBox.append(commentParagraph);
-
     if (review.review.length > 200) {
         // Truncate text
         commentParagraph
@@ -243,8 +278,10 @@ $(document).ready(async function () {
         formattedReviews.forEach((review) => appendReviewToDOM(review));
         $("#average-score").text(scores.overall);
         $("#property-address").text(property);
-        // console.log(document.querySelectorAll("i"));
         const icons = document.querySelectorAll(".review-vote-box");
+        const reviewLis = document.querySelectorAll("li.review-li");
+        displayVoteCount(reviewLis, reviews);
+
         voteReview(icons);
     } catch (error) {
         console.error("Error getting documents", error);
