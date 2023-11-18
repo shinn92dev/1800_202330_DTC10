@@ -1,15 +1,15 @@
 :root {
     /* color variables */
-    --red: #e03616;
-    --light-red: #e34a2d;
-    --very-light-red: #ec8673;
-    --yellow: #eeb902;
-    --light-yellow: #f1c734;
-    --very-light-yellow: #f4d567;
-    --very-very-light-yellow: #f8e399;
-    --blue: #3c91e6;
-    --light-blue: #62a7eb;
-    --very-light-blue: #8abdf0;
+    --level-1-yellow: #fdf8e5;
+    --level-2-yellow: #fbf1cc;
+    --level-3-yellow: #f9eab3;
+    --level-4-yellow: #f8e399;
+    --level-5-yellow: #f6dc80;
+    --level-6-yellow: #f4d567;
+    --level-7-yellow: #f3ce4d;
+    --level-8-yellow: #f1c734;
+    --level-9-yellow: #efc01b;
+    --level-10-yellow: #eeb902;
 }
 
 #form-tags-box input {
@@ -68,35 +68,35 @@ h3 {
     cursor: pointer;
 }
 .score-icon-box .score-icon div:first-child {
-    border-right: 1px dotted;
+    border-right: 1px dotted grey;
 }
 .score-icon-box .score-icon:first-child div:first-child.colored {
-    background-color: var(--red);
+    background-color: var(--level-1-yellow);
 }
 .score-icon-box .score-icon:first-child div:last-child.colored {
-    background-color: var(--light-red);
+    background-color: var(--level-2-yellow);
 }
 .score-icon-box .score-icon:nth-child(2) div:first-child.colored {
-    background-color: var(--very-light-red);
+    background-color: var(--level-3-yellow);
 }
 .score-icon-box .score-icon:nth-child(2) div:last-child.colored {
-    background-color: var(--very-very-light-yellow);
+    background-color: var(--level-4-yellow);
 }
 .score-icon-box .score-icon:nth-child(3) div:first-child.colored {
-    background-color: var(--very-light-yellow);
+    background-color: var(--level-5-yellow);
 }
 .score-icon-box .score-icon:nth-child(3) div:last-child.colored {
-    background-color: var(--light-yellow);
+    background-color: var(--level-6-yellow);
 }
 .score-icon-box .score-icon:nth-child(4) div:first-child.colored {
-    background-color: var(--yellow);
+    background-color: var(--level-7-yellow);
 }
 .score-icon-box .score-icon:nth-child(4) div:last-child.colored {
-    background-color: var(--very-light-blue);
+    background-color: var(--level-8-yellow);
 }
 .score-icon-box .score-icon:last-child div:first-child.colored {
-    background-color: var(--light-blue);
+    background-color: var(--level-9-yellow);
 }
 .score-icon-box .score-icon:last-child div:last-child.colored {
-    background-color: var(--blue);
+    background-color: var(--level-10-yellow);
 }
