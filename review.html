@@ -1,388 +1,796 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <title>RVR | Rate Vancouver Rent</title>
+        <meta name="comp1800 template" content="My 1800 App" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="./images/building-icon.png"
+        />
 
-<head>
-    <title>RVR | Rate Vancouver Rent</title>
-    <meta name="comp1800 template" content="My 1800 App" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="./images/building-icon.png" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+        />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+        <link
+            type="text/css"
+            rel="stylesheet"
+            href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"
+        />
+        <link rel="stylesheet" href="/styles/review.css" />
+        <link rel="stylesheet" href="/styles/styles.css" />
+        <!-- INSERT NEW STYLE SHEET BELOW HERE -->
+        <script src="/scripts/template.js" defer></script>
+        <script src="./scripts/firebaseAPI_TEAM10.js"></script>
+        <script src="/scripts/review.js" defer></script>
+    </head>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <link rel="stylesheet" href="/styles/review.css" />
-    <link rel="stylesheet" href="/styles/styles.css" />
-    <!-- INSERT NEW STYLE SHEET BELOW HERE -->
-    <script src="/scripts/template.js" defer></script>
-    <script src="./scripts/firebaseAPI_TEAM10.js"></script>
-    <script src="/scripts/review.js" defer></script>
-</head>
+    <body>
+        <div id="NAVBAR-PLACEHOLDER"></div>
 
-<body>
-    <div id="NAVBAR-PLACEHOLDER"></div>
+        <!------------------------------------------>
+        <!-- INSERT WORK HERE -->
+        <!------------------------------------------>
+        <div class="container">
+            <form action="">
+                <div class="form-group m-3" id="form-stars-boxs">
+                    <div id="cleanliness-score-box">
+                        <label for="cleanliness-score-icon" class="mb-2 mt-2"
+                            >Cleanliness</label
+                        >
+                        <div
+                            class="d-flex align-items-center border p-2 each-score-outer-container"
+                        >
+                            <div
+                                id="cleanliness-score"
+                                class="score-icon-box d-flex justify-content-center"
+                            >
+                                <div class="score-icon d-flex">
+                                    <div id="point_five"></div>
+                                    <div id="one"></div>
+                                </div>
+                                <div class="score-icon d-flex">
+                                    <div id="one_point_five"></div>
+                                    <div id="two"></div>
+                                </div>
+                                <div class="score-icon d-flex">
+                                    <div id="two_point_five"></div>
+                                    <div id="three"></div>
+                                </div>
+                                <div class="score-icon d-flex">
+                                    <div id="three_point_five"></div>
+                                    <div id="four"></div>
+                                </div>
+                                <div class="score-icon d-flex">
+                                    <div id="four_point_five"></div>
+                                    <div id="five"></div>
+                                </div>
+                            </div>
+                            <!-- <input
+                                type="number"
+                                class="form-control"
+                                id="cleanliness-score-icon"
+                                min="0"
+                                max="5"
+                                step="0.5"
+                                value=""
+                            /> -->
+                            <span>0.0</span>
+                        </div>
+                    </div>
+                    <div id="houserule-score-box">
+                        <label for="houserule-score-icon" class="mb-2 mt-2"
+                            >House Rule</label
+                        >
+                        <div class="d-flex align-items-center border p-2">
+                            <div
+                                id="houserule-score"
+                                class="score-icon-box d-flex justify-content-around"
+                            >
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="houserule-score-icon"
+                                min="0"
+                                max="5"
+                                step="0.5"
+                                value=""
+                            />
+                        </div>
+                    </div>
+                    <div id="landlord-score-box">
+                        <label for="landlord-score-icon" class="mb-2 mt-2"
+                            >Landlord</label
+                        >
+                        <div class="d-flex align-items-center border p-2">
+                            <div
+                                id="landlord-score"
+                                class="score-icon-box d-flex justify-content-around"
+                            >
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="landlord-score-icon"
+                                min="0"
+                                max="5"
+                                step="0.5"
+                                value=""
+                            />
+                        </div>
+                    </div>
+                    <div id="location-score-box">
+                        <label for="location-score-icon" class="mb-2 mt-2"
+                            >Location</label
+                        >
+                        <div class="d-flex align-items-center border p-2">
+                            <div
+                                id="location-score"
+                                class="score-icon-box d-flex justify-content-around"
+                            >
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="location-score-icon"
+                                min="0"
+                                max="5"
+                                step="0.5"
+                                value=""
+                            />
+                        </div>
+                    </div>
+                    <div id="price-score-box">
+                        <label for="price-score-icon" class="mb-2 mt-2"
+                            >Price</label
+                        >
+                        <div class="d-flex align-items-center border p-2">
+                            <div
+                                id="price-score"
+                                class="score-icon-box d-flex justify-content-around"
+                            >
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="price-score-icon"
+                                min="0"
+                                max="5"
+                                step="0.5"
+                                value=""
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group m-3" id="form-tags-box">
+                    <div id="tags__quiet-box">
+                        <h3 class="mb-2 mt-2">Quiet</h3>
+                        <div class="d-flex flex-wrap border pt-3 pb-3">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="quiet__peaceful_neighborhood"
+                                    value="peaceful-neighborhood"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="quiet__peaceful_neighborhood"
+                                    >Peaceful Neighborhood</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="quiet__low-traffic_area"
+                                    value="low-traffic-area"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="quiet__low-traffic_area"
+                                    >Low Traffic Area</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="quiet__quiet_street"
+                                    value="quiet-street"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="quiet__quiet_street"
+                                    >Quiet Street</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="quiet__none"
+                                    value="none"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="quiet__none"
+                                    >None of them applied</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__clean-box">
+                        <h3 class="mb-2 mt-2">Clean</h3>
+                        <div class="d-flex flex-wrap border pt-3 pb-3">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="clean__well_maintained"
+                                    value="well-maintained"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="clean__well_maintained"
+                                    >Well-Maintained</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="clean__recently_renovated"
+                                    value="recently-renovated"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="clean__recently_renovated"
+                                    >Recently Renovated</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="clean__clean_and_tidy"
+                                    value="clean_and_tidy"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="clean__clean_and_tidy"
+                                    >Clean and Tidy</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="clean_none"
+                                    value="none"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="clean_none"
+                                    >None of them applied</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__public-transit-box">
+                        <h3 class="mb-2 mt-2">Public Transit</h3>
+                        <div class="d-flex flex-wrap border pt-3 pb-3">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="public-transit__near-bus-stop"
+                                    value="near-bus-stop"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="public-transit__near-bus-stop"
+                                    >Near Bus Stop</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="public-transit__near-skytrain-station"
+                                    value="near-skytrain-station"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="public-transit__near-skytrain-station"
+                                    >Near Skytrain Station</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="publict-transit_none"
+                                    value="none"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="publict-transit_none"
+                                    >None of them applied</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__unitilities-box">
+                        <h3 class="mb-2 mt-2">Utilities</h3>
+                        <div class="d-flex flex-wrap border pt-3 pb-3">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="utilities__all_utilities_included"
+                                    value="all-utilities-included"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="utilities__all_utilities_included"
+                                    >All Utilities Included</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="utilities__water_included"
+                                    value="water-included"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="utilities__water_included"
+                                    >Water Included</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="utilities__hydro_included"
+                                    value="hydro-included"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="utilities__hydro_included"
+                                    >Hydro Included</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="utilities__internet_included"
+                                    value="internet-included"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="utilities__internet_included"
+                                    >Internet Included</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="utilities__not_included"
+                                    value="utilities-not-included"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="utilities__not_included"
+                                    >Not Included</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__furnished-box">
+                        <h3 class="mb-2 mt-2">Furnished</h3>
+                        <div class="d-flex flex-wrap border pt-3 pb-3">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="furnished__fully_furnished"
+                                    value="fully-furnished"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="furnished__fully_furnished"
+                                    >Fully Furnished</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="furnished__unfurnished"
+                                    value="unfurnished"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="furnished__unfurnished"
+                                    >Unfurnished</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="furnished__option_available"
+                                    value="furnished-option-available"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="furnished__option_available"
+                                    >Furnished Options Available</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__laundry-box">
+                        <h3 class="mb-2 mt-2">Laundry</h3>
+                        <div class="d-flex flex-wrap border pt-3 pb-3">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="laundry__wd_in_unit"
+                                    value="w/d-in-unit"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="laundry__wd_in_unit"
+                                    >W/D in Unit</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="laundry__wd_in_building"
+                                    value="w/d-in-building"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="laundry__wd_in_building"
+                                    >W/D in Building</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="laundry__no_wd_available"
+                                    value="no-w/d-available"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="laundry__no_wd_available"
+                                    >No W/D Available</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__pet-box">
+                        <h3 class="mb-2 mt-2">Pet</h3>
+                        <div class="d-flex flex-wrap border pt-3 pb-3">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="pet__pet_friendly"
+                                    value="pet-friendly"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="pet__pet_friendly"
+                                    >Pet-Friendly</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="pet__dog_friendly"
+                                    value="dog-friendly"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="pet__dog_friendly"
+                                    >Dog-Friendly</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="pet__cat_friendly"
+                                    value="cat-friendly"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="pet__cat_friendly"
+                                    >Cat-Friendly</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="pet__no_pet_allowed"
+                                    value="no-pet-allowed"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="pet__no_pet_allowed"
+                                    >No Pet Allowed</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__facility-box">
+                        <h3 class="mb-2 mt-2">Facility</h3>
+                        <div class="d-flex flex-wrap border pt-3 pb-3">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="facility__on_site_pool"
+                                    value="on-site-pool"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="facility__on_site_pool"
+                                    >On-site Pool</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="facility__on_site_gym"
+                                    value="on-site-gym"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="facility__on_site_gym"
+                                    >On-site Gym</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="facility__on_site_jacuzzi"
+                                    value="on-site-jacuzzi"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="facility__on_site_jacuzzi"
+                                    >On-site Jacuzzi</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="facility__on_site_sauna"
+                                    value="on-site-sauna"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="facility__on_site_sauna"
+                                    >On-site Sauna</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="facility__no_on_site_facility"
+                                    value="no_on_site_facility"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="facility__no_on_site_facility"
+                                    >No On-site Facility</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__security-box">
+                        <h3 class="mb-2 mt-2">Security</h3>
+                        <div class="d-flex flex-wrap border pt-3 pb-3">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="security__gated_community"
+                                    value="gated-community"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="security__gated_community"
+                                    >Gated Community</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="security__security_system"
+                                    value="security_system"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="security__security_system"
+                                    >Security Systems</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="security__24hrs_reception"
+                                    value="24hrs-reception"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="security__24hrs_reception"
+                                    >24hrs Reception</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="security__none"
+                                    value="none"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="security__none"
+                                    >None of them applied</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tags__parking-box">
+                        <h3 class="mb-2 mt-2">Parking</h3>
+                        <div class="d-flex flex-wrap border pt-3 pb-3">
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="parking__on_site_parking"
+                                    value="on-site-parking"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="parking__on_site_parking"
+                                    >On-Site Parking</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="parking__assigned_parking"
+                                    value="assigned-parking"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="parking__assigned_parking"
+                                    >Assigned Parking</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="parking__on_street_parking"
+                                    value="on-street-parking"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="parking__on_street_parking"
+                                    >On-Street Parking</label
+                                >
+                            </div>
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="parking__no_parking_available"
+                                    value="no-parking_available"
+                                />
+                                <label
+                                    class="form-check-label btn"
+                                    for="parking__no_parking_available"
+                                    >No Parking Available</label
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group m-3" id="form-comment-box">
+                    <label for="user-comment" class="mb-2 mt-2"
+                        >Leave Your Comment Here</label
+                    >
+                    <textarea
+                        class="form-control"
+                        id="user-comment"
+                        rows="3"
+                    ></textarea>
+                </div>
+                <div class="form-group m-3" id="review-submit-box">
+                    <button type="submit" class="btn btn-primary">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!------------------------------------------>
+        <!-- INSERT WORK HERE -->
+        <!------------------------------------------>
 
-    <!------------------------------------------>
-    <!-- INSERT WORK HERE -->
-    <!------------------------------------------>
-    <div class="container">
-        <form action="">
-            <div class="form-group m-3" id="form-stars-boxs">
-                <div id="cleanliness-score-box">
-                    <label for="cleanliness-score-icon" class="mb-2 mt-2">Cleanliness</label>
-                    <div class="d-flex align-items-center border p-2">
-                        <div id="cleanliness-score" class="score-icon-box d-flex justify-content-around">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <input type="number" class="form-control" id="cleanliness-score-icon" min="0" max="5" step="0.5"
-                            value="" />
-                    </div>
-                </div>
-                <div id="houserule-score-box">
-                    <label for="houserule-score-icon" class="mb-2 mt-2">House Rule</label>
-                    <div class="d-flex align-items-center border p-2">
-                        <div id="houserule-score" class="score-icon-box d-flex justify-content-around">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <input type="number" class="form-control" id="houserule-score-icon" min="0" max="5" step="0.5"
-                            value="" />
-                    </div>
-                </div>
-                <div id="landlord-score-box">
-                    <label for="landlord-score-icon" class="mb-2 mt-2">Landlord</label>
-                    <div class="d-flex align-items-center border p-2">
-                        <div id="landlord-score" class="score-icon-box d-flex justify-content-around">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <input type="number" class="form-control" id="landlord-score-icon" min="0" max="5" step="0.5"
-                            value="" />
-                    </div>
-                </div>
-                <div id="location-score-box">
-                    <label for="location-score-icon" class="mb-2 mt-2">Location</label>
-                    <div class="d-flex align-items-center border p-2">
-                        <div id="location-score" class="score-icon-box d-flex justify-content-around">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <input type="number" class="form-control" id="location-score-icon" min="0" max="5" step="0.5"
-                            value="" />
-                    </div>
-                </div>
-                <div id="price-score-box">
-                    <label for="price-score-icon" class="mb-2 mt-2">Price</label>
-                    <div class="d-flex align-items-center border p-2">
-                        <div id="price-score" class="score-icon-box d-flex justify-content-around">
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                            <i class="bi bi-star"></i>
-                        </div>
-                        <input type="number" class="form-control" id="price-score-icon" min="0" max="5" step="0.5"
-                            value="" />
-                    </div>
-                </div>
-            </div>
-            <div class="form-group m-3" id="form-tags-box">
-                <div id="tags__quiet-box">
-                    <h3 class="mb-2 mt-2">Quiet</h3>
-                    <div class="d-flex flex-wrap border pt-3 pb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="quiet__peaceful_neighborhood"
-                                value="peaceful-neighborhood" />
-                            <label class="form-check-label btn" for="quiet__peaceful_neighborhood">Peaceful
-                                Neighborhood</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="quiet__low-traffic_area"
-                                value="low-traffic-area" />
-                            <label class="form-check-label btn" for="quiet__low-traffic_area">Low Traffic Area</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="quiet__quiet_street"
-                                value="quiet-street" />
-                            <label class="form-check-label btn" for="quiet__quiet_street">Quiet Street</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="quiet__none" value="none" />
-                            <label class="form-check-label btn" for="quiet__none">None of them applied</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="tags__clean-box">
-                    <h3 class="mb-2 mt-2">Clean</h3>
-                    <div class="d-flex flex-wrap border pt-3 pb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="clean__well_maintained"
-                                value="well-maintained" />
-                            <label class="form-check-label btn" for="clean__well_maintained">Well-Maintained</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="clean__recently_renovated"
-                                value="recently-renovated" />
-                            <label class="form-check-label btn" for="clean__recently_renovated">Recently
-                                Renovated</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="clean__clean_and_tidy"
-                                value="clean_and_tidy" />
-                            <label class="form-check-label btn" for="clean__clean_and_tidy">Clean and Tidy</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="clean_none" value="none" />
-                            <label class="form-check-label btn" for="clean_none">None of them applied</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="tags__public-transit-box">
-                    <h3 class="mb-2 mt-2">Public Transit</h3>
-                    <div class="d-flex flex-wrap border pt-3 pb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="public-transit__near-bus-stop"
-                                value="near-bus-stop" />
-                            <label class="form-check-label btn" for="public-transit__near-bus-stop">Near Bus
-                                Stop</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="public-transit__near-skytrain-station"
-                                value="near-skytrain-station" />
-                            <label class="form-check-label btn" for="public-transit__near-skytrain-station">Near
-                                Skytrain Station</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="publict-transit_none" value="none" />
-                            <label class="form-check-label btn" for="publict-transit_none">None of them applied</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="tags__unitilities-box">
-                    <h3 class="mb-2 mt-2">Utilities</h3>
-                    <div class="d-flex flex-wrap border pt-3 pb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="utilities__all_utilities_included"
-                                value="all-utilities-included" />
-                            <label class="form-check-label btn" for="utilities__all_utilities_included">All Utilities
-                                Included</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="utilities__water_included"
-                                value="water-included" />
-                            <label class="form-check-label btn" for="utilities__water_included">Water Included</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="utilities__hydro_included"
-                                value="hydro-included" />
-                            <label class="form-check-label btn" for="utilities__hydro_included">Hydro Included</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="utilities__internet_included"
-                                value="internet-included" />
-                            <label class="form-check-label btn" for="utilities__internet_included">Internet
-                                Included</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="utilities__not_included"
-                                value="utilities-not-included" />
-                            <label class="form-check-label btn" for="utilities__not_included">Not Included</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="tags__furnished-box">
-                    <h3 class="mb-2 mt-2">Furnished</h3>
-                    <div class="d-flex flex-wrap border pt-3 pb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="furnished__fully_furnished"
-                                value="fully-furnished" />
-                            <label class="form-check-label btn" for="furnished__fully_furnished">Fully Furnished</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="furnished__unfurnished"
-                                value="unfurnished" />
-                            <label class="form-check-label btn" for="furnished__unfurnished">Unfurnished</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="furnished__option_available"
-                                value="furnished-option-available" />
-                            <label class="form-check-label btn" for="furnished__option_available">Furnished Options
-                                Available</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="tags__laundry-box">
-                    <h3 class="mb-2 mt-2">Laundry</h3>
-                    <div class="d-flex flex-wrap border pt-3 pb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="laundry__wd_in_unit"
-                                value="w/d-in-unit" />
-                            <label class="form-check-label btn" for="laundry__wd_in_unit">W/D in Unit</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="laundry__wd_in_building"
-                                value="w/d-in-building" />
-                            <label class="form-check-label btn" for="laundry__wd_in_building">W/D in Building</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="laundry__no_wd_available"
-                                value="no-w/d-available" />
-                            <label class="form-check-label btn" for="laundry__no_wd_available">No W/D Available</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="tags__pet-box">
-                    <h3 class="mb-2 mt-2">Pet</h3>
-                    <div class="d-flex flex-wrap border pt-3 pb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="pet__pet_friendly"
-                                value="pet-friendly" />
-                            <label class="form-check-label btn" for="pet__pet_friendly">Pet-Friendly</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="pet__dog_friendly"
-                                value="dog-friendly" />
-                            <label class="form-check-label btn" for="pet__dog_friendly">Dog-Friendly</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="pet__cat_friendly"
-                                value="cat-friendly" />
-                            <label class="form-check-label btn" for="pet__cat_friendly">Cat-Friendly</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="pet__no_pet_allowed"
-                                value="no-pet-allowed" />
-                            <label class="form-check-label btn" for="pet__no_pet_allowed">No Pet Allowed</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="tags__facility-box">
-                    <h3 class="mb-2 mt-2">Facility</h3>
-                    <div class="d-flex flex-wrap border pt-3 pb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="facility__on_site_pool"
-                                value="on-site-pool" />
-                            <label class="form-check-label btn" for="facility__on_site_pool">On-site Pool</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="facility__on_site_gym"
-                                value="on-site-gym" />
-                            <label class="form-check-label btn" for="facility__on_site_gym">On-site Gym</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="facility__on_site_jacuzzi"
-                                value="on-site-jacuzzi" />
-                            <label class="form-check-label btn" for="facility__on_site_jacuzzi">On-site Jacuzzi</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="facility__on_site_sauna"
-                                value="on-site-sauna" />
-                            <label class="form-check-label btn" for="facility__on_site_sauna">On-site Sauna</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="facility__no_on_site_facility"
-                                value="no_on_site_facility" />
-                            <label class="form-check-label btn" for="facility__no_on_site_facility">No On-site
-                                Facility</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="tags__security-box">
-                    <h3 class="mb-2 mt-2">Security</h3>
-                    <div class="d-flex flex-wrap border pt-3 pb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="security__gated_community"
-                                value="gated-community" />
-                            <label class="form-check-label btn" for="security__gated_community">Gated Community</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="security__security_system"
-                                value="security_system" />
-                            <label class="form-check-label btn" for="security__security_system">Security Systems</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="security__24hrs_reception"
-                                value="24hrs-reception" />
-                            <label class="form-check-label btn" for="security__24hrs_reception">24hrs Reception</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="security__none" value="none" />
-                            <label class="form-check-label btn" for="security__none">None of them applied</label>
-                        </div>
-                    </div>
-                </div>
-                <div id="tags__parking-box">
-                    <h3 class="mb-2 mt-2">Parking</h3>
-                    <div class="d-flex flex-wrap border pt-3 pb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="parking__on_site_parking"
-                                value="on-site-parking" />
-                            <label class="form-check-label btn" for="parking__on_site_parking">On-Site Parking</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="parking__assigned_parking"
-                                value="assigned-parking" />
-                            <label class="form-check-label btn" for="parking__assigned_parking">Assigned Parking</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="parking__on_street_parking"
-                                value="on-street-parking" />
-                            <label class="form-check-label btn" for="parking__on_street_parking">On-Street
-                                Parking</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="parking__no_parking_available"
-                                value="no-parking_available" />
-                            <label class="form-check-label btn" for="parking__no_parking_available">No Parking
-                                Available</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group m-3" id="form-comment-box">
-                <label for="user-comment" class="mb-2 mt-2">Leave Your Comment Here</label>
-                <textarea class="form-control" id="user-comment" rows="3"></textarea>
-            </div>
-            <div class="form-group m-3" id="review-submit-box">
-                <button type="submit" class="btn btn-primary">
-                    Submit
-                </button>
-            </div>
-        </form>
-    </div>
-    <!------------------------------------------>
-    <!-- INSERT WORK HERE -->
-    <!------------------------------------------>
-
-    <div id="FOOTER-PLACEHOLDER"></div>
-</body>
-
+        <div id="FOOTER-PLACEHOLDER"></div>
+    </body>
 </html>

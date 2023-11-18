@@ -1,3 +1,17 @@
+:root {
+    /* color variables */
+    --red: #e03616;
+    --light-red: #e34a2d;
+    --very-light-red: #ec8673;
+    --yellow: #eeb902;
+    --light-yellow: #f1c734;
+    --very-light-yellow: #f4d567;
+    --very-very-light-yellow: #f8e399;
+    --blue: #3c91e6;
+    --light-blue: #62a7eb;
+    --very-light-blue: #8abdf0;
+}
+
 #form-tags-box input {
     display: none;
 }
@@ -25,12 +39,64 @@ h3 {
     color: var(--bg-color);
 }
 #form-stars-boxs .score-icon-box {
-    width: 70%;
+    width: 90%;
 }
-#form-stars-boxs input[type="number"] {
-    width: 30%;
+#form-stars-boxs span {
+    width: 10%;
+    text-align: center;
 }
 .warning-msg {
     color: var(--warning-color);
     font-size: var(--small-font);
+}
+.score-icon-box .score-icon {
+    border-bottom: 2px solid grey;
+    border-top: 2px solid grey;
+    border-right: 1px dotted grey;
+    width: 21%;
+    height: 30px;
+}
+.score-icon-box .score-icon:first-child {
+    border-left: 2px solid grey;
+}
+.score-icon-box .score-icon:last-child {
+    border-right: 2px solid grey;
+}
+.score-icon-box .score-icon div {
+    width: 50%;
+    height: 100%;
+    cursor: pointer;
+}
+.score-icon-box .score-icon div:first-child {
+    border-right: 1px dotted;
+}
+.score-icon-box .score-icon:first-child div:first-child.colored {
+    background-color: var(--red);
+}
+.score-icon-box .score-icon:first-child div:last-child.colored {
+    background-color: var(--light-red);
+}
+.score-icon-box .score-icon:nth-child(2) div:first-child.colored {
+    background-color: var(--very-light-red);
+}
+.score-icon-box .score-icon:nth-child(2) div:last-child.colored {
+    background-color: var(--very-very-light-yellow);
+}
+.score-icon-box .score-icon:nth-child(3) div:first-child.colored {
+    background-color: var(--very-light-yellow);
+}
+.score-icon-box .score-icon:nth-child(3) div:last-child.colored {
+    background-color: var(--light-yellow);
+}
+.score-icon-box .score-icon:nth-child(4) div:first-child.colored {
+    background-color: var(--yellow);
+}
+.score-icon-box .score-icon:nth-child(4) div:last-child.colored {
+    background-color: var(--very-light-blue);
+}
+.score-icon-box .score-icon:last-child div:first-child.colored {
+    background-color: var(--light-blue);
+}
+.score-icon-box .score-icon:last-child div:last-child.colored {
+    background-color: var(--blue);
 }

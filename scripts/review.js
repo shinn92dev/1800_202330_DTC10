@@ -300,6 +300,46 @@ function validateForm(e) {
     }
 }
 
+// function initializeStoreColor() {
+//     const boxes = document.querySelectorAll(".score-icon div");
+//     boxes.forEach((box) => {
+//         box.addEventListener("click", (e) => {
+//             e.target.classList.remove("colored");
+//         });
+//     });
+// }
+function colorScore() {
+    const boxes = document.querySelectorAll(".score-icon div");
+    const scoreBoard = {
+        point_five: 0.5,
+        one: 1,
+        one_point_five: 1.5,
+        two: 2,
+        two_point_five: 2.5,
+        three: 3,
+        three_point_five: 3.5,
+        four: 4,
+        four_point_five: 4.5,
+        five: 5,
+    };
+    for (let i = 0; i < boxes.length; i++) {
+        boxes[i].addEventListener("click", (e) => {
+            const scoreKey = e.target.id;
+            const span = e.target
+                .closest(".each-score-outer-container")
+                .querySelector("span");
+            for (let j = 0; j < boxes.length; j++) {
+                if (j <= i) {
+                    boxes[j].classList.add("colored");
+                } else {
+                    boxes[j].classList.remove("colored");
+                }
+            }
+            span.textContent = scoreBoard[scoreKey].toFixed(1);
+        });
+    }
+}
+colorScore();
 function initializeReviewPage() {
     initializeCheckBox();
     initializeScoresBox();
