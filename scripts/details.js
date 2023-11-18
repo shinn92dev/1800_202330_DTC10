@@ -365,10 +365,13 @@ $(document).ready(async function () {
         $("#property-address").text(property);
         const icons = document.querySelectorAll(".review-vote-box");
         const reviewLis = document.querySelectorAll("li.review-li");
-        // displayStoredVote(reviewLis);
-        getVoteData(reviewLis);
-        displayVoteCount(reviewLis, reviews);
-        voteReview(icons);
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                getVoteData(reviewLis);
+                displayVoteCount(reviewLis, reviews);
+                voteReview(icons);
+            }
+        });
     } catch (error) {
         console.error("Error getting documents", error);
     }
