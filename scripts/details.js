@@ -1,3 +1,36 @@
+function voteReview(icons) {
+    console.log(icons);
+    // icons.forEach((icon) => {
+    //     icon.addEventListener("click", (e) => {
+    //         let targetClassList = e.target.classList;
+    //         if (targetClassList.contains("vote-icon")) {
+    //             console.log("ASDASD");
+    //             if (targetClassList.contains("bi-hand-thumbs-up")) {
+    //                 console.log("엄지척 색 없음");
+    //                 console.log(e.target);
+    //                 // targetClassList.toggle(
+    //                 //     "bi-hand-thumbs-up-fill",
+    //                 //     "bi-hand-thumbs-up"
+    //                 // );
+    //                 targetClassList.remove("bi-hand-thumbs-up");
+    //                 targetClassList.add("bi-hand-thumbs-up-fill");
+    //             } else if (targetClassList.contains("bi-hand-thumbs-up-fill")) {
+    //                 console.log("엄지척 색 있음");
+    //                 targetClassList.add("bi-hand-thumbs-up");
+    //                 targetClassList.remove("bi-hand-thumbs-up-fill");
+    //             } else if (targetClassList.contains("bi-hand-thumbs-down")) {
+    //                 targetClassList.add("bi-hand-thumbs-down-fill");
+    //                 targetClassList.remove("bi-hand-thumbs-down");
+    //             } else if (
+    //                 targetClassList.contains("bi-hand-thumbs-down-fill")
+    //             ) {
+    //                 targetClassList.add("bi-hand-thumbs-down");
+    //                 targetClassList.remove("bi-hand-thumbs-down-fill");
+    //             }
+    //         }
+    //     });
+    // });
+}
 const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -14,10 +47,18 @@ async function getPropertyReviews(propertyId) {
         .where("propertyId", "==", propertyId)
         .orderBy("createdAt", "desc")
         .get();
-    return querySnapshot.docs.map((doc) => doc.data());
+    const reviews = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+            reviewId: doc.id,
+            ...data,
+        };
+    });
+    return reviews;
 }
 
 function formatReviewData(reviews) {
+    console.log(reviews);
     return reviews.map((review) => ({
         ...review,
         date: review.createdAt.toDate().toLocaleDateString("en-US", {
@@ -70,17 +111,17 @@ function calculateAverageScores(reviews) {
 }
 
 function appendReviewToDOM(review) {
-    const listItem = $('<li class="my-3 p-3"></li>');
+    const listItem = $(`<li class="my-3 p-3" id="${12}"></li>`);
 
     const reviewTopDiv = $(
         `<div class="d-flex justify-content-between"></div>`
     );
     const reviewTopDivLeft = $(`<div class="d-flex flex-column"></div>`);
     const reviewTopDivRight = $(
-        `<div id="review-vote-box" class="d-flex mb-3 align-items-center"></div>`
+        `<div class="review-vote-box d-flex mb-3 align-items-center"></div>`
     );
     const vote = $(
-        `<i class="bi bi-hand-thumbs-up"></i><span id="vote-result">0</span><i class="bi bi-hand-thumbs-down"></i>`
+        `<i class="bi bi-hand-thumbs-up vote-icon"></i><span id="vote-result">0</span><i class="bi bi-hand-thumbs-down  vote-icon"></i>`
     );
     // User name
     // listItem
@@ -156,7 +197,8 @@ function appendReviewToDOM(review) {
 
         reviewBox.append(seeMoreButton);
     }
-
+    const icons = document.querySelector(".review-vote-box");
+    voteReview(icons);
     listItem.append(reviewBox);
     $("#comments").append(listItem);
 }
