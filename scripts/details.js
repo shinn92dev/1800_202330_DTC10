@@ -1,35 +1,26 @@
 function voteReview(icons) {
-    console.log(icons);
-    // icons.forEach((icon) => {
-    //     icon.addEventListener("click", (e) => {
-    //         let targetClassList = e.target.classList;
-    //         if (targetClassList.contains("vote-icon")) {
-    //             console.log("ASDASD");
-    //             if (targetClassList.contains("bi-hand-thumbs-up")) {
-    //                 console.log("엄지척 색 없음");
-    //                 console.log(e.target);
-    //                 // targetClassList.toggle(
-    //                 //     "bi-hand-thumbs-up-fill",
-    //                 //     "bi-hand-thumbs-up"
-    //                 // );
-    //                 targetClassList.remove("bi-hand-thumbs-up");
-    //                 targetClassList.add("bi-hand-thumbs-up-fill");
-    //             } else if (targetClassList.contains("bi-hand-thumbs-up-fill")) {
-    //                 console.log("엄지척 색 있음");
-    //                 targetClassList.add("bi-hand-thumbs-up");
-    //                 targetClassList.remove("bi-hand-thumbs-up-fill");
-    //             } else if (targetClassList.contains("bi-hand-thumbs-down")) {
-    //                 targetClassList.add("bi-hand-thumbs-down-fill");
-    //                 targetClassList.remove("bi-hand-thumbs-down");
-    //             } else if (
-    //                 targetClassList.contains("bi-hand-thumbs-down-fill")
-    //             ) {
-    //                 targetClassList.add("bi-hand-thumbs-down");
-    //                 targetClassList.remove("bi-hand-thumbs-down-fill");
-    //             }
-    //         }
-    //     });
-    // });
+    icons.forEach((icon) => {
+        icon.addEventListener("click", (e) => {
+            let targetClassList = e.target.classList;
+            if (targetClassList.contains("vote-icon")) {
+                if (targetClassList.contains("bi-hand-thumbs-up")) {
+                    targetClassList.remove("bi-hand-thumbs-up");
+                    targetClassList.add("bi-hand-thumbs-up-fill");
+                } else if (targetClassList.contains("bi-hand-thumbs-up-fill")) {
+                    targetClassList.add("bi-hand-thumbs-up");
+                    targetClassList.remove("bi-hand-thumbs-up-fill");
+                } else if (targetClassList.contains("bi-hand-thumbs-down")) {
+                    targetClassList.add("bi-hand-thumbs-down-fill");
+                    targetClassList.remove("bi-hand-thumbs-down");
+                } else if (
+                    targetClassList.contains("bi-hand-thumbs-down-fill")
+                ) {
+                    targetClassList.add("bi-hand-thumbs-down");
+                    targetClassList.remove("bi-hand-thumbs-down-fill");
+                }
+            }
+        });
+    });
 }
 const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -111,7 +102,7 @@ function calculateAverageScores(reviews) {
 }
 
 function appendReviewToDOM(review) {
-    const listItem = $(`<li class="my-3 p-3" id="${12}"></li>`);
+    const listItem = $(`<li class="my-3 p-3" id="${review.reviewId}"></li>`);
 
     const reviewTopDiv = $(
         `<div class="d-flex justify-content-between"></div>`
@@ -121,7 +112,7 @@ function appendReviewToDOM(review) {
         `<div class="review-vote-box d-flex mb-3 align-items-center"></div>`
     );
     const vote = $(
-        `<i class="bi bi-hand-thumbs-up vote-icon"></i><span id="vote-result">0</span><i class="bi bi-hand-thumbs-down  vote-icon"></i>`
+        `<i class="bi bi-hand-thumbs-up vote-icon"></i><span class="vote-result">0</span><i class="bi bi-hand-thumbs-down  vote-icon"></i>`
     );
     // User name
     // listItem
@@ -197,8 +188,7 @@ function appendReviewToDOM(review) {
 
         reviewBox.append(seeMoreButton);
     }
-    const icons = document.querySelector(".review-vote-box");
-    voteReview(icons);
+
     listItem.append(reviewBox);
     $("#comments").append(listItem);
 }
@@ -253,6 +243,9 @@ $(document).ready(async function () {
         formattedReviews.forEach((review) => appendReviewToDOM(review));
         $("#average-score").text(scores.overall);
         $("#property-address").text(property);
+        // console.log(document.querySelectorAll("i"));
+        const icons = document.querySelectorAll(".review-vote-box");
+        voteReview(icons);
     } catch (error) {
         console.error("Error getting documents", error);
     }
