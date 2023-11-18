@@ -12,6 +12,9 @@ function getVoteData(reviewId) {
     });
     console.log(voteData);
 }
+function updateVoteCount(reviewId, score) {
+    db.collection("Reviews").doc(reviewId).update({ voteCount: score });
+}
 function displayVoteCount(reviewLis, reviews) {
     let score;
     let reviewId;
@@ -40,6 +43,7 @@ function voteReview(icons) {
                 if (targetClassList.contains("bi-hand-thumbs-up")) {
                     targetClassList.remove("bi-hand-thumbs-up");
                     targetClassList.add("bi-hand-thumbs-up-fill");
+                    updateVoteCount(reviewId, 10202);
                 } else if (targetClassList.contains("bi-hand-thumbs-up-fill")) {
                     targetClassList.add("bi-hand-thumbs-up");
                     targetClassList.remove("bi-hand-thumbs-up-fill");
