@@ -11,8 +11,19 @@ function getVoteData(reviewId) {
         voteData["voteCount"] = ref.data().voteCount;
     });
 }
-function updateVoteCount(reviewId, score) {
+function updateVoteCountToReviews(reviewId, score) {
     db.collection("Reviews").doc(reviewId).update({ voteCount: score });
+}
+function updateVoteCountToUsers(reviewId, voteStatus) {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            const storeValue = {};
+            storeValue[reviewId] = voteStatus;
+            db.collection("Users")
+                .doc(user.uid)
+                .set({ vote: storeValue }, { merge: true });
+        }
+    });
 }
 function displayVoteCount(reviewLis, reviews) {
     let score;
@@ -39,6 +50,7 @@ function voteReview(icons) {
             let score = Number(
                 e.target.closest("li").querySelector("span").textContent
             );
+            let voteStatus = "";
             console.log(score);
             let targetClassList = e.target.classList;
             if (targetClassList.contains("vote-icon")) {
@@ -47,10 +59,12 @@ function voteReview(icons) {
                     targetClassList.toggle("bi-hand-thumbs-up-fill");
                     if (targetClassList.contains("bi-hand-thumbs-up")) {
                         score--;
+                        voteStatus = null;
                     } else if (
                         targetClassList.contains("bi-hand-thumbs-up-fill")
                     ) {
                         score++;
+                        voteStatus = "up";
                     }
                     const downIcon = e.target
                         .closest("li")
@@ -68,10 +82,12 @@ function voteReview(icons) {
                     targetClassList.toggle("bi-hand-thumbs-down");
                     if (targetClassList.contains("bi-hand-thumbs-down")) {
                         score++;
+                        voteStatus = null;
                     } else if (
                         targetClassList.contains("bi-hand-thumbs-down-fill")
                     ) {
                         score--;
+                        voteStatus = "down";
                     }
                     const upIcon = e.target
                         .closest("li")
@@ -84,9 +100,11 @@ function voteReview(icons) {
                     }
                 }
                 console.log(score);
+                console.log(voteStatus);
                 e.target.closest("li").querySelector("span").textContent =
                     score;
-                updateVoteCount(reviewId, score);
+                updateVoteCountToReviews(reviewId, score);
+                updateVoteCountToUsers(reviewId, voteStatus);
             }
         });
     });
