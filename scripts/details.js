@@ -1,14 +1,48 @@
-function getVoteData(reviewId) {
-    const propertyId = new URL(location.href).searchParams.get("propertyId");
-    const voteData = { reviewId: reviewId, propertyId: propertyId };
+function getVoteData(lis) {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-            voteData["userId"] = user.uid;
+            console.log(user.uid);
+            const userCollection = db.collection("Users").doc(user.uid);
+            userCollection.get().then((doc) => {
+                console.log(doc.data());
+                console.log(lis);
+                displayStoredVote(lis, doc.data().vote);
+            });
         }
     });
-    let reviewData = db.collection("Reviews").doc(reviewId);
-    reviewData.onSnapshot((ref) => {
-        voteData["voteCount"] = ref.data().voteCount;
+}
+
+function displayStoredVote(lis, reviewObj) {
+    lis.forEach((li) => {
+        const liId = li.id;
+        const reviewObjKeys = Object.keys(reviewObj);
+        // console.log(reviewObjKeys);
+        const upIcon = li.querySelector(".vote-icon-up");
+        const downIcon = li.querySelector(".vote-icon-down");
+        reviewObjKeys.forEach((key) => {
+            if (liId == key) {
+                console.log(liId);
+                console.log(key);
+                console.log(reviewObj[key]);
+                if (reviewObj[key] == "up") {
+                    console.log("HEREHEHRHEHRHEHRHEH");
+                    upIcon.classList.add("bi-hand-thumbs-up-fill");
+                    upIcon.classList.remove("bi-hand-thumbs-up");
+                    downIcon.classList.add("bi-hand-thumbs-down");
+                    downIcon.classList.remove("bi-hand-thumbs-down-fill");
+                } else if (reviewObj[key] == "down") {
+                    upIcon.classList.add("bi-hand-thumbs-up");
+                    upIcon.classList.remove("bi-hand-thumbs-up-fill");
+                    downIcon.classList.add("bi-hand-thumbs-down-fill");
+                    downIcon.classList.remove("bi-hand-thumbs-down");
+                } else {
+                    upIcon.classList.add("bi-hand-thumbs-up");
+                    upIcon.classList.remove("bi-hand-thumbs-up-fill");
+                    downIcon.classList.add("bi-hand-thumbs-down");
+                    downIcon.classList.remove("bi-hand-thumbs-down-fill");
+                }
+            }
+        });
     });
 }
 function updateVoteCountToReviews(reviewId, score) {
@@ -40,8 +74,7 @@ function displayVoteCount(reviewLis, reviews) {
         });
     });
 }
-getVoteData("adyN6FN4OCAriARBOIRu");
-// console.log(ddd["voteCount"]);
+
 function voteReview(icons) {
     icons.forEach((icon) => {
         icon.addEventListener("click", (e) => {
@@ -332,8 +365,9 @@ $(document).ready(async function () {
         $("#property-address").text(property);
         const icons = document.querySelectorAll(".review-vote-box");
         const reviewLis = document.querySelectorAll("li.review-li");
+        // displayStoredVote(reviewLis);
+        getVoteData(reviewLis);
         displayVoteCount(reviewLis, reviews);
-
         voteReview(icons);
     } catch (error) {
         console.error("Error getting documents", error);
