@@ -10,7 +10,6 @@ function getVoteData(reviewId) {
     reviewData.onSnapshot((ref) => {
         voteData["voteCount"] = ref.data().voteCount;
     });
-    console.log(voteData);
 }
 function updateVoteCount(reviewId, score) {
     db.collection("Reviews").doc(reviewId).update({ voteCount: score });
@@ -24,7 +23,6 @@ function displayVoteCount(reviewLis, reviews) {
             if (review.reviewId == reviewId) {
                 score = review.voteCount;
             }
-            console.log(li);
             if (li.id == reviewId) {
                 li.querySelector("span").textContent = score;
             }
@@ -37,25 +35,32 @@ function voteReview(icons) {
     icons.forEach((icon) => {
         icon.addEventListener("click", (e) => {
             const reviewId = e.target.closest("li").id;
-            console.log(reviewId);
+            let score = Number(
+                e.target.closest("li").querySelector("span").textContent
+            );
+            console.log(score);
             let targetClassList = e.target.classList;
             if (targetClassList.contains("vote-icon")) {
                 if (targetClassList.contains("bi-hand-thumbs-up")) {
                     targetClassList.remove("bi-hand-thumbs-up");
                     targetClassList.add("bi-hand-thumbs-up-fill");
-                    updateVoteCount(reviewId, 10202);
+                    score++;
                 } else if (targetClassList.contains("bi-hand-thumbs-up-fill")) {
+                    score--;
                     targetClassList.add("bi-hand-thumbs-up");
                     targetClassList.remove("bi-hand-thumbs-up-fill");
                 } else if (targetClassList.contains("bi-hand-thumbs-down")) {
+                    score--;
                     targetClassList.add("bi-hand-thumbs-down-fill");
                     targetClassList.remove("bi-hand-thumbs-down");
                 } else if (
                     targetClassList.contains("bi-hand-thumbs-down-fill")
                 ) {
+                    score++;
                     targetClassList.add("bi-hand-thumbs-down");
                     targetClassList.remove("bi-hand-thumbs-down-fill");
                 }
+                console.log(score);
             }
         });
     });
@@ -87,7 +92,6 @@ async function getPropertyReviews(propertyId) {
 }
 
 function formatReviewData(reviews) {
-    console.log(reviews);
     return reviews.map((review) => ({
         ...review,
         date: review.createdAt.toDate().toLocaleDateString("en-US", {
