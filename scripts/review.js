@@ -136,7 +136,7 @@ function makeWarningToInvalidScoreBox(obj) {
 }
 
 function createCheckBoxObj() {
-    const tagsDivs = document.querySelectorAll("#form-tags-box > div");
+    const tagsDivs = document.querySelectorAll("#form-tags-box .each-tag-box");
     const resultObj = {};
     tagsDivs.forEach((div) => {
         const divId = div.id;
@@ -298,6 +298,7 @@ function storeReviewFormDataToFirestore(resultObj) {
 function validateForm(e) {
     const scoreBoxObj = createScoreObj();
     const tagsCheckedObj = createCheckBoxObj();
+    console.log(tagsCheckedObj);
     const isValidScores = validateScores(scoreBoxObj);
     const isValidCheckBox = validateCheckBox(tagsCheckedObj);
     const isValidComment = validateComment();
