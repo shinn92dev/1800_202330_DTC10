@@ -61,3 +61,54 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+getUserInputAddress = document.addEventListener("DOMContentLoaded", function() {
+    // Get references to the input elements
+    let unit = document.getElementById("inputUnit");
+    let address = document.getElementById("inputAddress");
+    let city = document.getElementById("inputCity");
+
+    // Function to handle input event
+    function handleInput() {
+      let userInputData = {
+        unit: unit.value,
+        address: address.value,
+        city: city.value
+      };
+
+      // Use the input values here inside the event handler
+      const userInputAddress = `${unit.value} ${address.value}, ${city.value}`.trim();
+      console.log(userInputAddress); // Or handle the data as needed
+      return userInputAddress
+    }
+
+    // Attach the event listener to each input field
+    unit.addEventListener('input', handleInput);
+    address.addEventListener('input', handleInput);
+    city.addEventListener('input', handleInput);
+  });
+
+//userInputAddress = "2345 Spruce Avenue, Vancouver"
+
+testArray = []
+
+db.collection("Properties").onSnapshot((snapshot) => {
+  snapshot.forEach((doc) => {
+    const propertyAddress = doc.data().propertyFullAddress
+    testArray.push(propertyAddress)
+  })
+})
+
+console.log(testArray)
+
+
+function isAddressNew() {
+  submitBtn = document.getElementById("submit-btn")
+  submitBtn.addEventListener("click", function() {
+    if(userInputAddress in testArray) {
+      return true
+    } else {
+      return false
+    }
+  })
+}
