@@ -39,10 +39,10 @@ h3 {
     color: var(--bg-color);
 }
 #form-stars-boxs .score-icon-box {
-    width: 90%;
+    width: 83%;
 }
-#form-stars-boxs span {
-    width: 10%;
+#form-stars-boxs input {
+    width: 17%;
     text-align: center;
 }
 .warning-msg {
