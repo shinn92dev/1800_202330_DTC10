@@ -29,14 +29,32 @@ function initializeCheckBox() {
 
 function handlePaintingStars() {
     scoresInputs.forEach((input) => {
+        const icons = input.previousElementSibling.querySelectorAll("i");
+        for (let i = 0; i < icons.length; i++) {
+            icons[i].addEventListener("click", (e) => {
+                const score = i + 1;
+                for (let j = 0; j < icons.length; j++) {
+                    console.log(icons[j]);
+                    if (j < score) {
+                        icons[j].classList.add("bi-star-fill");
+                        icons[j].classList.remove("bi-star");
+                    } else {
+                        icons[j].classList.remove("bi-star-fill");
+                        icons[j].classList.add("bi-star");
+                    }
+                }
+                input.value = score;
+            });
+        }
+
         input.addEventListener("click", (e) => {
             const targetScoreIcon =
                 e.target.previousElementSibling.querySelectorAll("i");
             const targetScore = Number(e.target.value);
+
             const fullScore = 5;
             const fullStar = parseInt(targetScore);
             const halfStar = targetScore % 1;
-
             // initialize icon
             targetScoreIcon.forEach((icon) => {
                 icon.classList.remove(
@@ -46,7 +64,6 @@ function handlePaintingStars() {
                 );
                 icon.classList.add("bi-star");
             });
-
             // fill icon
             for (let i = 0; i < fullStar; i++) {
                 targetScoreIcon[i].classList.add("bi-star-fill");
@@ -308,38 +325,38 @@ function validateForm(e) {
 //         });
 //     });
 // }
-function colorScore() {
-    const boxes = document.querySelectorAll(".score-icon div");
-    const scoreBoard = {
-        point_five: 0.5,
-        one: 1,
-        one_point_five: 1.5,
-        two: 2,
-        two_point_five: 2.5,
-        three: 3,
-        three_point_five: 3.5,
-        four: 4,
-        four_point_five: 4.5,
-        five: 5,
-    };
-    for (let i = 0; i < boxes.length; i++) {
-        boxes[i].addEventListener("click", (e) => {
-            const scoreKey = e.target.id;
-            const span = e.target
-                .closest(".each-score-outer-container")
-                .querySelector("span");
-            for (let j = 0; j < boxes.length; j++) {
-                if (j <= i) {
-                    boxes[j].classList.add("colored");
-                } else {
-                    boxes[j].classList.remove("colored");
-                }
-            }
-            span.textContent = scoreBoard[scoreKey].toFixed(1);
-        });
-    }
-}
-colorScore();
+// function colorScore() {
+//     const boxes = document.querySelectorAll(".score-icon div");
+//     const scoreBoard = {
+//         point_five: 0.5,
+//         one: 1,
+//         one_point_five: 1.5,
+//         two: 2,
+//         two_point_five: 2.5,
+//         three: 3,
+//         three_point_five: 3.5,
+//         four: 4,
+//         four_point_five: 4.5,
+//         five: 5,
+//     };
+//     for (let i = 0; i < boxes.length; i++) {
+//         boxes[i].addEventListener("click", (e) => {
+//             const scoreKey = e.target.id;
+//             const span = e.target
+//                 .closest(".each-score-outer-container")
+//                 .querySelector("span");
+//             for (let j = 0; j < boxes.length; j++) {
+//                 if (j <= i) {
+//                     boxes[j].classList.add("colored");
+//                 } else {
+//                     boxes[j].classList.remove("colored");
+//                 }
+//             }
+//             span.textContent = scoreBoard[scoreKey].toFixed(1);
+//         });
+//     }
+// }
+// colorScore();
 function initializeReviewPage() {
     initializeCheckBox();
     initializeScoresBox();
