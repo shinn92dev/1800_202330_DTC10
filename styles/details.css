@@ -110,13 +110,13 @@
 }
 
 .review-vote-box * {
-    font-size: 1.25rem;
+    font-size: 2rem;
     margin-left: 3px;
     margin-right: 3px;
-    color: var(--warning-color);
+    color: var(--bg-color);
 }
 .review-vote-box span {
-    font-size: 1rem;
+    font-size: 1.25rem;
     margin-right: 10px;
     color: var(--black-color);
 }
