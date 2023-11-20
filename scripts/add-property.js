@@ -93,15 +93,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if(allValid && isUniqueAddress) {
       const userPostalCode = formatPostalCode(postalCodeInput.value.trim())
       const userInputAddress = `${inputUnit.value} ${inputAddress.value}, ${inputCity.value}`.trim();
+      const newObject = {
+        eachStore: {},
+        overallScore: 0,
+        propertyFullAddress: userInputAddress,
+        postalCode: userPostalCode,
+        tags: []
+      }
       submitBtn.onclick = async function() {
         try {
-           const addProperty = await addDoc(collection(db, "Properties"), {
-          propertyFullAddress: userInputAddress,
-          postalCode: userPostalCode
-        });
-
-        const newPropertyId = addProperty.id
-
+          await db.collection("Properties").add(newObject)
+          
+        const newPropertyId = newObject.id
         window.location.href = `review.html?propertyId=${newPropertyId}`;
         } catch (error) {
            console.error("Error adding document: ", error);
