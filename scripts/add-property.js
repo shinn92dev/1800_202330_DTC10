@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if(allValid && isUniqueAddress) {
       const userPostalCode = formatPostalCode(postalCodeInput.value.trim())
+      const userInputAddress = `${inputUnit.value} ${inputAddress.value}, ${inputCity.value}`.trim();
       submitBtn.onclick = async function() {
         try {
            const addProperty = await addDoc(collection(db, "Properties"), {
