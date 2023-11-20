@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function validatePostalCode() {
-    const isValid = isValidCanadianPostalCode(postalCodeInput.value);
+    const isValid = isValidCanadianPostalCode(postalCodeInput.value.trim());
     validateField(postalCodeInput, isValid);
     return isValid;
   }
@@ -68,6 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function formatPostalCode(postalCode) {
+  const cleanedCode = postalCode.trim().replace(/[^a-zA-Z0-9]/g, " ");
+  return cleanedCode
+}
 
   function validateInput() {
     const isCityValid = validateCity();
@@ -85,6 +89,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     submitBtn.disabled = !allValid || !isUniqueAddress;
+
+    if(allValid && isUniqueAddress) {
+      const userPostalCode = formatPostalCode(postalCodeInput.value.trim())
+      submitBtn.onclick = async function() {
+        try {
+           const addProperty = await addDoc(collection(db, "Properties"), {
+          propertyFullAddress: userInputAddress,
+          postalCode: userPostalCode
+        });
+
+        const newPropertyId = addProperty.id
+
+        window.location.href = `review.html?propertyId=${newPropertyId}`;
+        } catch (error) {
+           console.error("Error adding document: ", error);
+        }
+       
+      }
+    }
   }
 
   [inputCity, inputAddress, postalCodeInput, inputUnit].forEach(element => {
@@ -95,7 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   invalidCheck.addEventListener('change', validateInput);
-  submitBtn.addEventListener('click', validateInput);
+  document.getElementById('needs-validation').addEventListener('submit', function(event) {
+  event.preventDefault();
+  validateInput();
+});
+
 
   // enable check box when policy is scrolled until the bottom
    let isScrolledToEnd = false;
