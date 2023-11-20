@@ -76,7 +76,7 @@ function generateListingItem(listing) {
                 </div>
             </div>
             <div class="d-flex justify-content-between align-items-center text-box__top">
-                <img src="./images/bookmark.svg" alt="" />
+                <i style="cursor: pointer;" class="material-icons">bookmark_border</i>
             </div></a>
         </li>
     `;
@@ -101,35 +101,3 @@ function generateNoResultsMessage(hasResults = false) {
 }
 
 getListingDataAndDisplay();
-
-const rentalData = [
-    {
-        propertyFullAddress: "555 Seymour St",
-        postalCode: "V6B 3H6",
-        eachScore: {
-            cleanliness: 4,
-            houserule: 3,
-            price: 3,
-            landlord: 4,
-            location: 5,
-        },
-        overallScore: 3.8,
-        tags: ["Clean", "Convenient Location"],
-    },
-];
-
-// don't call this function unless you want to add more data
-async function sendRentalDataToFirestore(rentalData) {
-    const rentalsCollection = db.collection("Properties");
-
-    for (const rental of rentalData) {
-        await rentalsCollection
-            .add(rental)
-            .then((docRef) => {
-                console.log("Document written with ID: ", docRef.id);
-            })
-            .catch((error) => {
-                console.error("Error adding document: ", error);
-            });
-    }
-}
