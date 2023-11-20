@@ -1,114 +1,110 @@
 document.addEventListener('DOMContentLoaded', () => {
   'use strict';
 
-  // Function to check if the Canadian postal code is valid
+  const inputUnit = document.getElementById("inputUnit");
+  const inputAddress = document.getElementById("inputAddress");
+  const inputCity = document.getElementById("inputCity");
+  const postalCodeInput = document.getElementById('inputPostalCode');
+  const policyElement = document.getElementById('policy');
+  const invalidCheck = document.getElementById('invalidCheck')
+  const submitBtn = document.getElementById("submit-btn");
+  let propertyArray = [];
+
+  // Initialize Firestore listener
+  db.collection("Properties").onSnapshot(snapshot => {
+    propertyArray = snapshot.docs.map(doc => doc.data().propertyFullAddress);
+  });
+
+  // Validate Canadian Postal Code
   function isValidCanadianPostalCode(postalCode) {
     const regex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
     return regex.test(postalCode);
   }
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('#needs-validation');
+  function validateField(field, isValid) {
+    field.classList.toggle('is-invalid', !isValid);
+    field.classList.toggle('is-valid', isValid);
+  }
 
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      // Check if form is valid
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
+  function validateCity() {
+    const isValid = inputCity.value.trim() !== '';
+    validateField(inputCity, isValid);
+    return isValid;
+  }
 
-      // Validate the postal code
-      const postalCodeInput = document.getElementById('inputPostalCode');
-      if (!isValidCanadianPostalCode(postalCodeInput.value)) {
-        // If postal code is not valid, prevent form submission and show validation feedback
-        event.preventDefault();
-        postalCodeInput.classList.remove('is-valid');
-        postalCodeInput.classList.add('is-invalid');
-        event.stopPropagation(); // Stop the form from submitting
-      } else {
-        // If postal code is valid, remove invalid class and keep valid class
-        postalCodeInput.classList.remove('is-invalid');
-        postalCodeInput.classList.add('is-valid');
-      }
+  function validateAddress() {
+    const isValid = inputAddress.value.trim() !== '';
+    validateField(inputAddress, isValid);
+    return isValid;
+  }
 
-      // Add Bootstrap validation class
-      form.classList.add('was-validated');
-    }, false);
-  });
+  function validatePostalCode() {
+    const isValid = isValidCanadianPostalCode(postalCodeInput.value);
+    validateField(postalCodeInput, isValid);
+    return isValid;
+  }
 
-  // Listen for input event on postal code field to add/remove validation classes
-  document.getElementById('inputPostalCode').addEventListener('input', function() {
-    // Reset validation state upon input
-    this.classList.remove('is-invalid');
-    this.classList.remove('is-valid');
-    
-    // Apply the correct validation class based on the postal code validity
-    if (isValidCanadianPostalCode(this.value)) {
-      this.classList.add('is-valid');
+  function validateCheckbox() {
+    const isValid = invalidCheck.checked;
+    validateField(invalidCheck, isValid)
+    return isValid;
+  }
+
+  function isAddressUnique() {
+    const userInputAddress = `${inputUnit.value} ${inputAddress.value}, ${inputCity.value}`.trim();
+    return !propertyArray.includes(userInputAddress);
+  }
+
+  function updateWarningMessage(message, display) {
+    let warningMsg = document.getElementById("warning-msg") || document.createElement("p");
+    warningMsg.id = "warning-msg";
+    warningMsg.style.color = "red";
+    warningMsg.textContent = message;
+
+    if (display) {
+      submitBtn.parentNode.insertBefore(warningMsg, submitBtn.nextSibling);
     } else {
-      this.classList.add('is-invalid');
+      if (warningMsg) warningMsg.remove();
     }
+  }
+
+
+  function validateInput() {
+    const isCityValid = validateCity();
+    const isAddressValid = validateAddress();
+    const isPostalValid = validatePostalCode();
+    const isUniqueAddress = isAddressUnique();
+    const isCheckValid = validateCheckbox();
+
+    const allValid = isCityValid && isAddressValid && isPostalValid && isCheckValid;
+
+    if (!isUniqueAddress) {
+      updateWarningMessage("Address already exists", true);
+    } else {
+      updateWarningMessage("", false);
+    }
+
+    submitBtn.disabled = !allValid || !isUniqueAddress;
+  }
+
+  [inputCity, inputAddress, postalCodeInput, inputUnit].forEach(element => {
+    element.addEventListener('input', () => {
+      validateInput();
+      submitBtn.disabled = false; // Enable submit button on input change
+    });
   });
 
-  // Enable confirmation checkbox when the policy has been scrolled to the end
-  document.getElementById('policy').addEventListener('scroll', function() {
-    var element = document.getElementById('policy');
-    if (element.scrollHeight - element.scrollTop - element.clientHeight < 1) {
-      document.getElementById('invalidCheck').disabled = false;
+  invalidCheck.addEventListener('change', validateInput);
+  submitBtn.addEventListener('click', validateInput);
+
+  // enable check box when policy is scrolled until the bottom
+   let isScrolledToEnd = false;
+
+  policyElement.addEventListener('scroll', function() {
+    if (!isScrolledToEnd && policyElement.scrollHeight - policyElement.scrollTop - policyElement.clientHeight < 1) {
+      invalidCheck.disabled = false;
+      isScrolledToEnd = true;
     }
   });
 
 });
-
-getUserInputAddress = document.addEventListener("DOMContentLoaded", function() {
-    // Get references to the input elements
-    let unit = document.getElementById("inputUnit");
-    let address = document.getElementById("inputAddress");
-    let city = document.getElementById("inputCity");
-
-    // Function to handle input event
-    function handleInput() {
-      let userInputData = {
-        unit: unit.value,
-        address: address.value,
-        city: city.value
-      };
-
-      // Use the input values here inside the event handler
-      const userInputAddress = `${unit.value} ${address.value}, ${city.value}`.trim();
-      console.log(userInputAddress); // Or handle the data as needed
-      return userInputAddress
-    }
-
-    // Attach the event listener to each input field
-    unit.addEventListener('input', handleInput);
-    address.addEventListener('input', handleInput);
-    city.addEventListener('input', handleInput);
-  });
-
-//userInputAddress = "2345 Spruce Avenue, Vancouver"
-
-testArray = []
-
-db.collection("Properties").onSnapshot((snapshot) => {
-  snapshot.forEach((doc) => {
-    const propertyAddress = doc.data().propertyFullAddress
-    testArray.push(propertyAddress)
-  })
-})
-
-console.log(testArray)
-
-
-function isAddressNew() {
-  submitBtn = document.getElementById("submit-btn")
-  submitBtn.addEventListener("click", function() {
-    if(userInputAddress in testArray) {
-      return true
-    } else {
-      return false
-    }
-  })
-}

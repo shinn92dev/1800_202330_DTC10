@@ -46,25 +46,25 @@
 				<label for="inputUnit" class="form-label">Unit #</label>
 				<input type="text" class="form-control" id="inputUnit" placeholder="Apartment, studio, or floor">
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6 form-container">
 				<label for="inputAddress2 validationCustom02" class="form-label">Address</label>
 				<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
 				<div class="invalid-feedback">
 					Please provide a valid address.
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6 form-container">
 				<label for="inputCity" class="form-label">City</label>
 				<input type="text" class="form-control" id="inputCity" required>
 				<div class="invalid-feedback">
 					Please provide a valid city.
 				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6 form-container">
 				<label for="inputCity" class="form-label">Province</label>
 				<input type="text" class="form-control" id="inputProvince" value="BC">
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3 form-container">
 				<label for="inputPostalCode" class="form-label">Postal code</label>
 				<input type="text" class="form-control" id="inputPostalCode" required>
 				<div class="invalid-feedback">
@@ -84,12 +84,15 @@
 				community standards. Please note that we reserve the right to suspend or terminate accounts that violate these terms and
 				to modify these terms and policies at any time, with changes effective upon posting.</p>
 			</div>
-			<div class="col-12">
+			<div class="col-12 checkbox-container">
 				<div class="form-check">
+					<label class="form-check-label" for="invalidCheck"></label>
 					<input class="form-check-input" type="checkbox" value="" id="invalidCheck" disabled required>
-					<label class="form-check-label" for="invalidCheck">
 						I agree to the Terms of Use and Privacy Policy
 					</label>
+					<div class="invalid-feedback">
+						Please agree to the policy
+					</div>
 				</div>
 			</div>
 			<div class="col-12">

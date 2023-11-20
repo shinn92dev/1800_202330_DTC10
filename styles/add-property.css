@@ -23,3 +23,15 @@ label {
     margin-top: 20px;
     min-width: 150px;
 }
+
+.invalid-feedback {
+    height: 0;
+}
+
+.form-container {
+    height: 90px;
+}
+
+.checkbox-container {
+    height: 45px;
+}
