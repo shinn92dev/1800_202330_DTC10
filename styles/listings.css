@@ -1,3 +1,7 @@
+.text-box__middle {
+    margin-left: 32px;
+}
+
 .listings_message {
     display: flex;
     flex-direction: column;
