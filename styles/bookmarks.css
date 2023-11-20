@@ -1,0 +1,33 @@
+.container {
+    margin-top: 64px;
+}
+
+.listings_message-p {
+    font-size: var(--large-font);
+    margin-bottom: 16px;
+}
+
+.listings_message {
+    margin: 0;
+    padding: 0;
+}
+
+.bookmark-header {
+    font-size: var(--large-font);
+}
+
+.go-back {
+    text-align: center;
+}
+
+.go-back:hover {
+    text-decoration: underline;
+}
+
+.bookmark-cards {
+    width: 100%;
+}
+
+.card-address {
+    margin-left: 32px;
+}

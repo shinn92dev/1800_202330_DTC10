@@ -142,6 +142,20 @@ function voteReview(icons) {
         });
     });
 }
+let currentUser;
+
+const getUser = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            currentUser = db.collection("Users").doc(user.uid);
+        } else {
+            console.log("No user is signed in");
+        }
+    });
+};
+
+getUser();
+
 const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -344,6 +358,68 @@ function updateCategoryRatings(scores) {
     }
 }
 
+const commentLink = document.getElementById("leave-comment-btn");
+
+function directToReviewFormPage() {
+    firebase.auth().onAuthStateChanged((user) => {
+        // Check if user is signed in:
+        if (user) {
+            const urlParams = new URL(location.href).searchParams;
+            const propertyId = urlParams.get("propertyId");
+            commentLink.href = "review.html?propertyId=" + propertyId;
+            window.localStorage.setItem("userUID", user.uid);
+        } else {
+            commentLink.href = "login.html";
+        }
+    });
+}
+
+commentLink.addEventListener("click", directToReviewFormPage);
+
+function toggleBookmark(propertyId) {
+    currentUser.get().then((userDoc) => {
+        const bookmarks = userDoc.data().bookmarks || [];
+        const isBookmarked = bookmarks.includes(propertyId);
+        const firestoreFieldValue = firebase.firestore.FieldValue;
+
+        // Update Firestore based on whether the property is already bookmarked
+        currentUser
+            .update({
+                bookmarks: isBookmarked
+                    ? firestoreFieldValue.arrayRemove(propertyId)
+                    : firestoreFieldValue.arrayUnion(propertyId),
+            })
+            .then(() => {
+                // Update the icon based on the new bookmark status
+                const bookmarkIcon = document.getElementById("bookmark");
+                bookmarkIcon.textContent = isBookmarked
+                    ? "bookmark_border"
+                    : "bookmark";
+            })
+            .catch((error) => {
+                console.error("Error updating bookmarks", error);
+            });
+    });
+}
+
+function displayBookmark(propertyId) {
+    currentUser.get().then((userDoc) => {
+        const bookmarks = userDoc.data().bookmarks || [];
+        const bookmarkIcon = document.getElementById("bookmark");
+        if (bookmarks.includes(propertyId)) {
+            bookmarkIcon.textContent = "bookmark";
+        } else {
+            bookmarkIcon.textContent = "bookmark_border";
+        }
+    });
+
+    // Add click listener to the bookmark icon
+    const bookmarkIcon = document.getElementById("bookmark");
+    bookmarkIcon.addEventListener("click", function () {
+        toggleBookmark(propertyId);
+    });
+}
+
 $(document).ready(async function () {
     const propertyId = new URLSearchParams(window.location.search)
         .get("propertyId")
@@ -365,6 +441,7 @@ $(document).ready(async function () {
         $("#property-address").text(property);
         const icons = document.querySelectorAll(".review-vote-box");
         const reviewLis = document.querySelectorAll("li.review-li");
+        displayBookmark(propertyId);
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 getVoteData(reviewLis);
@@ -376,20 +453,3 @@ $(document).ready(async function () {
         console.error("Error getting documents", error);
     }
 });
-const commentLink = document.getElementById("leave-comment-btn");
-function directToReviewFormPage() {
-    firebase.auth().onAuthStateChanged((user) => {
-        // Check if user is signed in:
-        if (user) {
-            const urlParams = new URL(location.href).searchParams;
-            const propertyId = urlParams.get("propertyId");
-            commentLink.href = "review.html?propertyId=" + propertyId;
-            window.localStorage.setItem("userUID", user.uid);
-        } else {
-            commentLink.href = "login.html";
-        }
-    });
-}
-
-// console.log(commentBtn);
-commentLink.addEventListener("click", directToReviewFormPage);
