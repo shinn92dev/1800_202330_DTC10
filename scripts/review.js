@@ -292,7 +292,7 @@ function getFormData() {
 function storeReviewFormDataToFirestore(resultObj) {
     var reviewRef = db.collection("Reviews");
     console.log("save function");
-    reviewRef.add(resultObj);
+    reviewRef.add(resultObj).then((window.location.href = "thankyou.html"));
 }
 
 function validateForm(e) {
