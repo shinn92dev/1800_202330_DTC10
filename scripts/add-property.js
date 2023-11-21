@@ -102,9 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       submitBtn.onclick = async function() {
         try {
-          await db.collection("Properties").add(newObject)
+          const response = await db.collection("Properties").add(newObject)
+
+          console.log(response)
           
-        const newPropertyId = newObject.id
+        const newPropertyId = response.id
         window.location.href = `review.html?propertyId=${newPropertyId}`;
         } catch (error) {
            console.error("Error adding document: ", error);
