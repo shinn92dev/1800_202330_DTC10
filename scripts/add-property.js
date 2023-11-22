@@ -102,13 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       submitBtn.onclick = async function() {
         try {
+          submitBtn.disabled = true;
           const response = await db.collection("Properties").add(newObject)
-
-          console.log(response)
-          
-        const newPropertyId = response.id
-        window.location.href = `review.html?propertyId=${newPropertyId}`;
+          const newPropertyId = response.id
+          window.location.href = `review.html?propertyId=${newPropertyId}`;
         } catch (error) {
+           submitBtn.disabled = false;
            console.error("Error adding document: ", error);
         }
        
