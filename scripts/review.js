@@ -292,6 +292,7 @@ function getFormData() {
 function storeReviewFormDataToFirestore(resultObj) {
     var reviewRef = db.collection("Reviews");
     console.log("save function");
+    document.querySelector('button[type="submit"]').disabled = true;
     reviewRef.add(resultObj).then((window.location.href = "thankyou.html"));
 }
 
