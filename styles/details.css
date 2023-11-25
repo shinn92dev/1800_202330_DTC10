@@ -1,7 +1,7 @@
-body.modal {
-    height: 100vh;
+/* body.modal {
+    height: 100%;
     overflow: hidden;
-}
+} */
 
 .top-box__score-box {
     display: flex;

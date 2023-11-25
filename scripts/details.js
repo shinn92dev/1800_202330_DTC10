@@ -422,14 +422,36 @@ function displayBookmark(propertyId) {
     });
 }
 
-function popUpSignUpAlert() {
+function handleModalSignUpAlert() {
     const voteIcons = document.querySelectorAll("#comments i");
     const bookmarkIcon = document.querySelector("#bookmark");
     const iconArr = [bookmarkIcon, ...voteIcons];
+    const overlay = document.querySelector("#overlay");
+    const modalBox = document.querySelector("#sign-up-alert");
+    const cancelIcon = document.querySelector("#sign-up-alert button");
+    // const body = document.querySelector("body");
     iconArr.forEach((icon) => {
         icon.addEventListener("click", (e) => {
-            console.log(e);
+            // body.classList.add("modal");
+            overlay.classList.remove("hidden");
+            modalBox.classList.remove("hidden");
         });
+    });
+    cancelIcon.addEventListener("click", (e) => {
+        overlay.classList.add("hidden");
+        modalBox.classList.add("hidden");
+    });
+
+    document.addEventListener("keyup", (e) => {
+        if (!overlay.classList.contains("hidden")) {
+            console.log(e.key);
+            if (e.key == "Escape") {
+                overlay.classList.add("hidden");
+                modalBox.classList.add("hidden");
+            } else if (e.key == "Enter") {
+                window.location.href = "./login.html";
+            }
+        }
     });
 }
 $(document).ready(async function () {
@@ -462,7 +484,7 @@ $(document).ready(async function () {
                 voteReview(icons);
             } else {
                 console.log("asdffffffffffffffffffff");
-                popUpSignUpAlert();
+                handleModalSignUpAlert();
             }
         });
     } catch (error) {
