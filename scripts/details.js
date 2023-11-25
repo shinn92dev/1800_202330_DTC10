@@ -422,6 +422,16 @@ function displayBookmark(propertyId) {
     });
 }
 
+function popUpSignUpAlert() {
+    const voteIcons = document.querySelectorAll("#comments i");
+    const bookmarkIcon = document.querySelector("#bookmark");
+    const iconArr = [bookmarkIcon, ...voteIcons];
+    iconArr.forEach((icon) => {
+        icon.addEventListener("click", (e) => {
+            console.log(e);
+        });
+    });
+}
 $(document).ready(async function () {
     const propertyId = new URLSearchParams(window.location.search)
         .get("propertyId")
@@ -443,12 +453,16 @@ $(document).ready(async function () {
         $("#property-address").text(property);
         const icons = document.querySelectorAll(".review-vote-box");
         const reviewLis = document.querySelectorAll("li.review-li");
-        displayBookmark(propertyId);
+        // displayBookmark(propertyId);
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
+                displayBookmark(propertyId);
                 getVoteData(reviewLis);
                 displayVoteCount(reviewLis, reviews);
                 voteReview(icons);
+            } else {
+                console.log("asdffffffffffffffffffff");
+                popUpSignUpAlert();
             }
         });
     } catch (error) {
