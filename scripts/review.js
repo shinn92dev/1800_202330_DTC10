@@ -34,7 +34,6 @@ function handlePaintingStars() {
             icons[i].addEventListener("click", (e) => {
                 const score = i + 1;
                 for (let j = 0; j < icons.length; j++) {
-                    console.log(icons[j]);
                     if (j < score) {
                         icons[j].classList.add("bi-star-fill");
                         icons[j].classList.remove("bi-star");
@@ -136,61 +135,41 @@ function makeWarningToInvalidScoreBox(obj) {
 }
 
 function createCheckBoxObj() {
-    const tagsDivs = document.querySelectorAll("#form-tags-box .each-tag-box");
-    const resultObj = {};
-    tagsDivs.forEach((div) => {
-        const divId = div.id;
-        if (!(divId in resultObj)) {
-            resultObj[divId] = 0;
+    const selectors = document.querySelectorAll('input[type="checkbox"]');
+    const resultObj = [];
+    selectors.forEach((selector) => {
+        if (selector.checked) {
+            resultObj.push(selector.value);
         }
-        const taginputs = document
-            .querySelector(`#${divId}`)
-            .querySelectorAll("input");
-        taginputs.forEach((input) => {
-            if (input.checked) {
-                resultObj[divId] += 1;
-            }
-        });
     });
-    console.log(resultObj);
     return resultObj;
 }
 
-function validateCheckBox(obj) {
-    console.log(obj);
-    const keys = Object.keys(obj);
-    let isAllSelected = true;
-    keys.forEach((id) => {
-        if (obj[id] <= 0) {
-            isAllSelected = false;
-            return false;
+function validateCheckBox() {
+    const selectors = document.querySelectorAll('input[type="checkbox"]');
+    let tagCount = 0;
+    selectors.forEach((selector) => {
+        if (selector.checked) {
+            tagCount++;
         }
     });
-    return isAllSelected;
+    if (tagCount >= 2 && tagCount <= 5) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function makeWarningToInvalidTagBox(obj) {
-    const keys = Object.keys(obj);
-    keys.forEach((id) => {
-        const targetEl = document.querySelector(`#${id} > div`);
-        const warningEl = document.createElement("p");
-        const targetElParent = targetEl.parentElement;
-        warningEl.classList.add("warning-msg", "tags-warning-msg");
-        warningEl.textContent = "Please select at least one tag.";
-        const targetElWarningMsgEl =
-            targetElParent.querySelector(".tags-warning-msg");
-        if (obj[id] == 0) {
-            if (targetElWarningMsgEl == null) {
-                targetElParent.insertBefore(warningEl, targetEl);
-            }
-            targetEl.classList.add("border-danger");
-        } else {
-            if (targetElWarningMsgEl) {
-                targetElWarningMsgEl.remove();
-            }
-            targetEl.classList.remove("border-danger");
-        }
-    });
+    const container = document.querySelector("#form-tags-box > div");
+    const msg = document.querySelector("#form-tags-box > p");
+    if (obj.length <= 5 && obj.length >= 2) {
+        container.classList.remove("border-danger");
+        msg.classList.remove("warning-msg", "tags-warning-msg");
+    } else {
+        container.classList.add("border-danger");
+        msg.classList.add("warning-msg", "tags-warning-msg");
+    }
 }
 
 function validateComment() {
@@ -293,25 +272,19 @@ function getFormData() {
 function storeReviewFormDataToFirestore(resultObj) {
     var reviewRef = db.collection("Reviews");
     reviewRef.add(resultObj);
-    console.log("save function");
     document.querySelector('button[type="submit"]').disabled = true;
-    // reviewRef.add(resultObj).then((window.location.href = "thankyou.html"));
 }
 
 function validateForm(e) {
     const scoreBoxObj = createScoreObj();
     const tagsCheckedObj = createCheckBoxObj();
-    console.log(tagsCheckedObj);
     const isValidScores = validateScores(scoreBoxObj);
     const isValidCheckBox = validateCheckBox(tagsCheckedObj);
     const isValidComment = validateComment();
     const allValid = isValidCheckBox && isValidComment && isValidScores;
-    console.log(isValidCheckBox, isValidComment, isValidScores);
-    console.log(allValid);
     if (allValid) {
         e.preventDefault();
         const formData = getFormData();
-        console.log(formData);
         storeReviewFormDataToFirestore(formData);
     } else {
         e.preventDefault();
