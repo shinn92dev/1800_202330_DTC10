@@ -223,7 +223,9 @@ function calculateAverageScores(reviews) {
     );
 
     return {
-        overall: roundDownToNearestHalf(totals.total / reviews.length),
+        overall: roundDownToNearestHalf(totals.total / reviews.length).toFixed(
+            1
+        ),
         cleanliness: roundDownToNearestHalf(
             totals.cleanliness / reviews.length
         ),
