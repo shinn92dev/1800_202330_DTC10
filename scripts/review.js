@@ -152,11 +152,12 @@ function createCheckBoxObj() {
             }
         });
     });
-
+    console.log(resultObj);
     return resultObj;
 }
 
 function validateCheckBox(obj) {
+    console.log(obj);
     const keys = Object.keys(obj);
     let isAllSelected = true;
     keys.forEach((id) => {
@@ -291,9 +292,10 @@ function getFormData() {
 
 function storeReviewFormDataToFirestore(resultObj) {
     var reviewRef = db.collection("Reviews");
+    reviewRef.add(resultObj);
     console.log("save function");
     document.querySelector('button[type="submit"]').disabled = true;
-    reviewRef.add(resultObj).then((window.location.href = "thankyou.html"));
+    // reviewRef.add(resultObj).then((window.location.href = "thankyou.html"));
 }
 
 function validateForm(e) {
