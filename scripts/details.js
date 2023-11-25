@@ -429,10 +429,12 @@ function handleModalSignUpAlert() {
     const overlay = document.querySelector("#overlay");
     const modalBox = document.querySelector("#sign-up-alert");
     const cancelIcon = document.querySelector("#sign-up-alert button");
-    // const body = document.querySelector("body");
+    const body = document.querySelector("body");
     iconArr.forEach((icon) => {
         icon.addEventListener("click", (e) => {
-            // body.classList.add("modal");
+            body.classList.add("modal_effect");
+            window.scrollTo(0, 0);
+            console.log(body.scrollTop);
             overlay.classList.remove("hidden");
             modalBox.classList.remove("hidden");
         });
@@ -440,14 +442,15 @@ function handleModalSignUpAlert() {
     cancelIcon.addEventListener("click", (e) => {
         overlay.classList.add("hidden");
         modalBox.classList.add("hidden");
+        body.classList.remove("modal_effect");
     });
 
     document.addEventListener("keyup", (e) => {
         if (!overlay.classList.contains("hidden")) {
-            console.log(e.key);
             if (e.key == "Escape") {
                 overlay.classList.add("hidden");
                 modalBox.classList.add("hidden");
+                body.classList.remove("modal_effect");
             } else if (e.key == "Enter") {
                 window.location.href = "./login.html";
             }
