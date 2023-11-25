@@ -1,142 +1,175 @@
-document.addEventListener('DOMContentLoaded', () => {
-  'use strict';
+document.addEventListener("DOMContentLoaded", () => {
+    "use strict";
+    firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+            window.location.href = "./login.html";
+        } else {
+            const inputUnit = document.getElementById("inputUnit");
+            const inputAddress = document.getElementById("inputAddress");
+            const inputCity = document.getElementById("inputCity");
+            const postalCodeInput = document.getElementById("inputPostalCode");
+            const policyElement = document.getElementById("policy");
+            const invalidCheck = document.getElementById("invalidCheck");
+            const submitBtn = document.getElementById("submit-btn");
+            let propertyArray = [];
 
-  const inputUnit = document.getElementById("inputUnit");
-  const inputAddress = document.getElementById("inputAddress");
-  const inputCity = document.getElementById("inputCity");
-  const postalCodeInput = document.getElementById('inputPostalCode');
-  const policyElement = document.getElementById('policy');
-  const invalidCheck = document.getElementById('invalidCheck')
-  const submitBtn = document.getElementById("submit-btn");
-  let propertyArray = [];
+            // Initialize Firestore listener
+            db.collection("Properties").onSnapshot((snapshot) => {
+                propertyArray = snapshot.docs.map(
+                    (doc) => doc.data().propertyFullAddress
+                );
+            });
 
-  // Initialize Firestore listener
-  db.collection("Properties").onSnapshot(snapshot => {
-    propertyArray = snapshot.docs.map(doc => doc.data().propertyFullAddress);
-  });
+            // Validate Canadian Postal Code
+            function isValidCanadianPostalCode(postalCode) {
+                const regex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+                return regex.test(postalCode);
+            }
 
-  // Validate Canadian Postal Code
-  function isValidCanadianPostalCode(postalCode) {
-    const regex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
-    return regex.test(postalCode);
-  }
+            function validateField(field, isValid) {
+                field.classList.toggle("is-invalid", !isValid);
+                field.classList.toggle("is-valid", isValid);
+            }
 
-  function validateField(field, isValid) {
-    field.classList.toggle('is-invalid', !isValid);
-    field.classList.toggle('is-valid', isValid);
-  }
+            function validateCity() {
+                const isValid = inputCity.value.trim() !== "";
+                validateField(inputCity, isValid);
+                return isValid;
+            }
 
-  function validateCity() {
-    const isValid = inputCity.value.trim() !== '';
-    validateField(inputCity, isValid);
-    return isValid;
-  }
+            function validateAddress() {
+                const isValid = inputAddress.value.trim() !== "";
+                validateField(inputAddress, isValid);
+                return isValid;
+            }
 
-  function validateAddress() {
-    const isValid = inputAddress.value.trim() !== '';
-    validateField(inputAddress, isValid);
-    return isValid;
-  }
+            function validatePostalCode() {
+                const isValid = isValidCanadianPostalCode(
+                    postalCodeInput.value.trim()
+                );
+                validateField(postalCodeInput, isValid);
+                return isValid;
+            }
 
-  function validatePostalCode() {
-    const isValid = isValidCanadianPostalCode(postalCodeInput.value.trim());
-    validateField(postalCodeInput, isValid);
-    return isValid;
-  }
+            function validateCheckbox() {
+                const isValid = invalidCheck.checked;
+                validateField(invalidCheck, isValid);
+                return isValid;
+            }
 
-  function validateCheckbox() {
-    const isValid = invalidCheck.checked;
-    validateField(invalidCheck, isValid)
-    return isValid;
-  }
+            function isAddressUnique() {
+                const userInputAddress =
+                    `${inputUnit.value} ${inputAddress.value}, ${inputCity.value}`.trim();
+                return !propertyArray.includes(userInputAddress);
+            }
 
-  function isAddressUnique() {
-    const userInputAddress = `${inputUnit.value} ${inputAddress.value}, ${inputCity.value}`.trim();
-    return !propertyArray.includes(userInputAddress);
-  }
+            function updateWarningMessage(message, display) {
+                let warningMsg =
+                    document.getElementById("warning-msg") ||
+                    document.createElement("p");
+                warningMsg.id = "warning-msg";
+                warningMsg.style.color = "red";
+                warningMsg.textContent = message;
 
-  function updateWarningMessage(message, display) {
-    let warningMsg = document.getElementById("warning-msg") || document.createElement("p");
-    warningMsg.id = "warning-msg";
-    warningMsg.style.color = "red";
-    warningMsg.textContent = message;
+                if (display) {
+                    submitBtn.parentNode.insertBefore(
+                        warningMsg,
+                        submitBtn.nextSibling
+                    );
+                } else {
+                    if (warningMsg) warningMsg.remove();
+                }
+            }
 
-    if (display) {
-      submitBtn.parentNode.insertBefore(warningMsg, submitBtn.nextSibling);
-    } else {
-      if (warningMsg) warningMsg.remove();
-    }
-  }
+            function formatPostalCode(postalCode) {
+                const cleanedCode = postalCode
+                    .trim()
+                    .replace(/[^a-zA-Z0-9]/g, " ");
+                return cleanedCode;
+            }
 
-  function formatPostalCode(postalCode) {
-  const cleanedCode = postalCode.trim().replace(/[^a-zA-Z0-9]/g, " ");
-  return cleanedCode
-}
+            function validateInput() {
+                const isCityValid = validateCity();
+                const isAddressValid = validateAddress();
+                const isPostalValid = validatePostalCode();
+                const isUniqueAddress = isAddressUnique();
+                const isCheckValid = validateCheckbox();
 
-  function validateInput() {
-    const isCityValid = validateCity();
-    const isAddressValid = validateAddress();
-    const isPostalValid = validatePostalCode();
-    const isUniqueAddress = isAddressUnique();
-    const isCheckValid = validateCheckbox();
+                const allValid =
+                    isCityValid &&
+                    isAddressValid &&
+                    isPostalValid &&
+                    isCheckValid;
 
-    const allValid = isCityValid && isAddressValid && isPostalValid && isCheckValid;
+                if (!isUniqueAddress) {
+                    updateWarningMessage("Address already exists", true);
+                } else {
+                    updateWarningMessage("", false);
+                }
 
-    if (!isUniqueAddress) {
-      updateWarningMessage("Address already exists", true);
-    } else {
-      updateWarningMessage("", false);
-    }
+                submitBtn.disabled = !allValid || !isUniqueAddress;
 
-    submitBtn.disabled = !allValid || !isUniqueAddress;
+                if (allValid && isUniqueAddress) {
+                    const userPostalCode = formatPostalCode(
+                        postalCodeInput.value.trim()
+                    );
+                    const userInputAddress =
+                        `${inputUnit.value} ${inputAddress.value}, ${inputCity.value}`.trim();
+                    const newObject = {
+                        eachStore: {},
+                        overallScore: 0,
+                        propertyFullAddress: userInputAddress,
+                        postalCode: userPostalCode,
+                        tags: [],
+                    };
+                    submitBtn.onclick = async function () {
+                        try {
+                            submitBtn.disabled = true;
+                            const response = await db
+                                .collection("Properties")
+                                .add(newObject);
+                            const newPropertyId = response.id;
+                            window.location.href = `review.html?propertyId=${newPropertyId}`;
+                        } catch (error) {
+                            submitBtn.disabled = false;
+                            console.error("Error adding document: ", error);
+                        }
+                    };
+                }
+            }
 
-    if(allValid && isUniqueAddress) {
-      const userPostalCode = formatPostalCode(postalCodeInput.value.trim())
-      const userInputAddress = `${inputUnit.value} ${inputAddress.value}, ${inputCity.value}`.trim();
-      const newObject = {
-        eachStore: {},
-        overallScore: 0,
-        propertyFullAddress: userInputAddress,
-        postalCode: userPostalCode,
-        tags: []
-      }
-      submitBtn.onclick = async function() {
-        try {
-          submitBtn.disabled = true;
-          const response = await db.collection("Properties").add(newObject)
-          const newPropertyId = response.id
-          window.location.href = `review.html?propertyId=${newPropertyId}`;
-        } catch (error) {
-           submitBtn.disabled = false;
-           console.error("Error adding document: ", error);
+            [inputCity, inputAddress, postalCodeInput, inputUnit].forEach(
+                (element) => {
+                    element.addEventListener("input", () => {
+                        validateInput();
+                        submitBtn.disabled = false; // Enable submit button on input change
+                    });
+                }
+            );
+
+            invalidCheck.addEventListener("change", validateInput);
+            document
+                .getElementById("needs-validation")
+                .addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    validateInput();
+                });
+
+            // enable check box when policy is scrolled until the bottom
+            let isScrolledToEnd = false;
+
+            policyElement.addEventListener("scroll", function () {
+                if (
+                    !isScrolledToEnd &&
+                    policyElement.scrollHeight -
+                        policyElement.scrollTop -
+                        policyElement.clientHeight <
+                        1
+                ) {
+                    invalidCheck.disabled = false;
+                    isScrolledToEnd = true;
+                }
+            });
         }
-       
-      }
-    }
-  }
-
-  [inputCity, inputAddress, postalCodeInput, inputUnit].forEach(element => {
-    element.addEventListener('input', () => {
-      validateInput();
-      submitBtn.disabled = false; // Enable submit button on input change
     });
-  });
-
-  invalidCheck.addEventListener('change', validateInput);
-  document.getElementById('needs-validation').addEventListener('submit', function(event) {
-  event.preventDefault();
-  validateInput();
-});
-
-
-  // enable check box when policy is scrolled until the bottom
-   let isScrolledToEnd = false;
-
-  policyElement.addEventListener('scroll', function() {
-    if (!isScrolledToEnd && policyElement.scrollHeight - policyElement.scrollTop - policyElement.clientHeight < 1) {
-      invalidCheck.disabled = false;
-      isScrolledToEnd = true;
-    }
-  });
-
 });
