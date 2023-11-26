@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            //format
             function formatAddress(unit, street, city) {
                 const abbreviations = {
                     'St': 'Street',
@@ -93,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
                 const match = street.match(/(\d+)(.+)/);
                 if (!match) {
-                    return `${unit} ${street}, ${formatCity(city)}, Canada`;
+                    return `${unit} ${street}, ${formatCity(city)}`;
                 }
 
                 const [, number, streetName] = match;
