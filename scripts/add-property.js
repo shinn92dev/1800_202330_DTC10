@@ -81,6 +81,45 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
+            //format
+            function formatAddress(unit, street, city) {
+                const abbreviations = {
+                    'St': 'Street',
+                    'Ave': 'Avenue',
+                    'Dr': 'Drive',
+                    'Blvd': 'Boulevard',
+                    'Rd': 'Road',
+                    // Add other abbreviations here
+                };
+                const match = street.match(/(\d+)(.+)/);
+                if (!match) {
+                    return `${unit} ${street}, ${formatCity(city)}, Canada`;
+                }
+
+                const [, number, streetName] = match;
+                const streetParts = streetName.trim().split(' ');
+                const formattedStreetParts = streetParts.map(part => {
+                    const normalizedPart = part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+                    if (abbreviations[normalizedPart]) {
+                        return abbreviations[normalizedPart];
+                    }
+                    return normalizedPart;
+                });
+
+                const formattedStreet = formattedStreetParts.join(' ');
+                const formattedAddress = `${unit} ${number} ${formattedStreet}, ${formatCity(city)}`;
+
+                return formattedAddress;
+            }
+
+            function formatCity(city) {
+                const words = city.split(' ');
+                const formattedWords = words.map(word => {
+                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                });
+                return formattedWords.join(' ');
+            }
+
             function formatPostalCode(postalCode) {
                 const cleanedCode = postalCode
                     .trim()
@@ -115,8 +154,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     const userPostalCode = formatPostalCode(
                         postalCodeInput.value.trim()
                     );
-                    const userInputAddress =
-                        `${inputUnit.value} ${inputAddress.value}, ${inputCity.value}`.trim();
+                    const formattedUnit = inputUnit.value.trim();
+                    const formattedStreet = inputAddress.value.trim();
+                    const formattedCity = formatCity(inputCity.value.trim());
+                    const userInputAddress = formatAddress(formattedUnit, formattedStreet, formattedCity);
                     const newObject = {
                         eachStore: {},
                         overallScore: 0,
