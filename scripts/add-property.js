@@ -85,7 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 const cleanedCode = postalCode
                     .trim()
                     .replace(/[^a-zA-Z0-9]/g, " ");
-                return cleanedCode;
+                const firstPart = cleanedCode.slice(0, 3);
+                const lastPart = cleanedCode.slice(-3)
+                return (firstPart + " " + lastPart).toUpperCase();
             }
 
             function validateInput() {
