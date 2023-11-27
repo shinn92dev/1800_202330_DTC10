@@ -63,22 +63,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 return !propertyArray.includes(userInputAddress);
             }
 
-            function updateWarningMessage(message, display) {
-                let warningMsg =
-                    document.getElementById("warning-msg") ||
-                    document.createElement("p");
-                warningMsg.id = "warning-msg";
-                warningMsg.style.color = "red";
-                warningMsg.textContent = message;
+            function validateAddressUnique() {
+                const isValid = isAddressUnique();
+                validateField(inputAddress, isValid);
 
-                if (display) {
-                    submitBtn.parentNode.insertBefore(
-                        warningMsg,
-                        submitBtn.nextSibling
-                    );
+                const warningMsg = document.getElementById("warning-msg");
+                if (!isValid) {
+                    warningMsg.textContent = "Address already exists";
                 } else {
-                    if (warningMsg) warningMsg.remove();
+                    warningMsg.textContent = "";
                 }
+
+                return isValid;
             }
 
             function formatAddress(unit, street, city) {
@@ -143,22 +139,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 const isCityValid = validateCity();
                 const isAddressValid = validateAddress();
                 const isPostalValid = validatePostalCode();
-                const isUniqueAddress = isAddressUnique();
+                const isUniqueAddress = validateAddressUnique();
                 const isCheckValid = validateCheckbox();
 
                 const allValid =
                     isCityValid &&
                     isAddressValid &&
                     isPostalValid &&
-                    isCheckValid;
+                    isCheckValid &&
+                    isUniqueAddress;
 
-                if (!isUniqueAddress) {
-                    updateWarningMessage("Address already exists", true);
-                } else {
-                    updateWarningMessage("", false);
-                }
-
-                submitBtn.disabled = !allValid || !isUniqueAddress;
+                submitBtn.disabled = !allValid;
 
                 if (allValid && isUniqueAddress) {
                     const userPostalCode = formatPostalCode(
@@ -195,7 +186,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 (element) => {
                     element.addEventListener("input", () => {
                         validateInput();
-                        submitBtn.disabled = false; // Enable submit button on input change
                     });
                 }
             );

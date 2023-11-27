@@ -35,3 +35,20 @@ label {
 .checkbox-container {
     height: 45px;
 }
+
+.submit-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#submit {
+    position: relative;
+}
+
+#warning-msg {
+    position: absolute;
+    left: 120px;
+    top: 26px;
+    translate: transform(-50%, -50%);
+    max-width: fit-content;
+}
