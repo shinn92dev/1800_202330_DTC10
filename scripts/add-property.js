@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             function validateCity() {
-                const isValid = inputCity.value.trim() !== "";
+                const isValid = inputCity.value.trim() !== "" && /^[a-zA-Z]+$/.test(inputCity.value.trim());
                 validateField(inputCity, isValid);
                 return isValid;
             }
@@ -90,12 +90,23 @@ document.addEventListener("DOMContentLoaded", () => {
                     'Rd': 'Road',
                     // Add other abbreviations here
                 };
-                const match = street.match(/(\d+)(.+)/);
-                if (!match) {
-                    return `${unit} ${street}, ${formatCity(city)}`;
+
+                let number, streetName;
+
+                // Check if street starts with two numbers separated by a hyphen
+                const match = street.match(/^(\d+)-(\d+)(.+)/);
+                if (match) {
+                    // If it does, treat the first number as the unit number
+                    [, unit, number, streetName] = match;
+                } else {
+                    // If not, proceed as before
+                    const match = street.match(/(\d+)(.+)/);
+                    if (!match) {
+                        return `${unit} ${street}, ${formatCity(city)}`;
+                    }
+                    [, number, streetName] = match;
                 }
 
-                const [, number, streetName] = match;
                 const streetParts = streetName.trim().split(' ');
                 const formattedStreetParts = streetParts.map(part => {
                     const normalizedPart = part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
