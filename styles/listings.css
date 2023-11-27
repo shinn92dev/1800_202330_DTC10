@@ -22,3 +22,27 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+.add-property-btn {
+    width: 200px;
+    height: 50px;
+    margin-top: 32px;
+    background-color: var(--bg-color);
+    color: var(--black-color);
+    border: none;
+    border-radius: 8px;
+    font-size: var(--medium-font);
+    font-weight: bold;
+    transition: all 0.15s ease-in-out;
+}
+
+.add-property-btn:hover {
+    background-color: var(--black-color);
+    color: var(--text-color);
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.add-property-btn:active {
+    transform: scale(0.95);
+}

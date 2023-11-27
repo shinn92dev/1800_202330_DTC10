@@ -145,7 +145,7 @@ function generateNoResultsMessage(hasResults = false) {
         ? "Seems like this property does not exist..."
         : "Nothing to search for...";
     const linkText = hasResults
-        ? "Add this property & leave a review"
+        ? "Add a property"
         : "Go back";
 
     return `
@@ -153,7 +153,7 @@ function generateNoResultsMessage(hasResults = false) {
             <p class="listings_message-p">${message}</p>
             <a href="./${
                 hasResults ? "add-property" : "index"
-            }.html" class="listings_message-a">${linkText}</a>
+            }.html" class="listings_message-a"><button class=add-property-btn>${linkText}<button</a>
         </div>
     `;
 }
