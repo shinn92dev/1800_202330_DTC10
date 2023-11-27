@@ -457,6 +457,14 @@ function handleModalSignUpAlert() {
         }
     });
 }
+
+function initializeBackButton() {
+    $("#go-back").on("click", function (e) {
+        e.preventDefault(); // Prevent the default anchor behavior
+        window.history.back(); // Go back to the last page in history
+    });
+}
+
 $(document).ready(async function () {
     const propertyId = new URLSearchParams(window.location.search)
         .get("propertyId")
@@ -478,6 +486,7 @@ $(document).ready(async function () {
         $("#property-address").text(property);
         const icons = document.querySelectorAll(".review-vote-box");
         const reviewLis = document.querySelectorAll("li.review-li");
+        initializeBackButton();
         // displayBookmark(propertyId);
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {

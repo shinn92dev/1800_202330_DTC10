@@ -172,3 +172,20 @@ body.modal_effect {
         width: fit-content;
     }
 }
+
+#go-back {
+    display: flex;
+    align-items: center;
+    margin: 24px 1.5rem;
+    font-size: var(--medium-font);
+}
+
+#go-back:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--bg-color);
+}
+
+#arrow-back {
+    font-size: 3rem;
+}

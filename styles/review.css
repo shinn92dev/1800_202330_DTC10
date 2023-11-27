@@ -49,8 +49,6 @@ h3 {
     color: var(--warning-color);
     font-size: var(--small-font);
 }
-.complete-msg {
-}
 .score-icon-box .score-icon {
     border-bottom: 2px solid grey;
     border-top: 2px solid grey;
@@ -106,3 +104,20 @@ label[for="user-comment"] {
 .score-icon-box .score-icon:last-child div:last-child.colored {
     background-color: var(--level-10-yellow);
 } */
+
+#go-back {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+    font-size: var(--medium-font);
+}
+
+#go-back:hover {
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--bg-color);
+}
+
+#arrow-back {
+    font-size: 3rem;
+}

@@ -347,5 +347,18 @@ function initiateEvent() {
     submitButton.addEventListener("click", validateForm);
 }
 
+function initializeBackButton() {
+    $("#go-back").on("click", function (e) {
+        e.preventDefault();
+        var propertyId = new URLSearchParams(window.location.search).get(
+            "propertyId"
+        );
+        window.location.replace(
+            `http://localhost:5500/details.html?propertyId=${propertyId}`
+        );
+    });
+}
+
+initializeBackButton();
 initiateEvent();
 initializeReviewPage();

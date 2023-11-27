@@ -1,79 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>RVR | Rate Vancouver Rent</title>
-        <meta name="comp1800 template" content="My 1800 App" />
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-            rel="icon"
-            type="image/x-icon"
-            href="./images/building-icon.png"
-        />
 
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-            crossorigin="anonymous"
-        ></script>
+<head>
+    <title>RVR | Rate Vancouver Rent</title>
+    <meta name="comp1800 template" content="My 1800 App" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="./images/building-icon.png" />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-        />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-        <link
-            type="text/css"
-            rel="stylesheet"
-            href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"
-        />
-        <link rel="stylesheet" href="/styles/review.css" />
-        <link rel="stylesheet" href="/styles/styles.css" />
-        <!-- INSERT NEW STYLE SHEET BELOW HERE -->
-        <script src="/scripts/template.js" defer></script>
-        <script src="./scripts/firebaseAPI_TEAM10.js"></script>
-        <script src="/scripts/review.js" defer></script>
-    </head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
 
-    <body>
-        <div id="NAVBAR-PLACEHOLDER"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/review.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <script src="/scripts/template.js" defer></script>
+    <script src="./scripts/firebaseAPI_TEAM10.js"></script>
+    <script src="/scripts/review.js" defer></script>
+</head>
 
-        <!------------------------------------------>
-        <!-- INSERT WORK HERE -->
-        <!------------------------------------------>
-        <div class="container">
-            <form action="">
-                <div class="form-group m-3" id="form-stars-boxs">
-                    <h2 class="ml-2 mb-2">Ratings</h2>
-                    <div class="border p-2">
-                        <div id="cleanliness-score-box">
-                            <label
-                                for="cleanliness-score-icon"
-                                class="mb-2 mt-2"
-                                >Cleanliness</label
-                            >
-                            <div
-                                class="d-flex align-items-center border p-2 each-score-outer-container"
-                            >
-                                <!-- <div
+<body>
+    <div id="NAVBAR-PLACEHOLDER"></div>
+
+    <!------------------------------------------>
+    <!-- INSERT WORK HERE -->
+    <!------------------------------------------>
+    <div class="container">
+        <a id="go-back">
+            <i id="arrow-back" style="cursor: pointer;" class="material-icons">arrow_back</i>
+            Go back
+        </a>
+        <form action="">
+            <div class="form-group m-3" id="form-stars-boxs">
+                <h2 class="ml-2 mb-2">Ratings</h2>
+                <div class="border p-2">
+                    <div id="cleanliness-score-box">
+                        <label for="cleanliness-score-icon" class="mb-2 mt-2">Cleanliness</label>
+                        <div class="d-flex align-items-center border p-2 each-score-outer-container">
+                            <!-- <div
                                     id="cleanliness-score"
                                     class="score-icon-box d-flex justify-content-center"
                                 >
@@ -98,256 +77,125 @@
                                         <div id="five"></div>
                                     </div>
                                 </div> -->
-                                <div
-                                    id="houserule-score"
-                                    class="score-icon-box d-flex justify-content-around"
-                                >
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    id="cleanliness-score-icon"
-                                    min="0"
-                                    max="5"
-                                    step="1"
-                                    value=""
-                                    disabled
-                                />
+                            <div id="houserule-score" class="score-icon-box d-flex justify-content-around">
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
                             </div>
+                            <input type="number" class="form-control" id="cleanliness-score-icon" min="0" max="5"
+                                step="1" value="" disabled />
                         </div>
-                        <div id="houserule-score-box">
-                            <label for="houserule-score-icon" class="mb-2 mt-2"
-                                >House Rule</label
-                            >
-                            <div class="d-flex align-items-center border p-2">
-                                <div
-                                    id="houserule-score"
-                                    class="score-icon-box d-flex justify-content-around"
-                                >
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    id="houserule-score-icon"
-                                    min="0"
-                                    max="5"
-                                    step="0.5"
-                                    value=""
-                                    disabled
-                                />
+                    </div>
+                    <div id="houserule-score-box">
+                        <label for="houserule-score-icon" class="mb-2 mt-2">House Rule</label>
+                        <div class="d-flex align-items-center border p-2">
+                            <div id="houserule-score" class="score-icon-box d-flex justify-content-around">
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
                             </div>
+                            <input type="number" class="form-control" id="houserule-score-icon" min="0" max="5"
+                                step="0.5" value="" disabled />
                         </div>
-                        <div id="landlord-score-box">
-                            <label for="landlord-score-icon" class="mb-2 mt-2"
-                                >Landlord</label
-                            >
-                            <div class="d-flex align-items-center border p-2">
-                                <div
-                                    id="landlord-score"
-                                    class="score-icon-box d-flex justify-content-around"
-                                >
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    id="landlord-score-icon"
-                                    min="0"
-                                    max="5"
-                                    step="1"
-                                    value=""
-                                    disabled
-                                />
+                    </div>
+                    <div id="landlord-score-box">
+                        <label for="landlord-score-icon" class="mb-2 mt-2">Landlord</label>
+                        <div class="d-flex align-items-center border p-2">
+                            <div id="landlord-score" class="score-icon-box d-flex justify-content-around">
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
                             </div>
+                            <input type="number" class="form-control" id="landlord-score-icon" min="0" max="5" step="1"
+                                value="" disabled />
                         </div>
-                        <div id="location-score-box">
-                            <label for="location-score-icon" class="mb-2 mt-2"
-                                >Location</label
-                            >
-                            <div class="d-flex align-items-center border p-2">
-                                <div
-                                    id="location-score"
-                                    class="score-icon-box d-flex justify-content-around"
-                                >
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    id="location-score-icon"
-                                    min="0"
-                                    max="5"
-                                    step="0.5"
-                                    value=""
-                                    disabled
-                                />
+                    </div>
+                    <div id="location-score-box">
+                        <label for="location-score-icon" class="mb-2 mt-2">Location</label>
+                        <div class="d-flex align-items-center border p-2">
+                            <div id="location-score" class="score-icon-box d-flex justify-content-around">
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
                             </div>
+                            <input type="number" class="form-control" id="location-score-icon" min="0" max="5"
+                                step="0.5" value="" disabled />
                         </div>
-                        <div id="price-score-box">
-                            <label for="price-score-icon" class="mb-2 mt-2"
-                                >Price</label
-                            >
-                            <div class="d-flex align-items-center border p-2">
-                                <div
-                                    id="price-score"
-                                    class="score-icon-box d-flex justify-content-around"
-                                >
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                    <i class="bi bi-star"></i>
-                                </div>
-                                <input
-                                    type="number"
-                                    class="form-control"
-                                    id="price-score-icon"
-                                    min="0"
-                                    max="5"
-                                    step="0.5"
-                                    value=""
-                                    disabled
-                                />
+                    </div>
+                    <div id="price-score-box">
+                        <label for="price-score-icon" class="mb-2 mt-2">Price</label>
+                        <div class="d-flex align-items-center border p-2">
+                            <div id="price-score" class="score-icon-box d-flex justify-content-around">
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
                             </div>
+                            <input type="number" class="form-control" id="price-score-icon" min="0" max="5" step="0.5"
+                                value="" disabled />
                         </div>
                     </div>
                 </div>
-                <div class="form-group m-3" id="form-tags-box">
-                    <h2 class="ml-2 mb-2">Feature</h2>
-                    <p>Select feature tags minimum of 2 and a maximum of 4.</p>
-                    <div class="border p-2">
-                        <div class="d-flex flex-wrap">
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-quiet"
-                                    value="Quiet"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-quiet"
-                                    >Quiet</label
-                                >
-                            </div>
+            </div>
+            <div class="form-group m-3" id="form-tags-box">
+                <h2 class="ml-2 mb-2">Feature</h2>
+                <p>Select feature tags minimum of 2 and a maximum of 4.</p>
+                <div class="border p-2">
+                    <div class="d-flex flex-wrap">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-quiet" value="Quiet" />
+                            <label class="form-check-label btn" for="tag-quiet">Quiet</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-low-traffic"
-                                    value="Low Traffic"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-low-traffic"
-                                    >Low Traffic</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-low-traffic" value="Low Traffic" />
+                            <label class="form-check-label btn" for="tag-low-traffic">Low Traffic</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-clean-and-tidy"
-                                    value="Clean & Tidy"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-clean-and-tidy"
-                                    >Clean & Tidy</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-clean-and-tidy"
+                                value="Clean & Tidy" />
+                            <label class="form-check-label btn" for="tag-clean-and-tidy">Clean & Tidy</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-well-maintained"
-                                    value="Well-maintained"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-well-maintained"
-                                    >Well-maintained</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-well-maintained"
+                                value="Well-maintained" />
+                            <label class="form-check-label btn" for="tag-well-maintained">Well-maintained</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-near-bus-stop"
-                                    value="Near Bus Stop"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-near-bus-stop"
-                                    >Near Bus Stop</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-near-bus-stop"
+                                value="Near Bus Stop" />
+                            <label class="form-check-label btn" for="tag-near-bus-stop">Near Bus Stop</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-near-skytrain-station"
-                                    value="Near Skytrain"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-near-skytrain-station"
-                                    >Near Skytrain</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-near-skytrain-station"
+                                value="Near Skytrain" />
+                            <label class="form-check-label btn" for="tag-near-skytrain-station">Near Skytrain</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-furnished"
-                                    value="Furnished"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-furnished"
-                                    >Furnished</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-furnished" value="Furnished" />
+                            <label class="form-check-label btn" for="tag-furnished">Furnished</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-unfurnished"
-                                    value="Unfurnished"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-unfurnished"
-                                    >Unfurnished</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-unfurnished" value="Unfurnished" />
+                            <label class="form-check-label btn" for="tag-unfurnished">Unfurnished</label>
+                        </div>
 
-                            <!-- <div class="form-check">
+                        <!-- <div class="form-check">
                                 <input
                                     class="form-check-input"
                                     type="checkbox"
@@ -361,7 +209,7 @@
                                 >
                             </div> -->
 
-                            <!-- <div class="form-check">
+                        <!-- <div class="form-check">
                                 <input
                                     class="form-check-input"
                                     type="checkbox"
@@ -375,7 +223,7 @@
                                 >
                             </div> -->
 
-                            <!-- <div class="form-check">
+                        <!-- <div class="form-check">
                                 <input
                                     class="form-check-input"
                                     type="checkbox"
@@ -389,34 +237,16 @@
                                 >
                             </div> -->
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-w-in-unit"
-                                    value="Washer in Unit"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-w-in-unit"
-                                    >Washer in Unit</label
-                                >
-                            </div>
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-d-in-unit"
-                                    value="Dryer in Unit"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-d-in-unit"
-                                    >Dryer in Unit</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-w-in-unit" value="Washer in Unit" />
+                            <label class="form-check-label btn" for="tag-w-in-unit">Washer in Unit</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-d-in-unit" value="Dryer in Unit" />
+                            <label class="form-check-label btn" for="tag-d-in-unit">Dryer in Unit</label>
+                        </div>
 
-                            <!-- <div class="form-check">
+                        <!-- <div class="form-check">
                                 <input
                                     class="form-check-input"
                                     type="checkbox"
@@ -429,133 +259,58 @@
                                     >W/D in Building</label
                                 >
                             </div> -->
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-w-on-site"
-                                    value="Washer on Site"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-w-on-site"
-                                    >Washer on Site</label
-                                >
-                            </div>
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-d-on-site"
-                                    value="Dryer on Site"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-d-on-site"
-                                    >Dryer on Site</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-w-on-site" value="Washer on Site" />
+                            <label class="form-check-label btn" for="tag-w-on-site">Washer on Site</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-d-on-site" value="Dryer on Site" />
+                            <label class="form-check-label btn" for="tag-d-on-site">Dryer on Site</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-pet-friendly"
-                                    value="Pet-Friendly"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-pet-friendly"
-                                    >Pet-Friendly</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-pet-friendly"
+                                value="Pet-Friendly" />
+                            <label class="form-check-label btn" for="tag-pet-friendly">Pet-Friendly</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-dog-friendly"
-                                    value="Dog-Friendly"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-dog-friendly"
-                                    >Dog-Friendly</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-dog-friendly"
+                                value="Dog-Friendly" />
+                            <label class="form-check-label btn" for="tag-dog-friendly">Dog-Friendly</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-cat-friendly"
-                                    value="Cat-Friendly"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-cat-friendly"
-                                    >Cat-Friendly</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-cat-friendly"
+                                value="Cat-Friendly" />
+                            <label class="form-check-label btn" for="tag-cat-friendly">Cat-Friendly</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-on-site-gym"
-                                    value="On-Site Gym"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-on-site-gym"
-                                    >On-Site Gym</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-on-site-gym" value="On-Site Gym" />
+                            <label class="form-check-label btn" for="tag-on-site-gym">On-Site Gym</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-on-site-pool"
-                                    value="On-Site Pool"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-on-site-pool"
-                                    >On-Site Pool</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-on-site-pool"
+                                value="On-Site Pool" />
+                            <label class="form-check-label btn" for="tag-on-site-pool">On-Site Pool</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-on-site-parking"
-                                    value="On-Site Parking"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-on-site-parking"
-                                    >On-Site Parking</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-on-site-parking"
+                                value="On-Site Parking" />
+                            <label class="form-check-label btn" for="tag-on-site-parking">On-Site Parking</label>
+                        </div>
 
-                            <div class="form-check">
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="tag-street-parking"
-                                    value="Street Parking"
-                                />
-                                <label
-                                    class="form-check-label btn"
-                                    for="tag-street-parking"
-                                    >Street Parking</label
-                                >
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="tag-street-parking"
+                                value="Street Parking" />
+                            <label class="form-check-label btn" for="tag-street-parking">Street Parking</label>
                         </div>
                     </div>
-                    <!-- <div class="border p-2">
+                </div>
+                <!-- <div class="border p-2">
                         <div id="tags__quiet-box" class="each-tag-box">
                             <h3 class="mb-2 mt-2">Quiet</h3>
                             <div class="d-flex flex-wrap border pt-3 pb-3">
@@ -1114,28 +869,23 @@
                             </div>
                         </div>
                     </div> -->
-                </div>
-                <div class="form-group m-3" id="form-comment-box">
-                    <label for="user-comment" class="mb-2 mt-2"
-                        >Leave Your Comment Here</label
-                    >
-                    <textarea
-                        class="form-control"
-                        id="user-comment"
-                        rows="3"
-                    ></textarea>
-                </div>
-                <div class="form-group m-3" id="review-submit-box">
-                    <button type="submit" class="btn btn-primary">
-                        Submit
-                    </button>
-                </div>
-            </form>
-        </div>
-        <!------------------------------------------>
-        <!-- INSERT WORK HERE -->
-        <!------------------------------------------>
+            </div>
+            <div class="form-group m-3" id="form-comment-box">
+                <label for="user-comment" class="mb-2 mt-2">Leave Your Comment Here</label>
+                <textarea class="form-control" id="user-comment" rows="3"></textarea>
+            </div>
+            <div class="form-group m-3" id="review-submit-box">
+                <button type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+    <!------------------------------------------>
+    <!-- INSERT WORK HERE -->
+    <!------------------------------------------>
 
-        <div id="FOOTER-PLACEHOLDER"></div>
-    </body>
+    <div id="FOOTER-PLACEHOLDER"></div>
+</body>
+
 </html>
