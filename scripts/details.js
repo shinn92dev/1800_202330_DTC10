@@ -1,11 +1,8 @@
 function getVoteData(lis) {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-            console.log(user.uid);
             const userCollection = db.collection("Users").doc(user.uid);
             userCollection.get().then((doc) => {
-                console.log(doc.data());
-                console.log(lis);
                 displayStoredVote(lis, doc.data().vote);
             });
         }
@@ -16,16 +13,11 @@ function displayStoredVote(lis, reviewObj) {
     lis.forEach((li) => {
         const liId = li.id;
         const reviewObjKeys = Object.keys(reviewObj);
-        // console.log(reviewObjKeys);
         const upIcon = li.querySelector(".vote-icon-up");
         const downIcon = li.querySelector(".vote-icon-down");
         reviewObjKeys.forEach((key) => {
             if (liId == key) {
-                console.log(liId);
-                console.log(key);
-                console.log(reviewObj[key]);
                 if (reviewObj[key] == "up") {
-                    console.log("HEREHEHRHEHRHEHRHEH");
                     upIcon.classList.add("bi-hand-thumbs-up-fill");
                     upIcon.classList.remove("bi-hand-thumbs-up");
                     downIcon.classList.add("bi-hand-thumbs-down");
@@ -84,7 +76,6 @@ function voteReview(icons) {
                 e.target.closest("li").querySelector("span").textContent
             );
             let voteStatus = "";
-            console.log(score);
             let targetClassList = e.target.classList;
             if (targetClassList.contains("vote-icon")) {
                 if (targetClassList.contains("vote-icon-up")) {
@@ -105,7 +96,6 @@ function voteReview(icons) {
                     if (
                         downIcon.classList.contains("bi-hand-thumbs-down-fill")
                     ) {
-                        console.log();
                         downIcon.classList.toggle("bi-hand-thumbs-down-fill");
                         downIcon.classList.toggle("bi-hand-thumbs-down");
                         score++;
@@ -126,14 +116,11 @@ function voteReview(icons) {
                         .closest("li")
                         .querySelector(".vote-icon-up");
                     if (upIcon.classList.contains("bi-hand-thumbs-up-fill")) {
-                        console.log();
                         upIcon.classList.toggle("bi-hand-thumbs-up-fill");
                         upIcon.classList.toggle("bi-hand-thumbs-up");
                         score--;
                     }
                 }
-                console.log(score);
-                console.log(voteStatus);
                 e.target.closest("li").querySelector("span").textContent =
                     score;
                 updateVoteCountToReviews(reviewId, score);
@@ -175,6 +162,7 @@ async function getPropertyReviews(propertyId) {
     const reviews = querySnapshot.docs.map((doc) => {
         const data = doc.data();
         return {
+            isReviewer: currentUser?.id === data.userId ?? false,
             reviewId: doc.id,
             ...data,
         };
@@ -324,8 +312,35 @@ function appendReviewToDOM(review) {
 
         reviewBox.append(seeMoreButton);
     }
-
     listItem.append(reviewBox);
+
+    if (review.isReviewer) {
+        const deleteReview = $(
+            `<button class="delete_button btn btn-danger delete-review-btn">Delete</button>`
+        );
+        deleteReview.on("click", function () {
+            // Store review ID in a global or higher scoped variable
+            window.currentReviewIdToDelete = review.reviewId;
+            // Show the modal
+            $("#deleteReviewModal").modal("show");
+        });
+        listItem.append(deleteReview);
+        $("#confirmDelete").click(function () {
+            db.collection("Reviews")
+                .doc(window.currentReviewIdToDelete)
+                .delete()
+                .then(() => {
+                    console.log("Successfully deleted review!");
+                    $("#deleteReviewModal").modal("hide"); // Hide the modal
+                    // Optionally refresh the list or UI
+                    window.location.reload();
+                })
+                .catch((error) => {
+                    console.error("Error removing document: ", error);
+                });
+        });
+    }
+
     $("#comments").append(listItem);
 }
 
@@ -434,7 +449,6 @@ function handleModalSignUpAlert() {
         icon.addEventListener("click", (e) => {
             body.classList.add("modal_effect");
             window.scrollTo(0, 0);
-            console.log(body.scrollTop);
             overlay.classList.remove("hidden");
             modalBox.classList.remove("hidden");
         });
@@ -495,7 +509,6 @@ $(document).ready(async function () {
                 displayVoteCount(reviewLis, reviews);
                 voteReview(icons);
             } else {
-                console.log("asdffffffffffffffffffff");
                 handleModalSignUpAlert();
             }
         });
