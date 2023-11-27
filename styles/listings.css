@@ -37,8 +37,8 @@
 }
 
 .add-property-btn:hover {
-    background-color: var(--black-color);
-    color: var(--text-color);
+    background-color: rgba(238, 185, 2, 0.9);
+    color: var(--black-color);
     cursor: pointer;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
 }
