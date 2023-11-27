@@ -8,3 +8,7 @@
     padding: 24px;
     width: 80%;
 }
+
+.underline {
+    text-decoration: underline;
+}
