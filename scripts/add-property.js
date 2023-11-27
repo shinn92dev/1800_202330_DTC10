@@ -32,7 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             function validateCity() {
-                const isValid = inputCity.value.trim() !== "" && /^[a-zA-Z]+$/.test(inputCity.value.trim());
+                const isValid =
+                    inputCity.value.trim() !== "" &&
+                    /^[a-zA-Z]+$/.test(inputCity.value.trim());
                 validateField(inputCity, isValid);
                 return isValid;
             }
@@ -79,11 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             function formatAddress(unit, street, city) {
                 const abbreviations = {
-                    'St': 'Street',
-                    'Ave': 'Avenue',
-                    'Dr': 'Drive',
-                    'Blvd': 'Boulevard',
-                    'Rd': 'Road',
+                    St: "Street",
+                    Ave: "Avenue",
+                    Dr: "Drive",
+                    Blvd: "Boulevard",
+                    Rd: "Road",
                     // Add other abbreviations here
                 };
 
@@ -103,27 +105,34 @@ document.addEventListener("DOMContentLoaded", () => {
                     [, number, streetName] = match;
                 }
 
-                const streetParts = streetName.trim().split(' ');
-                const formattedStreetParts = streetParts.map(part => {
-                    const normalizedPart = part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+                const streetParts = streetName.trim().split(" ");
+                const formattedStreetParts = streetParts.map((part) => {
+                    const normalizedPart =
+                        part.charAt(0).toUpperCase() +
+                        part.slice(1).toLowerCase();
                     if (abbreviations[normalizedPart]) {
                         return abbreviations[normalizedPart];
                     }
                     return normalizedPart;
                 });
 
-                const formattedStreet = formattedStreetParts.join(' ');
-                const formattedAddress = `${unit} ${number} ${formattedStreet}, ${formatCity(city)}`;
+                const formattedStreet = formattedStreetParts.join(" ");
+                const formattedAddress = `${unit} ${number} ${formattedStreet}, ${formatCity(
+                    city
+                )}`;
 
                 return formattedAddress;
             }
 
             function formatCity(city) {
-                const words = city.split(' ');
-                const formattedWords = words.map(word => {
-                    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                const words = city.split(" ");
+                const formattedWords = words.map((word) => {
+                    return (
+                        word.charAt(0).toUpperCase() +
+                        word.slice(1).toLowerCase()
+                    );
                 });
-                return formattedWords.join(' ');
+                return formattedWords.join(" ");
             }
 
             function formatPostalCode(postalCode) {
@@ -131,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     .trim()
                     .replace(/[^a-zA-Z0-9]/g, " ");
                 const firstPart = cleanedCode.slice(0, 3);
-                const lastPart = cleanedCode.slice(-3)
+                const lastPart = cleanedCode.slice(-3);
                 return (firstPart + " " + lastPart).toUpperCase();
             }
 
@@ -158,7 +167,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const formattedUnit = inputUnit.value.trim();
                     const formattedStreet = inputAddress.value.trim();
                     const formattedCity = formatCity(inputCity.value.trim());
-                    const userInputAddress = formatAddress(formattedUnit, formattedStreet, formattedCity);
+                    const userInputAddress = formatAddress(
+                        formattedUnit,
+                        formattedStreet,
+                        formattedCity
+                    );
                     const newObject = {
                         eachStore: {},
                         overallScore: 0,

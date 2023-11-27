@@ -22,10 +22,10 @@ const performSearch = () => {
 const searchListing = () => {
     const searchInput = $("#nav-search-input");
 
-    searchInput.on("keypress", function (e) {
-        if (e.which == 13) {
+    searchInput.on("keyup", function (e) {
+        if (e.which === 13) {
             performSearch();
-            return false;
+            e.preventDefault();
         }
     });
 };

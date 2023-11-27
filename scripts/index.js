@@ -20,10 +20,10 @@ const searchListing = () => {
         performSearch();
     });
 
-    searchInput.on("keypress", function (e) {
-        if (e.which == 13) {
+    searchInput.on("keyup", function (e) {
+        if (e.which === 13) {
             performSearch();
-            return false;
+            e.preventDefault();
         }
     });
 };
