@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             function validateAddressUnique() {
                 const isValid = isAddressUnique();
-                validateField(inputAddress, isValid);
+                validateAddress();
 
                 const warningMsg = document.getElementById("warning-msg");
                 if (!isValid) {
