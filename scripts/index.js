@@ -45,6 +45,8 @@ const initializeBeforeAuth = () => {
     $("#welcome-banner").load("./components/home_message_before.html");
 };
 
+const topListings = () => {};
+
 $(document).ready(function () {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {

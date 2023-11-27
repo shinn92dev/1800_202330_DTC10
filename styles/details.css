@@ -1,4 +1,13 @@
 #main {
+    height: 100%;
+}
+
+#FOOTER-PLACEHOLDER {
+    margin-top: 24px;
+}
+
+body {
+    min-height: 100vh;
 }
 
 body.modal_effect {
@@ -56,6 +65,10 @@ body.modal_effect {
 .middle-box__details-rating-box li {
     font-size: 1.2em;
     font-weight: bold;
+}
+
+#details__bottom-box {
+    min-height: 100vh;
 }
 
 .bottom-box__review-box li {

@@ -115,13 +115,14 @@ function generateListingItem(listing) {
         listing.postalCode
     }`;
     const propertyID = listing.propertyID;
+    const calculatedScore = listing.overallScore / listing.reviewCount;
 
     return `
         <li class="d-flex justify-content-between align-items-center property-card">
             <a href="/details.html?propertyId=${propertyID}" class="d-flex flex-grow-1 justify-content-between align-items-center">
                 <div class="property-card__score-box">
                     <div class="d-flex justify-content-center align-items-center">
-                        ${listing.overallScore.toFixed(1)}
+                        ${calculatedScore.toFixed(1)}
                     </div>
                 </div>
                 <div class="property-card__text-box d-flex flex-column flex-grow-1">
@@ -144,9 +145,7 @@ function generateNoResultsMessage(hasResults = false) {
     const message = hasResults
         ? "Seems like this property does not exist..."
         : "Nothing to search for...";
-    const linkText = hasResults
-        ? "Add a property"
-        : "Go back";
+    const linkText = hasResults ? "Add a property" : "Go back";
 
     return `
         <div class="listings_message">

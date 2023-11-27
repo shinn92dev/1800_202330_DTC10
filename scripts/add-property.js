@@ -175,6 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     const newObject = {
                         eachStore: {},
                         overallScore: 0,
+                        reviewCount: 0,
                         propertyFullAddress: userInputAddress,
                         postalCode: userPostalCode,
                         tags: [],

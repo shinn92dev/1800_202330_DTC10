@@ -190,6 +190,18 @@ function roundDownToNearestHalf(num) {
 }
 
 function calculateAverageScores(reviews) {
+    // Check if reviews array is empty
+    if (reviews.length === 0) {
+        return {
+            overall: 0,
+            cleanliness: 0,
+            houserule: 0,
+            landlord: 0,
+            location: 0,
+            price: 0,
+        };
+    }
+
     const totals = reviews.reduce(
         (sums, review) => {
             sums.total += review.overallScore;
@@ -315,33 +327,75 @@ function appendReviewToDOM(review) {
     listItem.append(reviewBox);
 
     if (review.isReviewer) {
-        const deleteReview = $(
+        // Delete button setup
+        const deleteButton = $(
             `<button class="delete_button btn btn-danger delete-review-btn">Delete</button>`
         );
-        deleteReview.on("click", function () {
-            // Store review ID in a global or higher scoped variable
-            window.currentReviewIdToDelete = review.reviewId;
-            // Show the modal
+        deleteButton.click(() => {
             $("#deleteReviewModal").modal("show");
         });
-        listItem.append(deleteReview);
-        $("#confirmDelete").click(function () {
-            db.collection("Reviews")
-                .doc(window.currentReviewIdToDelete)
-                .delete()
-                .then(() => {
-                    console.log("Successfully deleted review!");
-                    $("#deleteReviewModal").modal("hide"); // Hide the modal
-                    // Optionally refresh the list or UI
-                    window.location.reload();
-                })
-                .catch((error) => {
-                    console.error("Error removing document: ", error);
-                });
-        });
+        $("#confirmDelete").attr("id", `confirmDelete-${review.reviewId}`);
+        listItem.append(deleteButton);
+
+        // Confirm delete button inside the modal
+        $(`#confirmDelete-${review.reviewId}`).click(() =>
+            handleDelete(review.reviewId, review.propertyId)
+        );
     }
 
     $("#comments").append(listItem);
+}
+
+async function handleDelete(reviewId, propertyId) {
+    try {
+        // Ensure updatePropertyScore completes before deleting the review
+        await updatePropertyScore(reviewId, propertyId);
+        await deleteReview(reviewId);
+        // Consider a more controlled UI update instead of reloading
+        $("#deleteReviewModal").modal("hide");
+        window.location.reload();
+    } catch (error) {
+        // Correct error handling
+        console.error("Error in transaction: ", error);
+    }
+}
+
+function deleteReview(reviewId) {
+    return db.collection("Reviews").doc(reviewId).delete();
+}
+
+async function updatePropertyScore(reviewId, propertyId) {
+    try {
+        const currentReview = await db
+            .collection("Reviews")
+            .doc(reviewId)
+            .get();
+        const currentReviewData = currentReview.data();
+        const propertyRef = db.collection("Properties").doc(propertyId);
+
+        // Correct error handling in transaction
+        await db.runTransaction(async (transaction) => {
+            const propertyDoc = await transaction.get(propertyRef);
+
+            if (!propertyDoc.exists) {
+                throw "Document does not exist!";
+            }
+
+            const propertyData = propertyDoc.data();
+            const newOverallScore = Math.max(
+                propertyData.overallScore - currentReviewData.overallScore,
+                0
+            );
+            const newReviewCount = Math.max(propertyData.reviewCount - 1, 0);
+
+            transaction.update(propertyRef, {
+                overallScore: newOverallScore,
+                reviewCount: newReviewCount,
+            });
+        });
+    } catch (error) {
+        console.error("Transaction failed: ", error);
+    }
 }
 
 async function getProperty(propertyId) {

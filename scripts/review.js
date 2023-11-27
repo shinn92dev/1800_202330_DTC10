@@ -1,5 +1,20 @@
 const tags = document.querySelector("#form-tags-box").querySelectorAll("label");
 const submitButton = document.querySelector("#review-submit-box button");
+
+let currentUserID;
+
+const getUser = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            currentUserID = user.uid;
+        } else {
+            console.log("No user is signed in");
+        }
+    });
+};
+
+getUser();
+
 const scoresInputs = document
     .querySelector("#form-stars-boxs")
     .querySelectorAll("input");
@@ -226,9 +241,44 @@ function calcAverageFromObj(obj) {
     });
     return total / lst.length;
 }
+
+async function updatePropertyScore(newScore, propertyId) {
+    // Get a reference to the Properties collection and the specific document
+    const propertyRef = db.collection("Properties").doc(propertyId);
+
+    try {
+        // Start a transaction to ensure data consistency
+        await db.runTransaction(async (transaction) => {
+            // Get the current property document
+            const propertyDoc = await transaction.get(propertyRef);
+
+            if (!propertyDoc.exists) {
+                throw "Document does not exist!";
+            }
+
+            // Compute the new overall score
+            const propertyData = propertyDoc.data();
+            const currentOverallScore = propertyData.overallScore || 0;
+            const currentReviewCount = propertyData.reviewCount || 0;
+            const newOverallScore = currentOverallScore + newScore;
+
+            // Update the document with the new score and incremented review count
+            transaction.update(propertyRef, {
+                overallScore: newOverallScore,
+                reviewCount: currentReviewCount + 1,
+            });
+        });
+
+        console.log("Property score and review count updated successfully");
+    } catch (error) {
+        console.error("Transaction failed: ", error);
+    }
+}
+
 function getFormData() {
     const resultObj = {
-        userId: window.localStorage.getItem("userUID"),
+        // needs to be changed sometime later
+        userId: currentUserID,
         eachScore: {
             cleanliness: 0,
             houserule: 0,
@@ -272,7 +322,7 @@ function getFormData() {
 function storeReviewFormDataToFirestore(resultObj) {
     document.querySelector('button[type="submit"]').disabled = true;
     var reviewRef = db.collection("Reviews");
-    reviewRef.add(resultObj).then((doc) => {
+    reviewRef.add(resultObj).then((_) => {
         window.location.href = "./thankyou.html";
     });
 }
@@ -287,6 +337,7 @@ function validateForm(e) {
     if (allValid) {
         e.preventDefault();
         const formData = getFormData();
+        updatePropertyScore(formData.overallScore, formData.propertyId);
         storeReviewFormDataToFirestore(formData);
     } else {
         e.preventDefault();

@@ -89,12 +89,13 @@ function generateListingItem(listing) {
         ", " +
         listing.postalCode;
     const propertyID = listing.propertyID;
+    const calculatedScore = listing.overallScore / listing.reviewCount;
 
     return `
         <li class="bookmark-cards d-flex justify-content-between align-items-center property-card">
             <a href="/details.html?propertyId=${propertyID}" class="d-flex flex-grow-1 justify-content-between align-items-center">
                 <div class="property-card__score-box">
-                    <div class="d-flex justify-content-center align-items-center">${listing.overallScore.toFixed(
+                    <div class="d-flex justify-content-center align-items-center">${calculatedScore.toFixed(
                         1
                     )}</div>
                 </div>
