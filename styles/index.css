@@ -1,0 +1,11 @@
+#welcome-banner {
+    margin-top: 24px;
+}
+
+.top-listings-container {
+    margin-top: 42px;
+}
+
+.top-listings-head {
+    font-size: var(--large-font);
+}
