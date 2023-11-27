@@ -1,0 +1,31 @@
+.main {
+    height: 100%;
+}
+
+.message-container {
+    text-align: center;
+    margin-top: 64px;
+    background-color: rgba(238, 185, 2, 0.5);
+    border-radius: 24px;
+    margin: 24px auto;
+    padding: 24px;
+    width: 80%;
+}
+
+.header {
+    font-size: var(--large-font);
+}
+
+.message {
+    margin-top: 42px;
+    font-size: var(--large-font);
+}
+
+.redirect {
+    font-size: var(--small-font);
+    margin-top: 24px;
+}
+
+.redirect-link:hover {
+    text-decoration: underline;
+}

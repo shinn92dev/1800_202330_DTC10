@@ -4,7 +4,7 @@ function logout() {
         .signOut()
         .then(() => {
             console.log("Logging out user");
-            window.location.reload();
+            window.location.href = "./logout-confirm.html";
         })
         .catch((error) => {
             console.error("Error logging out:", error.message);
