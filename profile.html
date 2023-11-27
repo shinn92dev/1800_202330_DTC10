@@ -29,8 +29,9 @@
     <link rel="stylesheet" href="/styles/styles.css">
     <link rel="stylesheet" href="/styles/profile.css">
     <!-- INSERT NEW STYLE SHEET BELOW HERE -->
-    <!-- <script src="/scripts/template.js" defer></script> -->
-    <!-- <script src="./scripts/firebaseAPI_TEAM10.js"></script> -->
+    <script src="./scripts/firebaseAPI_TEAM10.js"></script>
+    <script src="./scripts/template.js" defer></script>
+    <script src="./scripts/profile.js" defer></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -46,17 +47,24 @@
                 <div class="form-group">
                     <label>Name</label>
                     <input type="text" id="nameInput" class="form-control" placeholder="Enter your name">
+                    <div class="invalid-feedback">
+                        Name cannot be empty
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>City</label>
                     <input type="text" id="cityInput" class="form-control" placeholder="Enter your city">
+                    <div class="invalid-feedback">
+                        The city name is invalid
+                    </div>
                 </div>
             </fieldset>
             <div class="d-flex justify-content-end mt-5">
-                <button type="button" class="btn btn-secondary" onclick="EditUserInfo()">Edit</button>
+                <button type="button" class="btn btn-secondary" id="edit-btn">Edit</button>
                 <span style="width: 10px"></span>
-                <button type="button" class="btn btn-info" onclick="SaveUserInfo()">Save</button>
+                <button type="button" class="btn btn-info" id="save-btn" disabled>Save</button>
             </div>
+            <div id="banner-message"></div>
         </form>
     </div>
     <!------------------------------------------>
@@ -64,10 +72,6 @@
     <!------------------------------------------>
 
     <div id="FOOTER-PLACEHOLDER" class="mt-auto"></div>
-
-    <script src="./scripts/firebaseAPI_TEAM10.js"></script>
-    <script src="./scripts/template.js"></script>
-    <script src="./scripts/profile.js"></script>
 </body>
 
 </html>

@@ -11,5 +11,17 @@ label {
 }
 
 .btn {
-    margin: 10px 0;
+    margin: 0;
+}
+
+#banner-message {
+    padding: 10px 0;
+    color: var(--bg-color);
+    font-size: var(--medium-font);
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.form-group {
+    height: 110px;
 }

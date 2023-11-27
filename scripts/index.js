@@ -32,8 +32,11 @@ const initializeAfterAuth = (user) => {
     $("#welcome-banner").load(
         `./components/home_message_after.html`,
         function () {
-            userName = user.displayName + "👋";
-            $("#name-goes-here").text(userName);
+            currentUser = db.collection("Users").doc(user.uid);
+            currentUser.get().then((userDoc) => {
+                userName = userDoc.data().userName + "👋";
+                $("#name-goes-here").text(userName);
+            });
         }
     );
 };

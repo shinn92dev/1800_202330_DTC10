@@ -72,7 +72,11 @@ function initializeNav(user) {
         if (user) {
             console.log(user.uid);
             console.log(user.displayName);
-            $("#username").text(user.displayName);
+            currentUser = db.collection("Users").doc(user.uid);
+            currentUser.get().then((userDoc) => {
+                const userName = userDoc.data().userName;
+                $("#username").text(userName);
+            });
         }
     });
 }
