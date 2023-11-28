@@ -1,0 +1,23 @@
+.thankyou-container {
+    text-align: center;
+    margin-top: 64px;
+    background-color: rgba(238, 185, 2, 0.5);
+    border-radius: 24px;
+    margin: 24px auto;
+    padding: 24px;
+    width: 80%;
+}
+
+.thankyou-header {
+    font-size: var(--large-font);
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
+.thankyou-link {
+    margin-top: 22px;
+}
+
+.thankyou-link:hover {
+    text-decoration: underline;
+}

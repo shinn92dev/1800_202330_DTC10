@@ -83,7 +83,6 @@ function getListingDataAndDisplay() {
 
 function updateBookmark(docID) {
     currentUser.get().then((userDoc) => {
-        console.log("userDoc: ", userDoc.data());
         const bookmarks = userDoc.data().bookmarks;
         const isBookmarked = bookmarks.includes(docID);
         const iconID = "save-" + docID;
@@ -115,7 +114,10 @@ function generateListingItem(listing) {
         listing.postalCode
     }`;
     const propertyID = listing.propertyID;
-    const calculatedScore = listing.overallScore / listing.reviewCount;
+    const calculatedScore =
+        listing.reviewCount !== 0
+            ? listing.overallScore / listing.reviewCount
+            : 0;
 
     return `
         <li class="d-flex justify-content-between align-items-center property-card">
