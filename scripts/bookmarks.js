@@ -89,7 +89,10 @@ function generateListingItem(listing) {
         ", " +
         listing.postalCode;
     const propertyID = listing.propertyID;
-    const calculatedScore = listing.overallScore / listing.reviewCount;
+    const calculatedScore =
+        listing.reviewCount !== 0
+            ? listing.overallScore / listing.reviewCount
+            : 0;
 
     return `
         <li class="bookmark-cards d-flex justify-content-between align-items-center property-card">
