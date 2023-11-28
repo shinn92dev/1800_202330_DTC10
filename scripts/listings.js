@@ -83,7 +83,6 @@ function getListingDataAndDisplay() {
 
 function updateBookmark(docID) {
     currentUser.get().then((userDoc) => {
-        console.log("userDoc: ", userDoc.data());
         const bookmarks = userDoc.data().bookmarks;
         const isBookmarked = bookmarks.includes(docID);
         const iconID = "save-" + docID;
