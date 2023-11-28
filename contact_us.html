@@ -41,6 +41,7 @@
         <!-- INSERT NEW STYLE SHEET BELOW HERE -->
         <script src="/scripts/template.js" defer></script>
         <script src="./scripts/firebaseAPI_TEAM10.js"></script>
+        <script src="./scripts/contact_us.js" defer></script>
     </head>
 
     <body>
@@ -52,11 +53,11 @@
         <div class="container">
             <form class="needs-validation" novalidate>
                 <div class="col-md-4 mb-3">
-                    <label for="validationCustom01">Full name</label>
+                    <label for="fullname">Full name</label>
                     <input
                         type="text"
-                        class="form-control is-invalid"
-                        id="validationCustom01"
+                        class="form-control"
+                        id="fullname"
                         required
                     />
                     <div class="invalid-feedback">
@@ -65,11 +66,11 @@
                 </div>
 
                 <div class="col-md-6 mb-3">
-                    <label for="validationCustom03">Email</label>
+                    <label for="email">Email</label>
                     <input
                         type="email"
                         class="form-control"
-                        id="validationCustom03"
+                        id="email"
                         required
                     />
                     <div class="invalid-feedback">
@@ -78,10 +79,10 @@
                 </div>
 
                 <div class="col-md-6 mb-3">
-                    <label for="messege">Message</label>
+                    <label for="message">Message</label>
                     <textarea
                         class="form-control"
-                        id="messege"
+                        id="message"
                         rows="3"
                         required
                     ></textarea>
