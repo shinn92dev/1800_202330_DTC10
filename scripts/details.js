@@ -547,10 +547,14 @@ $(document).ready(async function () {
         const property = await getProperty(propertyId);
         const reviews = await getPropertyReviews(propertyId);
         const scores = calculateAverageScores(reviews);
+        const averageScore = 
+        property.reviewCount !== 0
+            ? property.overallScore / property.reviewCount
+            : 0;
         updateCategoryRatings(scores);
         const formattedReviews = formatReviewData(reviews);
         formattedReviews.forEach((review) => appendReviewToDOM(review));
-        $("#average-score").text(scores.overall);
+        $("#average-score").text(averageScore);
         $("#property-address").text(property);
         const icons = document.querySelectorAll(".review-vote-box");
         const reviewLis = document.querySelectorAll("li.review-li");
