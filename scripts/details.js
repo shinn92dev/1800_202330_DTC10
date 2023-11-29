@@ -407,6 +407,18 @@ async function getProperty(propertyId) {
     return formatAddress;
 }
 
+async function getOverall(propertyId) {
+    const propertiesCollection = db.collection("Properties");
+    const docSnapshot = await propertiesCollection.doc(propertyId).get();
+    return docSnapshot.data().overallScore;
+}
+
+async function getReviewCount(propertyId) {
+    const propertiesCollection = db.collection("Properties");
+    const docSnapshot = await propertiesCollection.doc(propertyId).get();
+    return docSnapshot.data().reviewCount;
+}
+
 function getStarRating(score) {
     let ratingHtml = "";
     for (let i = 0; i < 5; i++, score--) {
@@ -547,10 +559,9 @@ $(document).ready(async function () {
         const property = await getProperty(propertyId);
         const reviews = await getPropertyReviews(propertyId);
         const scores = calculateAverageScores(reviews);
-        const averageScore = 
-        property.reviewCount !== 0
-            ? property.overallScore / property.reviewCount
-            : 0;
+        const reviewCount = await getReviewCount(propertyId);
+        const overallScore = await getOverall(propertyId);
+        const averageScore = reviewCount !== 0 ? overallScore / reviewCount : 0;
         updateCategoryRatings(scores);
         const formattedReviews = formatReviewData(reviews);
         formattedReviews.forEach((review) => appendReviewToDOM(review));

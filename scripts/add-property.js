@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     // If not, proceed as before
                     const match = street.match(/(\d+)(.+)/);
                     if (!match) {
-                        return `${unit} ${street}, ${formatCity(city)}`;
+                        return `${unit} ${street}, ${formatCity(city)}`.trim();
                     }
                     [, number, streetName] = match;
                 }
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const formattedStreet = formattedStreetParts.join(" ");
                 const formattedAddress = `${unit} ${number} ${formattedStreet}, ${formatCity(
                     city
-                )}`;
+                )}`.trim();
 
                 return formattedAddress;
             }
