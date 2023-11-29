@@ -191,6 +191,7 @@ body.modal_effect {
 
 #go-back {
     display: flex;
+    width: fit-content;
     align-items: center;
     margin: 24px 1.5rem;
     font-size: var(--medium-font);
