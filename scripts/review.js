@@ -404,9 +404,7 @@ function initializeBackButton() {
         var propertyId = new URLSearchParams(window.location.search).get(
             "propertyId"
         );
-        window.location.replace(
-            `http://localhost:5500/details.html?propertyId=${propertyId}`
-        );
+        window.location.replace(`../details.html?propertyId=${propertyId}`);
     });
 }
 
