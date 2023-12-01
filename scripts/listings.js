@@ -1,5 +1,38 @@
 let currentUser;
 
+function handleModalSignUpAlert() {
+    const iconArr = document.querySelectorAll(".text-box__top i");
+    const overlay = document.querySelector("#overlay");
+    const modalBox = document.querySelector("#sign-up-alert");
+    const cancelIcon = document.querySelector("#sign-up-alert button");
+    const body = document.querySelector("body");
+    iconArr.forEach((icon) => {
+        icon.addEventListener("click", (e) => {
+            body.classList.add("modal_effect");
+            window.scrollTo(0, 0);
+            overlay.classList.remove("hidden");
+            modalBox.classList.remove("hidden");
+        });
+    });
+    cancelIcon.addEventListener("click", (e) => {
+        overlay.classList.add("hidden");
+        modalBox.classList.add("hidden");
+        body.classList.remove("modal_effect");
+    });
+
+    document.addEventListener("keyup", (e) => {
+        if (!overlay.classList.contains("hidden")) {
+            if (e.key == "Escape") {
+                overlay.classList.add("hidden");
+                modalBox.classList.add("hidden");
+                body.classList.remove("modal_effect");
+            } else if (e.key == "Enter") {
+                window.location.href = "./login.html";
+            }
+        }
+    });
+}
+
 const getUser = () => {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -59,7 +92,6 @@ function getListingDataAndDisplay() {
                                     currentUser.get().then((userDoc) => {
                                         const bookmarks =
                                             userDoc.data().bookmarks;
-                                        console.log(bookmarks);
                                         if (bookmarks.includes(doc.id)) {
                                             document.getElementById(
                                                 "save-" + doc.id
@@ -69,17 +101,10 @@ function getListingDataAndDisplay() {
                                     saveButton.on("click", () => {
                                         updateBookmark(doc.id);
                                     });
+                                } else {
+                                    handleModalSignUpAlert();
                                 }
                             });
-
-                            // currentUser.get().then((userDoc) => {
-                            //     const bookmarks = userDoc.data().bookmarks;
-                            //     if (bookmarks.includes(doc.id)) {
-                            //         document.getElementById(
-                            //             "save-" + doc.id
-                            //         ).innerText = "bookmark";
-                            //     }
-                            // });
                         }
                     });
                 });
