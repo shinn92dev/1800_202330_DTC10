@@ -1,7 +1,7 @@
 .btn {
     width: 100px;
     height: 40px;
-    margin: 10px 0;
+    margin: 5px 0 20px 0;
 }
 
 label {
@@ -17,10 +17,17 @@ label {
     font-weight: bold;
 }
 
+.policy-container {
+    align-items: center;
+    width: 95%;
+    margin: auto;
+
+}
+
 #policy {
     height: 150px;
     overflow-y:scroll;
-    width: 65%;
+    width: 100%;
     margin-top: 20px;
     min-width: 150px;
 }

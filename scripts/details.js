@@ -570,7 +570,6 @@ $(document).ready(async function () {
         const icons = document.querySelectorAll(".review-vote-box");
         const reviewLis = document.querySelectorAll("li.review-li");
         initializeBackButton();
-        // displayBookmark(propertyId);
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 displayBookmark(propertyId);
