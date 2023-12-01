@@ -9,6 +9,15 @@ function getVoteData(lis) {
     });
 }
 
+function handleClickEventForReport() {
+    const icons = document.querySelectorAll(".report-icon");
+    icons.forEach((icon) => {
+        icon.addEventListener("click", () => {
+            window.location.href = "./contact_us.html";
+        });
+    });
+}
+
 function displayStoredVote(lis, reviewObj) {
     lis.forEach((li) => {
         const liId = li.id;
@@ -251,6 +260,7 @@ function appendReviewToDOM(review) {
     const vote = $(
         `<i class="bi bi-hand-thumbs-up vote-icon vote-icon-up"></i><span class="vote-result">0</span><i class="bi bi-hand-thumbs-down vote-icon vote-icon-down"></i>`
     );
+    const report = $(`<i class="bi bi-flag report-icon"></i>`);
     // User name
     // listItem
     reviewTopDivLeft.append($('<h3 class="mb-1"></h3>').text(review.username));
@@ -258,6 +268,7 @@ function appendReviewToDOM(review) {
     // const dateBox = ;
     reviewTopDivLeft.append($(`<div class="mb-3">${review.date} </div>`));
     reviewTopDivRight.append(vote);
+    reviewTopDivRight.append(report);
 
     reviewTopDiv.append(reviewTopDivLeft);
     reviewTopDiv.append(reviewTopDivRight);
@@ -570,6 +581,7 @@ $(document).ready(async function () {
         const icons = document.querySelectorAll(".review-vote-box");
         const reviewLis = document.querySelectorAll("li.review-li");
         initializeBackButton();
+        handleClickEventForReport();
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 displayBookmark(propertyId);
