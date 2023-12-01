@@ -576,7 +576,7 @@ $(document).ready(async function () {
         updateCategoryRatings(scores);
         const formattedReviews = formatReviewData(reviews);
         formattedReviews.forEach((review) => appendReviewToDOM(review));
-        $("#average-score").text(averageScore);
+        $("#average-score").text(averageScore.toFixed(1));
         $("#property-address").text(property);
         const icons = document.querySelectorAll(".review-vote-box");
         const reviewLis = document.querySelectorAll("li.review-li");

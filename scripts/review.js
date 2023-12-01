@@ -319,11 +319,11 @@ function getFormData() {
     return resultObj;
 }
 
-function storeReviewFormDataToFirestore(resultObj) {
+function storeReviewFormDataToFirestore(resultObj, propertyId) {
     document.querySelector('button[type="submit"]').disabled = true;
     var reviewRef = db.collection("Reviews");
     reviewRef.add(resultObj).then((_) => {
-        window.location.href = "./thankyou.html";
+        window.location.href = `./thankyou.html?propertyId=${propertyId}`;
     });
 }
 
@@ -338,11 +338,7 @@ function validateForm(e) {
         e.preventDefault();
         const formData = getFormData();
         updatePropertyScore(formData.overallScore, formData.propertyId);
-        var propertyId = new URLSearchParams(window.location.search).get(
-            "propertyId"
-        );
-        window.localStorage.setItem("propertyId", propertyId);
-        storeReviewFormDataToFirestore(formData);
+        storeReviewFormDataToFirestore(formData, formData.propertyId);
     } else {
         e.preventDefault();
         makeWarningToInvalidScoreBox(scoreBoxObj);
