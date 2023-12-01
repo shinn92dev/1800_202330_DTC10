@@ -73,6 +73,8 @@ function getListingDataAndDisplay() {
                 if (noResults) {
                     const noResultsMessage = generateNoResultsMessage(true);
                     ul.append(noResultsMessage);
+                } else {
+                    ul.append(generateNotFoundProperty());
                 }
             })
             .catch((error) => {
@@ -155,6 +157,15 @@ function generateNoResultsMessage(hasResults = false) {
             <a href="./${
                 hasResults ? "add-property" : "index"
             }.html" class="listings_message-a"><button class=add-property-btn>${linkText}<button</a>
+        </div>
+    `;
+}
+
+function generateNotFoundProperty() {
+    return `
+        <div class="listings_message">
+            <p style="text-align: center;" class="listings_message-p">If you cannot find the property you are looking for ...</p>
+            <a href="./add-property.html" class="listings_message-a"><button class=add-property-btn>Add a Property</button></a>
         </div>
     `;
 }
