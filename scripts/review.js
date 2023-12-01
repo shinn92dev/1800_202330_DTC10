@@ -338,6 +338,10 @@ function validateForm(e) {
         e.preventDefault();
         const formData = getFormData();
         updatePropertyScore(formData.overallScore, formData.propertyId);
+        var propertyId = new URLSearchParams(window.location.search).get(
+            "propertyId"
+        );
+        window.localStorage.setItem("propertyId", propertyId);
         storeReviewFormDataToFirestore(formData);
     } else {
         e.preventDefault();
