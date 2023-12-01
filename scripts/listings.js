@@ -54,18 +54,32 @@ function getListingDataAndDisplay() {
                             noResults = false;
 
                             const saveButton = $(`#save-${doc.id}`);
-                            saveButton.on("click", () =>
-                                updateBookmark(doc.id)
-                            );
-
-                            currentUser.get().then((userDoc) => {
-                                const bookmarks = userDoc.data().bookmarks;
-                                if (bookmarks.includes(doc.id)) {
-                                    document.getElementById(
-                                        "save-" + doc.id
-                                    ).innerText = "bookmark";
+                            firebase.auth().onAuthStateChanged((user) => {
+                                if (user) {
+                                    currentUser.get().then((userDoc) => {
+                                        const bookmarks =
+                                            userDoc.data().bookmarks;
+                                        console.log(bookmarks);
+                                        if (bookmarks.includes(doc.id)) {
+                                            document.getElementById(
+                                                "save-" + doc.id
+                                            ).innerText = "bookmark";
+                                        }
+                                    });
+                                    saveButton.on("click", () => {
+                                        updateBookmark(doc.id);
+                                    });
                                 }
                             });
+
+                            // currentUser.get().then((userDoc) => {
+                            //     const bookmarks = userDoc.data().bookmarks;
+                            //     if (bookmarks.includes(doc.id)) {
+                            //         document.getElementById(
+                            //             "save-" + doc.id
+                            //         ).innerText = "bookmark";
+                            //     }
+                            // });
                         }
                     });
                 });
