@@ -1,7 +1,7 @@
 .btn {
     width: 100px;
     height: 40px;
-    margin: 10px 0;
+    margin: 5px 0 20px 0;
 }
 
 label {
@@ -19,7 +19,7 @@ label {
 
 .policy-container {
     align-items: center;
-    width: 100%;
+    width: 95%;
     margin: auto;
 
 }
