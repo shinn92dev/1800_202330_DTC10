@@ -79,7 +79,7 @@ function updateBookmark(docID) {
 }
 
 function generateNoResultsMessage() {
-    return '<div class="listings_message"><p class="listings_message-p">You have not added any bookmarks...</p><a class="go-back" href="../index.html">Go back to main page</div>';
+    return '<div class="listings_message listing_no_listings"><p class="listings_message-p">You have not added any bookmarks...</p><a class="go-back" href="../index.html">Go back to main page</div>';
 }
 
 function generateListingItem(listing) {
