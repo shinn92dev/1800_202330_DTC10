@@ -22,6 +22,14 @@ body.modal_effect {
     width: 45%;
 }
 
+.details__report-listing {
+    background-color: var(--black-color);
+    padding: 8px;
+    border-radius: 12px;
+    color: var(--text-color);
+    height: fit-content;
+}
+
 .top-box__score-box-container {
     display: flex;
     font-weight: bold;
