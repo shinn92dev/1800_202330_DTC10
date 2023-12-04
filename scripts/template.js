@@ -11,7 +11,7 @@ function logout() {
         });
 }
 
-const performSearch = () => {
+const navPerformSearch = () => {
     const input = $("#nav-search-input").val().trim().replace(/\s+/g, " ");
     if (input) {
         const searchUrl = "listings.html?search=" + encodeURIComponent(input);
@@ -19,12 +19,12 @@ const performSearch = () => {
     }
 };
 
-const searchListing = () => {
+const navSearchListing = () => {
     const searchInput = $("#nav-search-input");
 
     searchInput.on("keyup", function (e) {
         if (e.which === 13) {
-            performSearch();
+            navPerformSearch();
             e.preventDefault();
         }
     });
@@ -47,7 +47,7 @@ function initializeNav(user) {
 
         const $searchIcon = $(".header__icon").eq(1);
         const $searchInput = $(".header__search-bar > div");
-        const $h1 = $("h1");
+        const $h1 = $("#nav-title");
         const $closeIcon = $(".close__icon");
         const $searchBar = $(".header__search-bar");
 
@@ -67,7 +67,7 @@ function initializeNav(user) {
             $searchBar.toggleClass("search-box");
         });
 
-        searchListing();
+        navSearchListing();
 
         if (user) {
             console.log(user.uid);
