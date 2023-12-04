@@ -16,8 +16,12 @@
 
 .thankyou-link {
     margin-top: 22px;
+    background-color: var(--text-color);
 }
-
+.thankyou-link:hover {
+    margin-top: 22px;
+    background-color: var(--text-color);
+}
 .thankyou-link:hover {
     text-decoration: underline;
 }
