@@ -8,10 +8,6 @@ label {
     margin: 15px 0;
 }
 
-#NAVBAR-PLACEHOLDER {
-    margin-bottom: 20px;
-}
-
 .intro {
     font-size: var(--extra-large-font);
     font-weight: bold;
@@ -21,12 +17,11 @@ label {
     align-items: center;
     width: 95%;
     margin: auto;
-
 }
 
 #policy {
     height: 150px;
-    overflow-y:scroll;
+    overflow-y: scroll;
     width: 100%;
     margin-top: 20px;
     min-width: 150px;
