@@ -231,4 +231,5 @@ body.modal_effect {
     background-color: #bec0bf;
     border: none;
     color: var(--black-color);
+    cursor: default;
 }
