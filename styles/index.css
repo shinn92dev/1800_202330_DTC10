@@ -9,3 +9,50 @@
 .top-listings-head {
     font-size: var(--large-font);
 }
+#see_all_listings_link {
+    background-color: var(--text-color);
+}
+#see_all_listings_link:hover {
+    background-color: var(--black-color);
+    color: var(--text-color);
+    transition: 0.3s ease-out 100ms;
+}
+
+#hello-emoji {
+    animation-name: wave-animation; /* Refers to the name of your @keyframes element below */
+    animation-duration: 2.5s; /* Change to speed up or slow down */
+    animation-iteration-count: infinite; /* Never stop waving :) */
+    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+    display: inline-block;
+}
+#search-icon {
+    /* cursor: pointer; */
+    width: 72px;
+}
+
+@keyframes wave-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(14deg);
+    }
+    20% {
+        transform: rotate(-8deg);
+    }
+    30% {
+        transform: rotate(14deg);
+    }
+    40% {
+        transform: rotate(-4deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    60% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

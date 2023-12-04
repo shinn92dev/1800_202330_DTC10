@@ -34,8 +34,11 @@ const initializeAfterAuth = (user) => {
         function () {
             currentUser = db.collection("Users").doc(user.uid);
             currentUser.get().then((userDoc) => {
-                userName = userDoc.data().userName + "👋";
+                userName = userDoc.data().userName + "!";
                 $("#name-goes-here").text(userName);
+                $("#name-goes-here").append(
+                    $(`<span id="hello-emoji">👋</span>`)
+                );
             });
         }
     );

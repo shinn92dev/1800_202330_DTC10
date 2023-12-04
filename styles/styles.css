@@ -45,8 +45,11 @@ body {
 }
 
 body#landing-page {
-    background-color: var(--bg-color);
+    background-color: var(--text-color);
     color: var(--black-color);
+}
+body > div {
+    background-color: var(--bg-color);
 }
 
 nav {
