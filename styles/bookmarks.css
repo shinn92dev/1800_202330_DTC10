@@ -2,10 +2,6 @@
     padding: 0 12px;
 }
 
-.container {
-    margin-top: 64px;
-}
-
 .listings_message-p {
     font-size: var(--large-font);
     margin-bottom: 16px;
@@ -19,6 +15,7 @@
 .bookmark-header {
     font-size: var(--large-font);
     margin-bottom: 32px;
+    margin-left: 24px;
 }
 
 .go-back {

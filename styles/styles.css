@@ -58,6 +58,10 @@ nav {
     padding-left: 0px;
 }
 
+.container {
+    padding-top: 22px;
+}
+
 .drop-down {
     padding: 12px 0;
 }
