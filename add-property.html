@@ -1,122 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <title>Add Property | RVR</title>
+        <meta name="comp1800 template" content="My 1800 App" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="./images/building-icon.png"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
 
-<head>
-	<title>Add Property | RVR</title>
-	<meta name="comp1800 template" content="My 1800 App">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap"
+            rel="stylesheet"
+        />
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-		crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+        <link
+            type="text/css"
+            rel="stylesheet"
+            href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"
+        />
 
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/styles/styles.css" />
+        <link rel="stylesheet" href="/styles/add-property.css" />
+        <!-- INSERT NEW STYLE SHEET BELOW HERE -->
+        <script src="/scripts/template.js" defer></script>
+        <script src="./scripts/firebaseAPI_TEAM10.js"></script>
+        <script type="module" src="./scripts/add-property.js" defer></script>
+    </head>
 
+    <body>
+        <div id="NAVBAR-PLACEHOLDER"></div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+        <div class="container">
+            <div>
+                <h2 class="intro">Add a property</h2>
+            </div>
 
-	<link rel="stylesheet" href="/styles/styles.css">
-	<link rel="stylesheet" href="/styles/add-property.css">
-	<!-- INSERT NEW STYLE SHEET BELOW HERE -->
-	<script src="/scripts/template.js" defer></script>
-	<script src="./scripts/firebaseAPI_TEAM10.js"></script>
-	<script type="module" src="./scripts/add-property.js" defer></script>
-</head>
+            <form class="row g-3" id="needs-validation" novalidate>
+                <div class="col-md-6">
+                    <label for="inputUnit" class="form-label">Unit #</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="inputUnit"
+                        placeholder="Apartment, studio, or floor"
+                    />
+                </div>
+                <div class="col-md-6 form-container">
+                    <label
+                        for="inputAddress2 validationCustom02"
+                        class="form-label"
+                        >Address</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="inputAddress"
+                        placeholder="1234 Main St"
+                        required
+                    />
+                    <div class="invalid-feedback">
+                        Please provide a valid address
+                    </div>
+                </div>
+                <div class="col-md-6 form-container">
+                    <label for="inputCity" class="form-label">City</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="inputCity"
+                        required
+                    />
+                    <div class="invalid-feedback">
+                        Please provide a valid city
+                    </div>
+                </div>
+                <div class="col-md-6 form-container">
+                    <label for="inputCity" class="form-label">Province</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="inputProvince"
+                        value="BC"
+                    />
+                </div>
+                <div class="col-md-6 form-container">
+                    <label for="inputPostalCode" class="form-label"
+                        >Postal code</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="inputPostalCode"
+                        required
+                    />
+                    <div class="invalid-feedback">
+                        Please provide a valid postal code
+                    </div>
+                </div>
+                <div class="col-12 policy-container">
+                    <p id="policy">
+                        By submitting this review, you affirm that you have
+                        read, understood, and agree to abide by our Terms of Use
+                        and Privacy Policy. You confirm that your review is
+                        based on your own experience, is factually accurate, and
+                        adheres to our content guidelines. You acknowledge that
+                        your review does not contain any confidential or
+                        proprietary information, and you grant us a
+                        non-exclusive, royalty-free license to display, modify,
+                        and distribute your review within our app and related
+                        marketing materials. By proceeding with this submission,
+                        you also consent to the collection, use, and sharing of
+                        your personal data as outlined in our Privacy Policy,
+                        including but not limited to the display of your review
+                        and associated username. This includes, but is not
+                        limited to, the use of your review for improving app
+                        functionality, user experience, and communication with
+                        other users. We are committed to protecting your data
+                        and will share it only in accordance with legal
+                        requirements or with your consent. Your review must be
+                        honest, unbiased, and not violate the rights of others
+                        or community standards. Please note that we reserve the
+                        right to suspend or terminate accounts that violate
+                        these terms and to modify these terms and policies at
+                        any time, with changes effective upon posting.
+                    </p>
+                </div>
+                <div class="col-12 checkbox-container">
+                    <div class="form-check">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="invalidCheck"
+                            disabled
+                            required
+                        />
+                        <label class="form-check-label" for="invalidCheck">
+                            I agree to the Terms of Use and Privacy Policy
+                        </label>
+                        <div class="invalid-feedback">
+                            Please read all terms and agree to the policy
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 submit-container">
+                    <div id="submit" style="display: block">
+                        <p
+                            id="warning-msg"
+                            class="invalid-feedback d-block mt-2"
+                        ></p>
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="submit-btn"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
-<body>
-	<div id="NAVBAR-PLACEHOLDER"></div>
-
-
-	<div class="container">
-		<div>
-			<h2 class="intro">Add a property</h2>
-		</div>
-
-		<form class="row g-3" id="needs-validation" novalidate>
-			<div class="col-md-6">
-				<label for="inputUnit" class="form-label">Unit #</label>
-				<input type="text" class="form-control" id="inputUnit" placeholder="Apartment, studio, or floor">
-			</div>
-			<div class="col-md-6 form-container">
-				<label for="inputAddress2 validationCustom02" class="form-label">Address</label>
-				<input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
-				<div class="invalid-feedback">
-					Please provide a valid address
-				</div>
-			</div>
-			<div class="col-md-6 form-container">
-				<label for="inputCity" class="form-label">City</label>
-				<input type="text" class="form-control" id="inputCity" required>
-				<div class="invalid-feedback">
-					Please provide a valid city
-				</div>
-			</div>
-			<div class="col-md-6 form-container">
-				<label for="inputCity" class="form-label">Province</label>
-				<input type="text" class="form-control" id="inputProvince" value="BC">
-			</div>
-			<div class="col-md-6 form-container">
-				<label for="inputPostalCode" class="form-label">Postal code</label>
-				<input type="text" class="form-control" id="inputPostalCode" required>
-				<div class="invalid-feedback">
-					Please provide a valid postal code
-				</div>
-			</div>
-			<div class="col-12 policy-container">
-				<p id="policy">By submitting this review, you affirm that you have read, understood, and agree to abide
-					by our Terms of Use and Privacy
-					Policy. You confirm that your review is based on your own experience, is factually accurate, and
-					adheres to our content
-					guidelines. You acknowledge that your review does not contain any confidential or proprietary
-					information, and you grant
-					us a non-exclusive, royalty-free license to display, modify, and distribute your review within our
-					app and related
-					marketing materials. By proceeding with this submission, you also consent to the collection, use,
-					and sharing of your
-					personal data as outlined in our Privacy Policy, including but not limited to the display of your
-					review and associated
-					username. This includes, but is not limited to, the use of your review for improving app
-					functionality, user experience,
-					and communication with other users. We are committed to protecting your data and will share it only
-					in accordance with
-					legal requirements or with your consent. Your review must be honest, unbiased, and not violate the
-					rights of others or
-					community standards. Please note that we reserve the right to suspend or terminate accounts that
-					violate these terms and
-					to modify these terms and policies at any time, with changes effective upon posting.</p>
-			</div>
-			<div class="col-12 checkbox-container">
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="invalidCheck" disabled required>
-					<label class="form-check-label" for="invalidCheck">
-						I agree to the Terms of Use and Privacy Policy
-					</label>
-					<div class="invalid-feedback">
-						Please read all terms and agree to the policy
-					</div>
-				</div>
-			</div>
-			<div class="col-12 submit-container">
-				<div id="submit" style="display: block">
-					<p id="warning-msg" class="invalid-feedback d-block mt-2"></p>
-					<button type="submit" class="btn btn-primary" id="submit-btn">Submit</button>
-				</div>
-			</div>
-		</form>
-	</div>
-
-	<div id="FOOTER-PLACEHOLDER" class="mt-auto"></div>
-</body>
-
+        <div id="FOOTER-PLACEHOLDER" class="mt-auto"></div>
+    </body>
 </html>
