@@ -1,0 +1,20 @@
+.contact_us_banner {
+    background-color: rgba(238, 185, 2, 0.5);
+    color: var(--black-color);
+    font-size: var(--medium-font);
+    font-weight: 600;
+    border-radius: 24px;
+    margin: 24px auto;
+    padding: 24px;
+    width: 80%;
+}
+#contact-us-submit-btn {
+    background-color: var(--text-color);
+    color: var(--black-color);
+    border: none;
+}
+#contact-us-submit-btn:hover {
+    background-color: var(--bg-color);
+    color: var(--black-color);
+    border: none;
+}

@@ -5,7 +5,11 @@
         <meta name="comp1800 template" content="My 1800 App" />
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="./images/building-icon.png"
+        />
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -38,6 +42,7 @@
         />
 
         <link rel="stylesheet" href="/styles/styles.css" />
+        <link rel="stylesheet" href="/styles/contact_us.css" />
         <!-- INSERT NEW STYLE SHEET BELOW HERE -->
         <script src="/scripts/template.js" defer></script>
         <script src="./scripts/firebaseAPI_TEAM10.js"></script>
@@ -50,9 +55,15 @@
         <!------------------------------------------>
         <!-- INSERT WORK HERE -->
         <!------------------------------------------>
-        <div class="container">
-            <form class="needs-validation" novalidate>
-                <div class="col-md-4 mb-3">
+        <div class="container d-flex flex-column flex-grow-1">
+            <p class="contact_us_banner">
+                we value your feedback and believe that your experiences matter.
+                Whether you have a positive story to share, encountered an
+                issue, or have suggestions for improvement, we're here to
+                listen.
+            </p>
+            <form class="needs-validation m-5" novalidate>
+                <div class="col-md-12 mb-3">
                     <label for="fullname">Full name</label>
                     <input
                         type="text"
@@ -65,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mb-3">
+                <div class="col-md-12 mb-3">
                     <label for="email">Email</label>
                     <input
                         type="email"
@@ -78,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6 mb-3">
+                <div class="col-md-12 mb-3">
                     <label for="message">Message</label>
                     <textarea
                         class="form-control"
@@ -90,8 +101,12 @@
                         Please provide a message.
                     </div>
                 </div>
-                <button class="btn btn-primary col-md-6 mb-3" type="submit">
-                    Submit form
+                <button
+                    class="btn btn-primary col-md-6 mb-3"
+                    type="submit"
+                    id="contact-us-submit-btn"
+                >
+                    Submit
                 </button>
             </form>
         </div>
