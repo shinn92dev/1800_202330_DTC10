@@ -48,7 +48,7 @@ body#landing-page {
     background-color: var(--text-color);
     color: var(--black-color);
 }
-body > div {
+body#landing-page > div {
     background-color: var(--bg-color);
 }
 
