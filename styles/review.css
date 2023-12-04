@@ -56,54 +56,21 @@ h3 {
     width: 21%;
     height: 30px;
 }
+button[type="submit"] {
+    background-color: var(--bg-color);
+    border: none;
+    color: var(--black-color);
+}
+button[type="submit"]:hover {
+    background-color: var(--bg-color);
+    border: none;
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+        rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+}
 h2,
 label[for="user-comment"] {
     font-size: var(--large-font) !important;
 }
-/* .score-icon-box .score-icon:first-child {
-    border-left: 2px solid grey;
-}
-.score-icon-box .score-icon:last-child {
-    border-right: 2px solid grey;
-}
-.score-icon-box .score-icon div {
-    width: 50%;
-    height: 100%;
-    cursor: pointer;
-}
-.score-icon-box .score-icon div:first-child {
-    border-right: 1px dotted grey;
-}
-.score-icon-box .score-icon:first-child div:first-child.colored {
-    background-color: var(--level-1-yellow);
-}
-.score-icon-box .score-icon:first-child div:last-child.colored {
-    background-color: var(--level-2-yellow);
-}
-.score-icon-box .score-icon:nth-child(2) div:first-child.colored {
-    background-color: var(--level-3-yellow);
-}
-.score-icon-box .score-icon:nth-child(2) div:last-child.colored {
-    background-color: var(--level-4-yellow);
-}
-.score-icon-box .score-icon:nth-child(3) div:first-child.colored {
-    background-color: var(--level-5-yellow);
-}
-.score-icon-box .score-icon:nth-child(3) div:last-child.colored {
-    background-color: var(--level-6-yellow);
-}
-.score-icon-box .score-icon:nth-child(4) div:first-child.colored {
-    background-color: var(--level-7-yellow);
-}
-.score-icon-box .score-icon:nth-child(4) div:last-child.colored {
-    background-color: var(--level-8-yellow);
-}
-.score-icon-box .score-icon:last-child div:first-child.colored {
-    background-color: var(--level-9-yellow);
-}
-.score-icon-box .score-icon:last-child div:last-child.colored {
-    background-color: var(--level-10-yellow);
-} */
 
 #go-back {
     display: flex;
