@@ -220,3 +220,15 @@ body.modal_effect {
     bottom: 8px;
     left: 8px;
 }
+
+.middle-box__details-rating-box i {
+    color: var(--bg-color);
+}
+#comments .review-vote-box {
+    cursor: pointer;
+}
+#comments .review-box__top-box__tags-box .tag {
+    background-color: #bec0bf;
+    border: none;
+    color: var(--black-color);
+}
