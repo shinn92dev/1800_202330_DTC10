@@ -47,7 +47,18 @@ label {
 #submit {
     position: relative;
 }
-
+#submit button {
+    background-color: var(--bg-color);
+    border: none;
+    color: var(--black-color);
+}
+#submit button:hover {
+    background-color: var(--bg-color);
+    border: none;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+        rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+}
 #warning-msg {
     position: absolute;
     left: 120px;
