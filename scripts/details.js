@@ -298,7 +298,7 @@ function appendReviewToDOM(review) {
     const reviewBox = $(
         '<div class="review-box__bottom-box my-3 d-flex flex-column"></div>'
     );
-    const commentParagraph = $('<p class="mb-3 comment-content"></p>').text(
+    const commentParagraph = $('<p class="mb-5 comment-content"></p>').text(
         review.review
     );
     reviewBox.append(commentParagraph);
