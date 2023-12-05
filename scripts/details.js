@@ -50,13 +50,48 @@ function updateVoteCountToReviews(reviewId, score) {
     db.collection("Reviews").doc(reviewId).update({ voteCount: score });
 }
 function updateVoteCountToUsers(reviewId, voteStatus) {
+    // firebase.auth().onAuthStateChanged((user) => {
+    //     if (user) {
+    //         const storeValue = {};
+    //         storeValue[reviewId] = voteStatus;
+    //         db.collection("Users")
+    //             .doc(user.uid)
+    //             .set({ vote: storeValue }, { merge: true });
+    //     }
+    // });
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             const storeValue = {};
             storeValue[reviewId] = voteStatus;
-            db.collection("Users")
-                .doc(user.uid)
-                .set({ vote: storeValue }, { merge: true });
+
+            // Reference to the document
+            const userDocRef = db.collection("Users").doc(user.uid);
+
+            if (voteStatus) {
+                // If voteStatus is truthy, update the vote field
+                userDocRef
+                    .set({ vote: storeValue }, { merge: true })
+                    .then(() => {
+                        console.log("Vote status successfully updated!");
+                    })
+                    .catch((error) => {
+                        console.error("Error updating vote status: ", error);
+                    });
+            } else {
+                // If voteStatus is falsy, delete the specific field in the vote map
+                const updateObject = {};
+                updateObject[`vote.${reviewId}`] =
+                    firebase.firestore.FieldValue.delete();
+
+                userDocRef
+                    .update(updateObject)
+                    .then(() => {
+                        console.log("Vote status successfully deleted!");
+                    })
+                    .catch((error) => {
+                        console.error("Error deleting vote status: ", error);
+                    });
+            }
         }
     });
 }
