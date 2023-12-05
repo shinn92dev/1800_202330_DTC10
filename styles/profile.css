@@ -12,6 +12,7 @@ label {
 
 .btn {
     margin: 0;
+    border: none;
 }
 
 #banner-message {
@@ -24,4 +25,21 @@ label {
 
 .form-group {
     height: 100px;
+}
+
+#save-btn {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+#edit-btn {
+    background-color: var(--black-color);
+}
+
+#save-btn:hover {
+    color: var(--black-color);
+}
+
+#edit-btn:hover {
+    color: var(--bg-color);
 }
