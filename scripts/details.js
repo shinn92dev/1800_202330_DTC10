@@ -190,7 +190,6 @@ function formatReviewData(reviews) {
             hour: "2-digit",
             minute: "2-digit",
         }),
-        username: "User " + createRandomUsername(5),
     }));
 }
 
@@ -263,7 +262,7 @@ function appendReviewToDOM(review) {
     const report = $(`<i class="bi bi-flag report-icon"></i>`);
     // User name
     // listItem
-    reviewTopDivLeft.append($('<h3 class="mb-1"></h3>').text(review.username));
+    // reviewTopDivLeft.append($('<h3 class="mb-1"></h3>').text(review.username));
     // Date
     // const dateBox = ;
     reviewTopDivLeft.append($(`<div class="mb-3">${review.date} </div>`));
