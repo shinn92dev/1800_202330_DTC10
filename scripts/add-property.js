@@ -20,12 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
             });
 
-            // Validate Canadian Postal Code
+            // Check if formatted as Canadian Postal Code
             function isValidCanadianPostalCode(postalCode) {
                 const regex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
                 return regex.test(postalCode);
             }
-
+            
             function validateField(field, isValid) {
                 field.classList.toggle("is-invalid", !isValid);
                 field.classList.toggle("is-valid", isValid);
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
             function validateCity() {
                 const isValid =
                     inputCity.value.trim() !== "" &&
-                    /^[a-zA-Z]+$/.test(inputCity.value.trim());
+                    /^[a-zA-Z]+$/.test(inputCity.value.trim()); // accept only letters
                 validateField(inputCity, isValid);
                 return isValid;
             }
@@ -58,17 +58,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 validateField(invalidCheck, isValid);
                 return isValid;
             }
-
+            // Check if address is already in database
             function isAddressUnique() {
                 const userInputAddress =
                     `${inputUnit.value} ${inputAddress.value}, ${inputCity.value}`.trim();
                 return !propertyArray.includes(userInputAddress);
             }
 
+            // display warning message if address is not unique
             function validateAddressUnique() {
                 const isValid = isAddressUnique();
                 validateAddress();
-
                 const warningMsg = document.getElementById("warning-msg");
                 if (!isValid) {
                     warningMsg.textContent = "Address already exists";
@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return isValid;
             }
 
+            // Format address by capitalizing first letter of each word, and expanding abbreviations
             function formatAddress(unit, street, city) {
                 const abbreviations = {
                     St: "Street",
@@ -107,8 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const streetParts = streetName.trim().split(" ");
                 const formattedStreetParts = streetParts.map((part) => {
-                    const normalizedPart =
-                        part.charAt(0).toUpperCase() +
+                    const normalizedPart = // Capitalize first letter and lowercase the rest
+                        part.charAt(0).toUpperCase() + 
                         part.slice(1).toLowerCase();
                     if (abbreviations[normalizedPart]) {
                         return abbreviations[normalizedPart];
@@ -124,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return formattedAddress;
             }
 
+            // Format city by capitalizing first letter of each word
             function formatCity(city) {
                 const words = city.split(" ");
                 const formattedWords = words.map((word) => {
@@ -135,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return formattedWords.join(" ");
             }
 
+            // Format postal code by removing all non-alphanumeric characters, adding a space after the first three characters, and capitalizing all letters
             function formatPostalCode(postalCode) {
                 const cleanedCode = postalCode
                     .trim()
@@ -144,6 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return (firstPart + " " + lastPart).toUpperCase();
             }
 
+            // Validate input and enable submit button if all fields are valid
             function validateInput() {
                 const isCityValid = validateCity();
                 const isAddressValid = validateAddress();
@@ -172,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         formattedStreet,
                         formattedCity
                     );
-                    const newObject = {
+                    const newObject = { // create new property object
                         eachStore: {},
                         overallScore: 0,
                         reviewCount: 0,
@@ -180,14 +184,14 @@ document.addEventListener("DOMContentLoaded", () => {
                         postalCode: userPostalCode,
                         tags: [],
                     };
-                    submitBtn.onclick = async function () {
+                    submitBtn.onclick = async function () { // add new property to database if submit button is clicked and all fields are valid
                         try {
                             submitBtn.disabled = true;
                             const response = await db
                                 .collection("Properties")
                                 .add(newObject);
                             const newPropertyId = response.id;
-                            window.location.href = `review.html?propertyId=${newPropertyId}`;
+                            window.location.href = `review.html?propertyId=${newPropertyId}`; // redirect to review page
                         } catch (error) {
                             submitBtn.disabled = false;
                             console.error("Error adding document: ", error);
@@ -196,6 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
+            // Add event listeners to input fields that are required to fill in
             [inputCity, inputAddress, postalCodeInput, inputUnit].forEach(
                 (element) => {
                     element.addEventListener("input", () => {
@@ -204,6 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             );
 
+            // Add event listeners to checkbox
             invalidCheck.addEventListener("change", validateInput);
             document
                 .getElementById("needs-validation")
@@ -212,9 +218,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     validateInput();
                 });
 
-            // enable check box when policy is scrolled until the bottom
             let isScrolledToEnd = false;
 
+            // enable check box when policy is scrolled until the bottom
             policyElement.addEventListener("scroll", function () {
                 if (
                     !isScrolledToEnd &&
