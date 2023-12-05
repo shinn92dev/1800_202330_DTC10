@@ -2,6 +2,20 @@
     margin-top: 24px;
 }
 
+.main-welcome-message {
+    background-color: rgba(238, 241, 239, 0.5);
+    color: var(--black-color);
+    font-size: var(--medium-font);
+    border-radius: 24px;
+    margin: 24px auto;
+    padding: 24px;
+    width: 80%;
+}
+
+.welcome-span {
+    font-weight: 600;
+}
+
 .top-listings-container {
     margin-top: 42px;
 }
