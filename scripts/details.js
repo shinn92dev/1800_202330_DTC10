@@ -12,9 +12,28 @@ function getVoteData(lis) {
 function handleClickEventForReport() {
     const icons = document.querySelectorAll(".report-icon");
     icons.forEach((icon) => {
-        icon.addEventListener("click", () => {
+        icon.addEventListener("click", (e) => {
+            const reviewId = e.target.closest(".review-li").id;
+            const propertyId = new URL(location.href).searchParams.get(
+                "propertyId"
+            );
+            window.localStorage.setItem("reviewId", reviewId);
+            window.localStorage.setItem("propertyId", propertyId);
             window.location.href = "./contact_us.html";
         });
+    });
+}
+
+function handleClickEventForReportForProperty() {
+    const button = document.querySelector(".details__report-listing");
+    console.log("INSIDE");
+    button.addEventListener("click", (e) => {
+        console.log("GOOD");
+        const propertyId = new URL(location.href).searchParams.get(
+            "propertyId"
+        );
+        window.localStorage.setItem("propertyId", propertyId);
+        window.location.href = "./contact_us.html";
     });
 }
 
@@ -616,6 +635,7 @@ $(document).ready(async function () {
         const reviewLis = document.querySelectorAll("li.review-li");
         initializeBackButton();
         handleClickEventForReport();
+        handleClickEventForReportForProperty();
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 displayBookmark(propertyId);

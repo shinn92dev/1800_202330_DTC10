@@ -1,7 +1,7 @@
 const email = document.getElementById("email");
 const fullName = document.getElementById("fullname");
 const message = document.getElementById("message");
-const submitBtn = document.querySelector('button[type="submit"]');
+const submitBtn = document.querySelector("#contact-us-submit-btn");
 
 function isValidEmail(email) {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -56,14 +56,47 @@ function displayErrorMessage() {
 function validateForm(e) {
     e.preventDefault();
     displayErrorMessage();
+    if (!submitBtn.disabled) {
+        if (checkEmail()[0] && checkFullName()[0] && checkMessage()[0]) {
+            const feedbacks = {
+                email: checkEmail()[1],
+                name: checkFullName()[1],
+                message: checkMessage()[1],
+            };
 
-    if (checkEmail()[0] && checkFullName()[0] && checkMessage()[0]) {
-        const feedbackArr = [
-            checkEmail()[1],
-            checkFullName()[1],
-            checkMessage()[1],
-        ];
+            storeFeedbackToFireStore(feedbacks);
+        }
     }
 }
 
+function displayCorrespondingId() {
+    const textArea = document.querySelector("textarea");
+    const reviewId = window.localStorage.getItem("reviewId");
+    const propertyId = window.localStorage.getItem("propertyId");
+    if (propertyId) {
+        textArea.textContent += `Property Id: ${propertyId}\n`;
+    }
+    if (reviewId) {
+        textArea.textContent += `Review Id: ${reviewId}\n`;
+    }
+    window.localStorage.removeItem("propertyId");
+    window.localStorage.removeItem("reviewId");
+}
+
+function storeFeedbackToFireStore(object) {
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            object["userUid"] = user.uid;
+        }
+        db.collection("Feedbacks")
+            .doc()
+            .set(object)
+            .then(() => {
+                alert("Thank you for sharing your opinion!");
+                submitBtn.disabled = true;
+            });
+    });
+}
+
 submitBtn.addEventListener("click", validateForm);
+displayCorrespondingId();
