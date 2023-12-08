@@ -14,21 +14,9 @@ getUser();
 
 function getListingDataAndDisplay() {
     $(document).ready(function () {
-        // const queryString = window.location.search;
-        // const urlParams = new URLSearchParams(queryString);
-        // const searchParam = urlParams.get("search")?.trim();
         const ul = $("#property-ul");
-
-        // if (!searchParam) {
-        //     const noResultsMessage = generateNoResultsMessage();
-        //     ul.append(noResultsMessage);
-        //     return;
-        // }
-
         const matchingListingSet = new Set();
-
         const searchByAddress = db.collection("Properties").get();
-
         const searchByPostalCode = db.collection("Properties").get();
 
         Promise.all([searchByAddress, searchByPostalCode])
