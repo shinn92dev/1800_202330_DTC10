@@ -12,13 +12,13 @@ const getUser = () => {
 
 getUser();
 
+// Fetch listing data and display it on the page
 function getListingDataAndDisplay() {
     $(document).ready(function () {
         const ul = $("#property-ul");
         const matchingListingSet = new Set();
         const searchByAddress = db.collection("Properties").get();
         const searchByPostalCode = db.collection("Properties").get();
-
         Promise.all([searchByAddress, searchByPostalCode])
             .then((results) => {
                 let noResults = true;
