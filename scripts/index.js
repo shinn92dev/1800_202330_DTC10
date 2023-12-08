@@ -1,3 +1,4 @@
+// Handle the search logic
 const performSearch = () => {
     const input = $("#search-input").val().trim().replace(/\s+/g, " ");
     if (input) {
@@ -6,20 +7,25 @@ const performSearch = () => {
     }
 };
 
+// Manage search input and button behavior
 const searchListing = () => {
     const searchInput = $("#search-input");
     const searchButton = $("#search-button");
 
+    // Disable the search button initially (with no search keyword)
     searchButton.prop("disabled", true);
 
+    // Enable/disable the search button based on input presence
     searchInput.on("input", function () {
         searchButton.prop("disabled", this.value.trim() === "");
     });
 
+    // Handle search button click
     searchButton.on("click", function () {
         performSearch();
     });
 
+    // Handle pressing Enter key in the search input
     searchInput.on("keyup", function (e) {
         if (e.which === 13) {
             performSearch();
@@ -27,7 +33,7 @@ const searchListing = () => {
         }
     });
 };
-
+// Initialize the UI after user authentication
 const initializeAfterAuth = (user) => {
     $("#welcome-banner").load(
         `./components/home_message_after.html`,
@@ -44,6 +50,7 @@ const initializeAfterAuth = (user) => {
     );
 };
 
+// Initialize the UI before user authentication
 const initializeBeforeAuth = () => {
     $("#welcome-banner").load("./components/home_message_before.html");
 };
@@ -51,13 +58,17 @@ const initializeBeforeAuth = () => {
 const topListings = () => {};
 
 $(document).ready(function () {
+    // Listen for changes in user authentication state
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
+            // User is logged in, initialize UI accordingly
             initializeAfterAuth(user);
         } else {
+            // User is not logged in, initialize UI accordingly
             initializeBeforeAuth();
         }
     });
 
+    // Set up search functionality
     searchListing();
 });

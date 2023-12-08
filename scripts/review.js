@@ -294,7 +294,9 @@ async function updatePropertyScore(newScore, propertyId) {
     }
 }
 
+// Gather form data from the review submission form
 function getFormData() {
+    // Initialize the result object with default values and the current user's ID
     const resultObj = {
         userId: currentUserID,
         eachScore: {
@@ -311,13 +313,19 @@ function getFormData() {
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         voteCount: 0,
     };
+
+    // Remove any stored user UID from the local storage
     window.localStorage.removeItem("userUID");
+
+    // Calculate the total score and populate the eachScore object
     let total = 0;
     scoresInputs.forEach((score) => {
         const key = score.id.split("-")[0];
         resultObj["eachScore"][key] = Number(score.value);
         total += Number(score.value);
     });
+
+    // Calculate and set the overall score based on the total
     resultObj["overallScore"] = total / 5;
     tags.forEach((tag) => {
         const targetInput = tag.previousElementSibling;
@@ -328,10 +336,13 @@ function getFormData() {
             }
         }
     });
+
+    // Get the review text and trim leading/trailing whitespaces
     resultObj["review"] = document
         .querySelector("#form-comment-box textarea")
         .value.trim();
 
+    // Get the property ID from the URL parameters and set it in the result object
     const urlParams = new URL(location.href).searchParams;
     resultObj["propertyId"] = urlParams.get("propertyId");
     return resultObj;

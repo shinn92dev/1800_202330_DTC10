@@ -1,11 +1,14 @@
 let currentUser;
 
+// Handle modal logic for sign-up alert
 function handleModalSignUpAlert() {
     const iconArr = document.querySelectorAll(".text-box__top i");
     const overlay = document.querySelector("#overlay");
     const modalBox = document.querySelector("#sign-up-alert");
     const cancelIcon = document.querySelector("#sign-up-alert button");
     const body = document.querySelector("body");
+
+    // Add click event listeners to icons for showing the sign-up alert modal
     iconArr.forEach((icon) => {
         icon.addEventListener("click", (e) => {
             body.classList.add("modal_effect");
@@ -14,12 +17,15 @@ function handleModalSignUpAlert() {
             modalBox.classList.remove("hidden");
         });
     });
+
+    // Add click event listener to the cancel icon for hiding the sign-up alert modal
     cancelIcon.addEventListener("click", (e) => {
         overlay.classList.add("hidden");
         modalBox.classList.add("hidden");
         body.classList.remove("modal_effect");
     });
 
+    // Add keyup event listener to handle escape and enter key presses
     document.addEventListener("keyup", (e) => {
         if (!overlay.classList.contains("hidden")) {
             if (e.key == "Escape") {
@@ -33,6 +39,7 @@ function handleModalSignUpAlert() {
     });
 }
 
+// Get user authentication state
 const getUser = () => {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -45,6 +52,7 @@ const getUser = () => {
 
 getUser();
 
+// Get listing data and display based on search parameters
 function getListingDataAndDisplay() {
     $(document).ready(function () {
         const queryString = window.location.search;
@@ -52,6 +60,7 @@ function getListingDataAndDisplay() {
         const searchParam = urlParams.get("search")?.trim();
         const ul = $("#property-ul");
 
+        // If there is no search parameter, display a message and return
         if (!searchParam) {
             const noResultsMessage = generateNoResultsMessage();
             ul.append(noResultsMessage);
@@ -60,12 +69,14 @@ function getListingDataAndDisplay() {
 
         const matchingListingSet = new Set();
 
+        // Perform search by address
         const searchByAddress = db
             .collection("Properties")
             .where("propertyFullAddress", ">=", searchParam)
             .where("propertyFullAddress", "<=", searchParam + "\uf8ff")
             .get();
 
+        // Perform search by postal code
         const searchByPostalCode = db
             .collection("Properties")
             .where("postalCode", ">=", searchParam)
@@ -87,6 +98,7 @@ function getListingDataAndDisplay() {
                             noResults = false;
 
                             const saveButton = $(`#save-${doc.id}`);
+                            // Check user authentication state and handle bookmark logic
                             firebase.auth().onAuthStateChanged((user) => {
                                 if (user) {
                                     currentUser.get().then((userDoc) => {
@@ -98,10 +110,13 @@ function getListingDataAndDisplay() {
                                             ).innerText = "bookmark";
                                         }
                                     });
+
+                                    // Add click event listener for saving bookmark
                                     saveButton.on("click", () => {
                                         updateBookmark(doc.id);
                                     });
                                 } else {
+                                    // Display modal sign-up alert if user is not authenticated
                                     handleModalSignUpAlert();
                                 }
                             });
@@ -109,6 +124,7 @@ function getListingDataAndDisplay() {
                     });
                 });
 
+                // Display appropriate message if no results are found
                 if (noResults) {
                     const noResultsMessage = generateNoResultsMessage(true);
                     ul.append(noResultsMessage);
@@ -122,6 +138,7 @@ function getListingDataAndDisplay() {
     });
 }
 
+// Update bookmark status for a property
 function updateBookmark(docID) {
     currentUser.get().then((userDoc) => {
         const bookmarks = userDoc.data().bookmarks;
@@ -129,6 +146,7 @@ function updateBookmark(docID) {
         const iconID = "save-" + docID;
         const firestoreFieldValue = firebase.firestore.FieldValue;
 
+        // Update user's bookmarks in Firestore
         currentUser
             .update({
                 bookmarks: isBookmarked
@@ -149,6 +167,7 @@ function updateBookmark(docID) {
     });
 }
 
+// Generate HTML for a property listing item
 function generateListingItem(listing) {
     const tags = listing.tags.map((tag) => `<p>${tag}</p>`).join("");
     const address = `${listing.propertyFullAddress.replace(/_/g, " ")}, ${
