@@ -1,17 +1,3 @@
-:root {
-    /* color variables */
-    --level-1-yellow: #fdf8e5;
-    --level-2-yellow: #fbf1cc;
-    --level-3-yellow: #f9eab3;
-    --level-4-yellow: #f8e399;
-    --level-5-yellow: #f6dc80;
-    --level-6-yellow: #f4d567;
-    --level-7-yellow: #f3ce4d;
-    --level-8-yellow: #f1c734;
-    --level-9-yellow: #efc01b;
-    --level-10-yellow: #eeb902;
-}
-
 #form-tags-box input {
     display: none;
 }
@@ -87,4 +73,8 @@ label[for="user-comment"] {
 
 #arrow-back {
     font-size: 3rem;
+}
+
+i {
+    cursor: pointer;
 }

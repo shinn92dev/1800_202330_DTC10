@@ -3,6 +3,7 @@ const submitButton = document.querySelector("#review-submit-box button");
 
 let currentUserID;
 
+// Get current user information
 const getUser = () => {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -19,6 +20,7 @@ const scoresInputs = document
     .querySelector("#form-stars-boxs")
     .querySelectorAll("input");
 
+// Handle tag input click event: by clicking, changing the background color by adding or deleting class
 function handleTagBoxClickEvent() {
     tags.forEach((tag) => {
         tag.addEventListener("click", (e) => {
@@ -27,12 +29,14 @@ function handleTagBoxClickEvent() {
     });
 }
 
+// Initialize score inputs: make sure all are set as empty at first
 function initializeScoresBox() {
     scoresInputs.forEach((score) => {
         score.value = "";
     });
 }
 
+// Initialize tag inputs: make sure all unchecked at first
 function initializeCheckBox() {
     const tagInputs = document
         .querySelector("#form-tags-box")
@@ -42,66 +46,50 @@ function initializeCheckBox() {
     });
 }
 
+// Handle stars click event: by clicking, fill the corresponding icon
 function handlePaintingStars() {
+    // Iterate through each score input element with the class "score-input"
     scoresInputs.forEach((input) => {
+        // Get the star icons associated with the current input
         const icons = input.previousElementSibling.querySelectorAll("i");
-        for (let i = 0; i < icons.length; i++) {
-            icons[i].addEventListener("click", (e) => {
-                const score = i + 1;
-                for (let j = 0; j < icons.length; j++) {
-                    if (j < score) {
-                        icons[j].classList.add("bi-star-fill");
-                        icons[j].classList.remove("bi-star");
-                    } else {
-                        icons[j].classList.remove("bi-star-fill");
-                        icons[j].classList.add("bi-star");
-                    }
-                }
+
+        // Add click event listeners to each star icon
+        icons.forEach((icon, index) => {
+            icon.addEventListener("click", () => {
+                // Calculate the score based on the index of the clicked icon
+                const score = index + 1;
+
+                // Update the visual representation of stars based on the score by filling the color
+                icons.forEach((star, j) => {
+                    star.classList.toggle("bi-star-fill", j < score);
+                    star.classList.toggle("bi-star", j >= score);
+                });
+
+                // Update the input value with the selected score
                 input.value = score;
             });
-        }
+        });
 
-        input.addEventListener("click", (e) => {
-            const targetScoreIcon =
-                e.target.previousElementSibling.querySelectorAll("i");
-            const targetScore = Number(e.target.value);
+        // Add click event listener to the input itself
+        input.addEventListener("click", () => {
+            const targetScoreIcons =
+                input.previousElementSibling.querySelectorAll("i");
+            const targetScore = Number(input.value);
 
+            // Constants for a full score of 5 stars
             const fullScore = 5;
-            const fullStar = parseInt(targetScore);
-            const halfStar = targetScore % 1;
-            // initialize icon
-            targetScoreIcon.forEach((icon) => {
-                icon.classList.remove(
-                    "bi-star-fill",
-                    "bi-star-half",
-                    "bi-star"
-                );
-                icon.classList.add("bi-star");
-            });
-            // fill icon
-            for (let i = 0; i < fullStar; i++) {
-                targetScoreIcon[i].classList.add("bi-star-fill");
-                targetScoreIcon[i].classList.remove("bi-star", "bi-star-half");
-            }
+            const fullStar = Math.round(targetScore);
 
-            if (halfStar !== 0) {
-                targetScoreIcon[fullStar].classList.add("bi-star-half");
-                targetScoreIcon[fullStar].classList.remove(
-                    "bi-star-fill",
-                    "bi-star"
-                );
-            }
-            for (let i = fullStar + 1; i < 5; i++) {
-                targetScoreIcon[i].classList.remove(
-                    "bi-star-fill",
-                    "bi-star-half"
-                );
-                targetScoreIcon[i].classList.add("bi-star");
-            }
+            // Update the visual representation of stars based on the input value
+            targetScoreIcons.forEach((icon, i) => {
+                icon.classList.toggle("bi-star-fill", i < fullStar);
+                icon.classList.toggle("bi-star", i >= fullStar);
+            });
         });
     });
 }
 
+// Creates score object: scoreId as keys and score as value
 function createScoreObj() {
     const resultObj = {};
     scoresInputs.forEach((score) => {
@@ -113,42 +101,59 @@ function createScoreObj() {
     return resultObj;
 }
 
+// Validate Score inputs
 function validateScores(obj) {
     const keys = Object.keys(obj);
     let isValid = true;
+    // Foe each box, if score is falsy value, return false
     keys.forEach((key) => {
         if (!obj[key]) {
             isValid = false;
             return isValid;
         }
     });
+    // if all are not falsy value, return true
     return isValid;
 }
 
+// Display warning message on page if necessary
 function makeWarningToInvalidScoreBox(obj) {
     const keys = Object.keys(obj);
+
+    // Iterate through each key
     keys.forEach((key) => {
+        // Get corresponding element based on key
         const targetEl = document.querySelector(`#${key}`).parentElement;
         const targetElParent = targetEl.parentElement;
+
+        // Create warning message element
         const warningEl = document.createElement("p");
         warningEl.classList.add("warning-msg", "score-warning-msg");
         warningEl.textContent = "Please rate this section.";
         const targetElWarningMsgEl =
             targetElParent.querySelector(".score-warning-msg");
+
+        // Check if the score is invalid (false)
         if (!obj[key]) {
+            // If no warning message exists, insert the new warning element before the target element
             if (targetElWarningMsgEl == null) {
                 targetElParent.insertBefore(warningEl, targetEl);
             }
+            // Add a border class to highlight the target element as having an invalid score
             targetEl.classList.add("border-danger");
         } else {
+            // If score is valid
+            // If a warning message exists, remove it
             if (targetElWarningMsgEl) {
                 targetElWarningMsgEl.remove();
             }
+            // Remove the border class, indicating a valid score
             targetEl.classList.remove("border-danger");
         }
     });
 }
 
+// Creates checkBox array: contains all selected value
 function createCheckBoxObj() {
     const selectors = document.querySelectorAll('input[type="checkbox"]');
     const resultObj = [];
@@ -160,14 +165,20 @@ function createCheckBoxObj() {
     return resultObj;
 }
 
+// Validates each checkbox
 function validateCheckBox() {
+    // Get all checkboxes
     const selectors = document.querySelectorAll('input[type="checkbox"]');
     let tagCount = 0;
+
+    // If box is checked, update tagCount
     selectors.forEach((selector) => {
         if (selector.checked) {
             tagCount++;
         }
     });
+
+    // Check if 2 <= tagCount <= 5
     if (tagCount >= 2 && tagCount <= 5) {
         return true;
     } else {
@@ -175,9 +186,12 @@ function validateCheckBox() {
     }
 }
 
+// Display warning message on page if necessary
 function makeWarningToInvalidTagBox(obj) {
     const container = document.querySelector("#form-tags-box > div");
     const msg = document.querySelector("#form-tags-box > p");
+    // Display warning message when tagCount is not valid
+    // Delete warning message when tagCount is valid
     if (obj.length <= 5 && obj.length >= 2) {
         container.classList.remove("border-danger");
         msg.classList.remove("warning-msg", "tags-warning-msg");
@@ -187,10 +201,12 @@ function makeWarningToInvalidTagBox(obj) {
     }
 }
 
+// Validate Comment
 function validateComment() {
     const comment = document
         .querySelector("#form-comment-box textarea")
         .value.trim();
+    // Check if the trimmed comment is falsy or not
     if (comment) {
         return true;
     } else {
@@ -198,6 +214,7 @@ function validateComment() {
     }
 }
 
+// Display warning message on page if necessary
 function makeWarningToCommentBox(isValid) {
     const targetEl = document.querySelector("#form-comment-box textarea");
     const warningEl = document.createElement("p");
@@ -220,6 +237,7 @@ function makeWarningToCommentBox(isValid) {
     }
 }
 
+// Formatting tags array to store firestore
 function formatTag(str) {
     words = str.split("-");
     // Capitalize the first letter of each word
@@ -233,6 +251,7 @@ function formatTag(str) {
     return finalTag;
 }
 
+// Calculate average score of each score from score object
 function calcAverageFromObj(obj) {
     const lst = Object.values(obj);
     let total = 0;
@@ -277,7 +296,6 @@ async function updatePropertyScore(newScore, propertyId) {
 
 function getFormData() {
     const resultObj = {
-        // needs to be changed sometime later
         userId: currentUserID,
         eachScore: {
             cleanliness: 0,
@@ -319,6 +337,7 @@ function getFormData() {
     return resultObj;
 }
 
+// Store review data to firestore, and redirect to thank you page
 function storeReviewFormDataToFirestore(resultObj, propertyId) {
     document.querySelector('button[type="submit"]').disabled = true;
     var reviewRef = db.collection("Reviews");
@@ -327,19 +346,25 @@ function storeReviewFormDataToFirestore(resultObj, propertyId) {
     });
 }
 
+// Perform validation for the entire form
 function validateForm(e) {
+    // Get all the form data object and validation result
     const scoreBoxObj = createScoreObj();
     const tagsCheckedObj = createCheckBoxObj();
     const isValidScores = validateScores(scoreBoxObj);
     const isValidCheckBox = validateCheckBox(tagsCheckedObj);
     const isValidComment = validateComment();
     const allValid = isValidCheckBox && isValidComment && isValidScores;
+
+    // When all are valid
     if (allValid) {
+        // Update property score and store review data to firestore
         e.preventDefault();
         const formData = getFormData();
         updatePropertyScore(formData.overallScore, formData.propertyId);
         storeReviewFormDataToFirestore(formData, formData.propertyId);
     } else {
+        // If not valid, execute functions to display warning messages
         e.preventDefault();
         makeWarningToInvalidScoreBox(scoreBoxObj);
         makeWarningToInvalidTagBox(tagsCheckedObj);
@@ -347,51 +372,13 @@ function validateForm(e) {
     }
 }
 
-// function initializeStoreColor() {
-//     const boxes = document.querySelectorAll(".score-icon div");
-//     boxes.forEach((box) => {
-//         box.addEventListener("click", (e) => {
-//             e.target.classList.remove("colored");
-//         });
-//     });
-// }
-// function colorScore() {
-//     const boxes = document.querySelectorAll(".score-icon div");
-//     const scoreBoard = {
-//         point_five: 0.5,
-//         one: 1,
-//         one_point_five: 1.5,
-//         two: 2,
-//         two_point_five: 2.5,
-//         three: 3,
-//         three_point_five: 3.5,
-//         four: 4,
-//         four_point_five: 4.5,
-//         five: 5,
-//     };
-//     for (let i = 0; i < boxes.length; i++) {
-//         boxes[i].addEventListener("click", (e) => {
-//             const scoreKey = e.target.id;
-//             const span = e.target
-//                 .closest(".each-score-outer-container")
-//                 .querySelector("span");
-//             for (let j = 0; j < boxes.length; j++) {
-//                 if (j <= i) {
-//                     boxes[j].classList.add("colored");
-//                 } else {
-//                     boxes[j].classList.remove("colored");
-//                 }
-//             }
-//             span.textContent = scoreBoard[scoreKey].toFixed(1);
-//         });
-//     }
-// }
-// colorScore();
+// Invoke functions to initialize page
 function initializeReviewPage() {
     initializeCheckBox();
     initializeScoresBox();
 }
 
+// Invoke functions to initiate events
 function initiateEvent() {
     handleTagBoxClickEvent();
     handlePaintingStars();
@@ -408,6 +395,7 @@ function initializeBackButton() {
     });
 }
 
+// Invoke all necessary functions
 initializeBackButton();
 initiateEvent();
 initializeReviewPage();
