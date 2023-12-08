@@ -385,6 +385,7 @@ function initiateEvent() {
     submitButton.addEventListener("click", validateForm);
 }
 
+// Add event listener for go back button so that user can access previous page
 function initializeBackButton() {
     $("#go-back").on("click", function (e) {
         e.preventDefault();

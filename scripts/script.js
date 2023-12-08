@@ -1,3 +1,4 @@
+// log out the current user using Firebase Authentication.
 function logout() {
     firebase
         .auth()
