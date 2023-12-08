@@ -32,16 +32,18 @@ function populateUserInfo() {
 populateUserInfo();
 
 function EditUserInfo() {
-    document.getElementById("personalInfoFields").disabled = false;
+    document.getElementById("personalInfoFields").disabled = false; //enable the fields
     editBtn.removeEventListener("click", EditUserInfo);
     editBtn.addEventListener("click", CancelEdit);
 }
 
+//validate the name and city fields
 function validateField(field, isValid) {
     field.classList.toggle("is-invalid", !isValid);
     field.classList.toggle("is-valid", isValid);
 }
 
+//return true if the name field is not empty
 function validateName() {
     const nameInput = document.getElementById("nameInput");
     const isValid = nameInput.value.trim() !== "";
@@ -49,6 +51,7 @@ function validateName() {
     return isValid;
 }
 
+//if the name field is not empty, then enable the save button
 document.getElementById("nameInput").addEventListener("input", () => {
     if(validateName()) {
         saveBtn.disabled = false;
@@ -57,6 +60,7 @@ document.getElementById("nameInput").addEventListener("input", () => {
     }
 });
 
+// return true if the city field is empty or only contains letters
 function validateCity() {
     const cityInput = document.getElementById("cityInput");
     const cityInputValue = cityInput.value.trim();
@@ -65,6 +69,7 @@ function validateCity() {
     return isValid;
 }
 
+// if the city field is empty or only contains letters, then enable the save button
 document.getElementById("cityInput").addEventListener("input", () => {
     if(validateCity()) {
         saveBtn.disabled = false;
@@ -73,6 +78,7 @@ document.getElementById("cityInput").addEventListener("input", () => {
     }
 })
 
+//if the user clicks edit button for the second time, then disable the fields
 function CancelEdit() {
     document.getElementById("personalInfoFields").disabled = true;
     editBtn.removeEventListener("click", CancelEdit);
@@ -80,15 +86,17 @@ function CancelEdit() {
     populateUserInfo();
 }
 
+//save the user information to the database
 async function SaveUserInfo() {
     try {
         var userName = document.getElementById("nameInput").value;
-        var userCity = document.getElementById("cityInput").value;
+        var userCity = document.getElementById("cityInput").value.trim();
+        userCity = userCity.charAt(0).toUpperCase() + userCity.slice(1).toLowerCase();
         await currentUser.update({
             userName: userName,
             city: userCity
         });
-        localStorage.setItem("profileUpdated", "true");
+        localStorage.setItem("profileUpdated", "true"); //set a flag to indicate that the profile has been updated
         window.location.reload();
     } catch (error) {
         console.error("Error updating user information:", error);
@@ -96,6 +104,7 @@ async function SaveUserInfo() {
     }
 }
 
+//display a banner message if the profile has been updated
 window.onload = function() {
     if (localStorage.getItem("profileUpdated") === "true") {
         displayBannerMessage("Profile updated successfully");
@@ -105,6 +114,7 @@ window.onload = function() {
     }
 }
 
+//display a banner message
 function displayBannerMessage(message) {
     const banner = document.getElementById("banner-message");
     banner.innerText = message;
