@@ -26,37 +26,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 return regex.test(postalCode);
             }
             
+            // Validate input field and display warning message if invalid
             function validateField(field, isValid) {
                 field.classList.toggle("is-invalid", !isValid);
                 field.classList.toggle("is-valid", isValid);
             }
 
+            // return true if input only contains letters
             function validateCity() {
                 const isValid =
                     inputCity.value.trim() !== "" &&
                     /^[a-zA-Z]+$/.test(inputCity.value.trim()); // accept only letters
                 validateField(inputCity, isValid);
-                return isValid;
+                return isValid; 
             }
 
+            // return true if input is not empty
             function validateAddress() {
                 const isValid = inputAddress.value.trim() !== "";
                 validateField(inputAddress, isValid);
                 return isValid;
             }
 
+            // return true if input is a valid Canadian postal code
             function validatePostalCode() {
                 const isValid = isValidCanadianPostalCode(
                     postalCodeInput.value.trim()
                 );
                 validateField(postalCodeInput, isValid);
-                return isValid;
+                return isValid; 
             }
 
+            // return true if checkbox is checked
             function validateCheckbox() {
                 const isValid = invalidCheck.checked;
                 validateField(invalidCheck, isValid);
-                return isValid;
+                return isValid; 
             }
             // Check if address is already in database
             function isAddressUnique() {
@@ -76,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     warningMsg.textContent = "";
                 }
 
-                return isValid;
+                return isValid; // // return true if input is not empty// return true if input is not empty
             }
 
             // Format address by capitalizing first letter of each word, and expanding abbreviations
@@ -98,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     // If it does, treat the first number as the unit number
                     [, unit, number, streetName] = match;
                 } else {
-                    // If not, proceed as before
+                    // Otherwise, treat the first number as the street number
                     const match = street.match(/(\d+)(.+)/);
                     if (!match) {
                         return `${unit} ${street}, ${formatCity(city)}`.trim();
@@ -112,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         part.charAt(0).toUpperCase() + 
                         part.slice(1).toLowerCase();
                     if (abbreviations[normalizedPart]) {
-                        return abbreviations[normalizedPart];
+                        return abbreviations[normalizedPart]; // Expand abbreviations
                     }
                     return normalizedPart;
                 });
@@ -120,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const formattedStreet = formattedStreetParts.join(" ");
                 const formattedAddress = `${unit} ${number} ${formattedStreet}, ${formatCity(
                     city
-                )}`.trim();
+                )}`.trim(); // Combine all parts of the address
 
                 return formattedAddress;
             }
@@ -152,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const isCityValid = validateCity();
                 const isAddressValid = validateAddress();
                 const isPostalValid = validatePostalCode();
-                const isUniqueAddress = validateAddressUnique();
+                const isUniqueAddress = validateAddressUnique(); 
                 const isCheckValid = validateCheckbox();
 
                 const allValid =
@@ -162,12 +167,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     isCheckValid &&
                     isUniqueAddress;
 
-                submitBtn.disabled = !allValid;
+                submitBtn.disabled = !allValid; // enable submit button if all fields are valid
 
+                // If all fields are valid and address is unique, create new property object
                 if (allValid && isUniqueAddress) {
                     const userPostalCode = formatPostalCode(
-                        postalCodeInput.value.trim()
-                    );
+                        postalCodeInput.value.trim() 
+                    ); 
                     const formattedUnit = inputUnit.value.trim();
                     const formattedStreet = inputAddress.value.trim();
                     const formattedCity = formatCity(inputCity.value.trim());
@@ -190,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             const response = await db
                                 .collection("Properties")
                                 .add(newObject);
-                            const newPropertyId = response.id;
+                            const newPropertyId = response.id; // get new property id
                             window.location.href = `review.html?propertyId=${newPropertyId}`; // redirect to review page
                         } catch (error) {
                             submitBtn.disabled = false;
