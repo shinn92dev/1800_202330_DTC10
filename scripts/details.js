@@ -26,9 +26,7 @@ function handleClickEventForReport() {
 
 function handleClickEventForReportForProperty() {
     const button = document.querySelector(".details__report-listing");
-    console.log("INSIDE");
     button.addEventListener("click", (e) => {
-        console.log("GOOD");
         const propertyId = new URL(location.href).searchParams.get(
             "propertyId"
         );
@@ -65,21 +63,18 @@ function displayStoredVote(lis, reviewObj) {
         });
     });
 }
+
+// Store the vote result on corresponding review document
 function updateVoteCountToReviews(reviewId, score) {
     db.collection("Reviews").doc(reviewId).update({ voteCount: score });
 }
+
+// Store the vote result on corresponding user document
 function updateVoteCountToUsers(reviewId, voteStatus) {
-    // firebase.auth().onAuthStateChanged((user) => {
-    //     if (user) {
-    //         const storeValue = {};
-    //         storeValue[reviewId] = voteStatus;
-    //         db.collection("Users")
-    //             .doc(user.uid)
-    //             .set({ vote: storeValue }, { merge: true });
-    //     }
-    // });
+    // Only user is signed up
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
+            // create vote result object
             const storeValue = {};
             storeValue[reviewId] = voteStatus;
 
@@ -87,7 +82,7 @@ function updateVoteCountToUsers(reviewId, voteStatus) {
             const userDocRef = db.collection("Users").doc(user.uid);
 
             if (voteStatus) {
-                // If voteStatus is truthy, update the vote field
+                // If voteStatus is truthy (upvote or downvote), update the vote field
                 userDocRef
                     .set({ vote: storeValue }, { merge: true })
                     .then(() => {
@@ -97,7 +92,7 @@ function updateVoteCountToUsers(reviewId, voteStatus) {
                         console.error("Error updating vote status: ", error);
                     });
             } else {
-                // If voteStatus is falsy, delete the specific field in the vote map
+                // If voteStatus is falsy (cancel vote), delete the specific field in the vote map
                 const updateObject = {};
                 updateObject[`vote.${reviewId}`] =
                     firebase.firestore.FieldValue.delete();
@@ -114,36 +109,49 @@ function updateVoteCountToUsers(reviewId, voteStatus) {
         }
     });
 }
+
+// Display vote count on corresponding review list on the page
 function displayVoteCount(reviewLis, reviews) {
     let score;
     let reviewId;
+    // For the each li that is review box
     reviewLis.forEach((li) => {
         reviewId = li.id;
         reviews.forEach((review) => {
             if (review.reviewId == reviewId) {
+                // Get corresponding vote count
                 score = review.voteCount;
             }
             if (li.id == reviewId) {
+                // And display the count on corresponding box
                 li.querySelector("span").textContent = score;
             }
         });
     });
 }
 
+// Handle click vote icons event
 function voteReview(icons) {
     icons.forEach((icon) => {
         icon.addEventListener("click", (e) => {
+            // Get corresponding review Id
             const reviewId = e.target.closest("li").id;
 
+            // Get corresponding vote count
             let score = Number(
                 e.target.closest("li").querySelector("span").textContent
             );
             let voteStatus = "";
+            // Get class lists of targeted element
             let targetClassList = e.target.classList;
+            // When user clicks element that has vote-icon class in it
             if (targetClassList.contains("vote-icon")) {
+                // if elements clicked is upvote icon,
                 if (targetClassList.contains("vote-icon-up")) {
+                    // Fill or unfill icon correctly
                     targetClassList.toggle("bi-hand-thumbs-up");
                     targetClassList.toggle("bi-hand-thumbs-up-fill");
+                    // Update score
                     if (targetClassList.contains("bi-hand-thumbs-up")) {
                         score--;
                         voteStatus = null;
@@ -153,6 +161,7 @@ function voteReview(icons) {
                         score++;
                         voteStatus = "up";
                     }
+                    // Fill or unfill icon correctly and update score
                     const downIcon = e.target
                         .closest("li")
                         .querySelector(".vote-icon-down");
@@ -163,6 +172,7 @@ function voteReview(icons) {
                         downIcon.classList.toggle("bi-hand-thumbs-down");
                         score++;
                     }
+                    // Do the same thing with the upvote logic for downvote
                 } else if (targetClassList.contains("vote-icon-down")) {
                     targetClassList.toggle("bi-hand-thumbs-down-fill");
                     targetClassList.toggle("bi-hand-thumbs-down");
@@ -194,6 +204,7 @@ function voteReview(icons) {
 }
 let currentUser;
 
+// Get user information
 const getUser = () => {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -205,16 +216,6 @@ const getUser = () => {
 };
 
 getUser();
-
-const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-function createRandomUsername(length) {
-    return Array.from(
-        { length },
-        () => characters[Math.floor(Math.random() * characters.length)]
-    ).join("");
-}
 
 async function getPropertyReviews(propertyId) {
     const reviewsCollection = db.collection("Reviews");
@@ -314,11 +315,7 @@ function appendReviewToDOM(review) {
         `<i class="bi bi-hand-thumbs-up vote-icon vote-icon-up"></i><span class="vote-result">0</span><i class="bi bi-hand-thumbs-down vote-icon vote-icon-down"></i>`
     );
     const report = $(`<i class="bi bi-flag report-icon"></i>`);
-    // User name
-    // listItem
-    // reviewTopDivLeft.append($('<h3 class="mb-1"></h3>').text(review.username));
-    // Date
-    // const dateBox = ;
+
     reviewTopDivLeft.append($(`<div class="mb-3">${review.date} </div>`));
     reviewTopDivRight.append(vote);
     reviewTopDivRight.append(report);
