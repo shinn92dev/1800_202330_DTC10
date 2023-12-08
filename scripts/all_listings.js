@@ -23,6 +23,7 @@ function getListingDataAndDisplay() {
             .then((results) => {
                 let noResults = true;
 
+                // Iterate through the results of each query
                 results.forEach((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         const docData = doc.data();
@@ -68,6 +69,7 @@ function getListingDataAndDisplay() {
     });
 }
 
+// Update the bookmark status for a property.
 function updateBookmark(docID) {
     currentUser.get().then((userDoc) => {
         const bookmarks = userDoc.data().bookmarks;
@@ -95,6 +97,7 @@ function updateBookmark(docID) {
     });
 }
 
+// Generate HTML for a property listing item
 function generateListingItem(listing) {
     const tags = listing.tags.map((tag) => `<p>${tag}</p>`).join("");
     const address = `${listing.propertyFullAddress.replace(/_/g, " ")}, ${
@@ -130,6 +133,7 @@ function generateListingItem(listing) {
     `;
 }
 
+// Generate HTML for a property listing item
 function generateNoResultsMessage(hasResults = false) {
     const message = hasResults
         ? "Seems like this property does not exist..."

@@ -1,3 +1,4 @@
+// Get vote data from the users collection accordingly
 function getVoteData(lis) {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -9,14 +10,17 @@ function getVoteData(lis) {
     });
 }
 
+// Handle click event for the report button on reviews
 function handleClickEventForReport() {
     const icons = document.querySelectorAll(".report-icon");
     icons.forEach((icon) => {
+        // When icon is clicked
         icon.addEventListener("click", (e) => {
             const reviewId = e.target.closest(".review-li").id;
             const propertyId = new URL(location.href).searchParams.get(
                 "propertyId"
             );
+            // store corresponding ids to local storage and redirect to contact us page
             window.localStorage.setItem("reviewId", reviewId);
             window.localStorage.setItem("propertyId", propertyId);
             window.location.href = "./contact_us.html";
@@ -24,25 +28,32 @@ function handleClickEventForReport() {
     });
 }
 
+// Handle click event for the report button on property
 function handleClickEventForReportForProperty() {
     const button = document.querySelector(".details__report-listing");
+    // When icon is clicked
     button.addEventListener("click", (e) => {
         const propertyId = new URL(location.href).searchParams.get(
             "propertyId"
         );
+        // store corresponding id to local storage and redirect to contact us page
         window.localStorage.setItem("propertyId", propertyId);
         window.location.href = "./contact_us.html";
     });
 }
 
+// Display stored vote result dynamically
 function displayStoredVote(lis, reviewObj) {
     lis.forEach((li) => {
         const liId = li.id;
         const reviewObjKeys = Object.keys(reviewObj);
         const upIcon = li.querySelector(".vote-icon-up");
         const downIcon = li.querySelector(".vote-icon-down");
+        // Iterate each review element
         reviewObjKeys.forEach((key) => {
+            // Get corresponding vote data
             if (liId == key) {
+                // Fill or unfill vote icons
                 if (reviewObj[key] == "up") {
                     upIcon.classList.add("bi-hand-thumbs-up-fill");
                     upIcon.classList.remove("bi-hand-thumbs-up");
@@ -217,8 +228,10 @@ const getUser = () => {
 
 getUser();
 
+// Get corresponding review data
 async function getPropertyReviews(propertyId) {
     const reviewsCollection = db.collection("Reviews");
+    // Get only related review data
     const querySnapshot = await reviewsCollection
         .where("propertyId", "==", propertyId)
         .orderBy("createdAt", "desc")
@@ -234,6 +247,7 @@ async function getPropertyReviews(propertyId) {
     return reviews;
 }
 
+// Format review data to display on the page
 function formatReviewData(reviews) {
     return reviews.map((review) => ({
         ...review,
@@ -248,10 +262,12 @@ function formatReviewData(reviews) {
     }));
 }
 
+// Round up the score
 function roundDownToNearestHalf(num) {
     return Math.floor(num * 2) / 2;
 }
 
+// Calculate the average of the scores
 function calculateAverageScores(reviews) {
     // Check if reviews array is empty
     if (reviews.length === 0) {
@@ -299,6 +315,7 @@ function calculateAverageScores(reviews) {
     };
 }
 
+// Insert data to HTML
 function appendReviewToDOM(review) {
     const listItem = $(
         `<li class="my-3 p-3 review-li" id="${review.reviewId}"></li>`
@@ -407,6 +424,7 @@ function appendReviewToDOM(review) {
     $("#comments").append(listItem);
 }
 
+// Handle event for deleting each review
 async function handleDelete(reviewId, propertyId) {
     try {
         // Ensure updatePropertyScore completes before deleting the review
@@ -421,10 +439,12 @@ async function handleDelete(reviewId, propertyId) {
     }
 }
 
+// Delete review from the firestore
 function deleteReview(reviewId) {
     return db.collection("Reviews").doc(reviewId).delete();
 }
 
+// Update property score when new review is created
 async function updatePropertyScore(reviewId, propertyId) {
     try {
         const currentReview = await db
@@ -459,6 +479,7 @@ async function updatePropertyScore(reviewId, propertyId) {
     }
 }
 
+// Get property detailed data
 async function getProperty(propertyId) {
     const propertiesCollection = db.collection("Properties");
     const docSnapshot = await propertiesCollection.doc(propertyId).get();
@@ -468,18 +489,21 @@ async function getProperty(propertyId) {
     return formatAddress;
 }
 
+// Get overall score for the propert
 async function getOverall(propertyId) {
     const propertiesCollection = db.collection("Properties");
     const docSnapshot = await propertiesCollection.doc(propertyId).get();
     return docSnapshot.data().overallScore;
 }
 
+// Get number of reviews of the propert
 async function getReviewCount(propertyId) {
     const propertiesCollection = db.collection("Properties");
     const docSnapshot = await propertiesCollection.doc(propertyId).get();
     return docSnapshot.data().reviewCount;
 }
 
+// Display scores on page with star icon
 function getStarRating(score) {
     let ratingHtml = "";
     for (let i = 0; i < 5; i++, score--) {
@@ -494,6 +518,7 @@ function getStarRating(score) {
     return ratingHtml;
 }
 
+// Update each score invoking getStarRating function
 function updateCategoryRatings(scores) {
     for (const [category, score] of Object.entries(scores)) {
         const selector = "#" + category + "-rating";
@@ -504,6 +529,7 @@ function updateCategoryRatings(scores) {
 
 const commentLink = document.getElementById("leave-comment-btn");
 
+// Redirect to review page
 function directToReviewFormPage() {
     firebase.auth().onAuthStateChanged((user) => {
         // Check if user is signed in:
@@ -518,8 +544,10 @@ function directToReviewFormPage() {
     });
 }
 
+// Handle click event when user click review icon invoking directToReviewFormPage
 commentLink.addEventListener("click", directToReviewFormPage);
 
+// Toggle bookmark status for a specific property
 function toggleBookmark(propertyId) {
     currentUser.get().then((userDoc) => {
         const bookmarks = userDoc.data().bookmarks || [];
@@ -546,10 +574,14 @@ function toggleBookmark(propertyId) {
     });
 }
 
+// Display the bookmark status for a specific property and add a click listener to toggle the bookmark
 function displayBookmark(propertyId) {
+    // Fetch the current user's document
     currentUser.get().then((userDoc) => {
         const bookmarks = userDoc.data().bookmarks || [];
         const bookmarkIcon = document.getElementById("bookmark");
+
+        // Check if the property is bookmarked and update the bookmark icon accordingly
         if (bookmarks.includes(propertyId)) {
             bookmarkIcon.textContent = "bookmark";
         } else {
@@ -564,6 +596,7 @@ function displayBookmark(propertyId) {
     });
 }
 
+// Handle the modal for sign-up alerts and apply effects on various UI elements
 function handleModalSignUpAlert() {
     const voteIcons = document.querySelectorAll("#comments i");
     const bookmarkIcon = document.querySelector("#bookmark");
@@ -572,6 +605,8 @@ function handleModalSignUpAlert() {
     const modalBox = document.querySelector("#sign-up-alert");
     const cancelIcon = document.querySelector("#sign-up-alert button");
     const body = document.querySelector("body");
+
+    // Add click listeners to different UI elements triggering the modal
     iconArr.forEach((icon) => {
         icon.addEventListener("click", (e) => {
             body.classList.add("modal_effect");
@@ -580,12 +615,15 @@ function handleModalSignUpAlert() {
             modalBox.classList.remove("hidden");
         });
     });
+
+    // Add click listener to the cancel icon inside the modal
     cancelIcon.addEventListener("click", (e) => {
         overlay.classList.add("hidden");
         modalBox.classList.add("hidden");
         body.classList.remove("modal_effect");
     });
 
+    // Add keyup event listener to handle escape and enter keys when the modal is visible
     document.addEventListener("keyup", (e) => {
         if (!overlay.classList.contains("hidden")) {
             if (e.key == "Escape") {
@@ -599,6 +637,7 @@ function handleModalSignUpAlert() {
     });
 }
 
+// Initialize the back button functionality
 function initializeBackButton() {
     $("#go-back").on("click", function (e) {
         e.preventDefault(); // Prevent the default anchor behavior
@@ -606,40 +645,50 @@ function initializeBackButton() {
     });
 }
 
+// Perform all actions when the document is ready.
 $(document).ready(async function () {
+    // Redirect to the index.html page if no propertyId is found
     const propertyId = new URLSearchParams(window.location.search)
         .get("propertyId")
         ?.trim();
-
     if (!propertyId) {
         window.location.href = "/index.html";
         return;
     }
 
     try {
+        // Retrieve property information, reviews, and related data
         const property = await getProperty(propertyId);
         const reviews = await getPropertyReviews(propertyId);
         const scores = calculateAverageScores(reviews);
         const reviewCount = await getReviewCount(propertyId);
         const overallScore = await getOverall(propertyId);
         const averageScore = reviewCount !== 0 ? overallScore / reviewCount : 0;
+
+        // Update UI with property details, average score, and category ratings
         updateCategoryRatings(scores);
         const formattedReviews = formatReviewData(reviews);
         formattedReviews.forEach((review) => appendReviewToDOM(review));
         $("#average-score").text(averageScore.toFixed(1));
         $("#property-address").text(property);
+
+        // Set up event handlers for report, vote, and bookmark functionality
         const icons = document.querySelectorAll(".review-vote-box");
         const reviewLis = document.querySelectorAll("li.review-li");
         initializeBackButton();
         handleClickEventForReport();
         handleClickEventForReportForProperty();
+
+        // Check user authentication status and update UI accordingly
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
+                // If user is signed in, display bookmark status, vote data, and enable voting
                 displayBookmark(propertyId);
                 getVoteData(reviewLis);
                 displayVoteCount(reviewLis, reviews);
                 voteReview(icons);
             } else {
+                // If user is not signed in, handle modal sign-up alert
                 handleModalSignUpAlert();
             }
         });
