@@ -1,3 +1,4 @@
+// log out the current user using Firebase Authentication.
 function logout() {
     firebase
         .auth()
@@ -11,6 +12,7 @@ function logout() {
         });
 }
 
+// Perform a search and redirect to the listings page with the search query
 const navPerformSearch = () => {
     const input = $("#nav-search-input").val().trim().replace(/\s+/g, " ");
     if (input) {
@@ -19,6 +21,7 @@ const navPerformSearch = () => {
     }
 };
 
+// Handle serach input on Enter key press
 const navSearchListing = () => {
     const searchInput = $("#nav-search-input");
 
@@ -30,15 +33,18 @@ const navSearchListing = () => {
     });
 };
 
+// Initialize the navigation bar based on user authentication status
 function initializeNav(user) {
     const isLoggedIn = !!user;
     const navbar = isLoggedIn ? "navbar_after_login" : "navbar_before_login";
 
+    // Load the appropriate navigation bar HTML based on user authentication status
     $("#NAVBAR-PLACEHOLDER").load(`./components/${navbar}.html`, function () {
         if (isLoggedIn) {
+            // Attach the logout function to the sign-out button if the user is logged in
             $("#sign-out-btn").on("click", logout);
         }
-
+        // Toggle mobile menu visibility on hamburger icon click
         $(".header__icon")
             .eq(0)
             .on("click", function () {
@@ -81,10 +87,12 @@ function initializeNav(user) {
     });
 }
 
+// Load the footer by loading its HTML
 function initializeFooter() {
     $("#FOOTER-PLACEHOLDER").load("./components/footer.html");
 }
 
+// Load the navigation bar, footer, and user-specific content
 function loadSkeleton() {
     firebase.auth().onAuthStateChanged((user) => {
         initializeNav(user);
